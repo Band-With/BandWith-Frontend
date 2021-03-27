@@ -1,12 +1,25 @@
+
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
+    <bandwithHeader></bandwithHeader>
     <router-view/>
   </div>
 </template>
+
+<script>
+import bandwithHeader from '@/components/Header.vue'
+
+export default {
+  name: 'me',
+  components: {
+    bandwithHeader
+  }
+}
+</script>
 
 <style>
 #app {
@@ -18,7 +31,9 @@
 }
 
 #nav {
-  padding: 30px;
+  position: relative;
+  height: 70px;
+  border-bottom: 1px solid #ddd;
 }
 
 #nav a {
