@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+<<<<<<< HEAD
     <div class="main-search d-flex align-items-center justify-content-center">
       <div class="search-input-wrapper d-flex align-items-center position-relative">
         <input class="search-input" type="text" v-model="param" @keyup.enter="fetchData()"
@@ -25,6 +26,10 @@
     <div>
       <Login msg=""/>
     </div>
+=======
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome o Your Vue.js App"/>
+>>>>>>> feature/cors-proxy
   </div>
 </template>
 
@@ -33,7 +38,7 @@
 import Login from '@/components/Login.vue'
 
 export default {
-  name: 'Home',
+  name: 'me',
   components: {
     Login
   },

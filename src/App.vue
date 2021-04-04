@@ -9,8 +9,6 @@
 </template>
 
 <style>
-#app {
-}
 
 #nav {
   padding: 30px;
@@ -18,8 +16,5 @@
 
 #nav a {
   font-weight: bold;
-}
-
-#nav a.router-link-exact-active {
 }
 </style>
