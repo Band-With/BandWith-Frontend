@@ -1,6 +1,9 @@
 <template>
   <div class="hi">
-    안녕! {{ num }}
+    <h1>Hello Capstone!</h1>
+    <input type="text" v-model="param"/> <br/><br/>
+    <button @click="fetchData()">Call API</button> <br/><br/>
+    result: {{ num }}
   </div>
 </template>
 
@@ -10,14 +13,15 @@ import axios from 'axios';
 export default ({
   data(){
     return{
+      param: 0,
       num: ""
     }
   },
   methods: {
     fetchData() {
         axios.get('http://3.133.139.224:8080/testAPI', {
-          params: { param: 13 },
-          timeout: 1000  
+          params: { param: this.param },
+          timeout: 2000  
         })
         .then(res => {
           this.num = res.data;
