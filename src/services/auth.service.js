@@ -9,7 +9,7 @@ class AuthService{
                 username: user.username,
                 pwd: user.pwd
             })
-            .then(reponse => {
+            .then(response => {
                 if (Response.data.accessToken) {
                     localStorage.setItem('user', JSON.stringify(response.data));
                 }

@@ -53,8 +53,6 @@
         <div class="position-absolute ml-3" style="">
           result: {{num}}<br/>
           (input_num * 2 + 2)<br/>
-          {{ test }}<br/>
-          {{ test2 }}
         </div>
       </div>
     </div>
@@ -66,41 +64,16 @@
         <img alt="Vue logo" src="../assets/images/logo-with-text.png" class="logo">
       </div>
     </div>
-    <div>
-      <Login msg=""/>
-    </div>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome o Your Vue.js App"/>
-
-    <div class="main-search d-flex align-items-center justify-content-center position-relative">
-      <div class="search-input-wrapper d-flex align-items-center">
-        <input class="search-input" type="text" v-model="param" @keyup.enter="fetchData()"
-        placeholder="You can call test api. Enter any integer number.">
-        <button class="search-button" @click="fetchData()"></button>
-      </div>
-      <div class="position-absolute ml-3" style="right:50px">
-        result: {{num}}<br/>
-        (input_num * 2 + 2)
-      </div>
-    </div>
-    <div class="banner d-flex align-items-center justify-content-center position-relative">
-      <div class="position-absolute" style="left: 150px">
-        <h1>This is a test page.</h1>
-      </div>
-      <img alt="Vue logo" src="../assets/images/logo-with-text.png" class="logo">
-    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Login from '@/components/Login.vue'
 import axios from 'axios';
 
 export default {
   name: 'me',
   components: {
-    Login
   },
   data() {
     return{
