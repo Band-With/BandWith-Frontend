@@ -9,16 +9,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/find',
-    name: 'find',
-    component: () => import('../views/Find.vue')
-  },
-  {
-    path: '/login-success',
-    name: 'login-success',
-    component: () => import('../views/LoginSuccess.vue')
   }
 ]
 

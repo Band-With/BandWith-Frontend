@@ -18,18 +18,19 @@
           <div>비밀번호 입력</div>
           <input id="password" name="password" type="text" placeholder="Password">
         </div>
+        <div class="form-fields">
+          <div>개인정보 내놔!</div>
+          <input id="password" name="password" type="text" placeholder="Password">
+        </div>
         <br><br>
+        <div class="form-fields">
+          <v-btn @click="parentSignup">회원가입</v-btn>
+        </div>
         <div class="form-fields">
           <v-btn @click="sendToParent">SignIn</v-btn>
         </div>
       </div>
     </form>
-    <br><br><br><br><br><br>
-    <div class="footer">
-       <v-btn @click="parentSignup">Don't have an account?</v-btn>
-       <br>
-  </div>
-  
   </div>
 </template>
 
@@ -37,13 +38,13 @@
 <script>
 
 export default {
-  name: 'Login',
+  name: 'Singup',
   props: {
     msg: String
   },
-  data: function() {
+ data: function() {
     return {
-      mode: 'login'
+      mode: 'signup'
     }
   },
   components: {
@@ -53,7 +54,7 @@ export default {
     sendToParent(){
       console.log("로그인 여기서");
       this.mode="loginsuc"
-      this.$emit('callLogin', 'loginsuc');
+      this.$emit('callLogin', 'login');
     },
     parentSignup(){
       console.log("회원가입 여기서");
@@ -64,7 +65,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;

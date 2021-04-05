@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <div style="width:100%;overflow:auto; border-bottom:5px solid gold; margin-bottom:5px; display:table;">
+      <div style="width:100%;overflow:auto; border-bottom:5px solid #A4A4A4; margin-bottom:5px; display:table;">
         <div style="position: relative; left:10px; float:left; padding:2px">
           <img src="../assets/logo.png" style="float:left">
         </div>
@@ -14,8 +14,17 @@
           밴드 둘러보기
         </div>
       </div>
-      <div>
-        <Login msg="" />
+      <div v-if="mode==='login'">
+        <Login @callLogin="login" @callSignup="signup"/>
+      </div>
+      <div v-else-if="mode==='loginsuc'">
+        <LoginSuccess msg="" />
+      </div>
+      <div v-else-if="mode==='signup'">
+        <Signup @callLogin="login" @callSignup="signup" msg="" />
+      </div>
+        <div v-else>
+        <Find msg="" />
       </div>
   </div>
 </template>
@@ -23,6 +32,12 @@
 <script>
   // @ is an alias to /src
   import Login from '@/components/Login.vue'
+  import LoginSuccess from '@/components/LoginSuccess.vue'
+  import Find from '@/components/Find.vue'
+  import Signup from '@/components/Signup.vue'
+
+
+
   import {
     BadgerAccordion,
     BadgerAccordionItem
@@ -30,10 +45,28 @@
 
   export default {
     name: 'Home',
+    data: function() {
+    return {
+      mode: 'login'
+      }
+    },
     components: {
       Login,
       BadgerAccordion,
-      BadgerAccordionItem
+      BadgerAccordionItem,
+      Find,
+      LoginSuccess,
+      Signup
+    },
+    methods: {
+    login(mode) {
+        this.mode = mode;
+        console.log(mode);
+      },
+    signup(mode) {
+        this.mode = mode;
+        console.log(mode);
+      }
     }
   }
 </script>
