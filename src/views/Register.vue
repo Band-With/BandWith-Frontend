@@ -44,11 +44,25 @@
               type="password"
               class="form-control"
               name="password"
+              ref="password"
             />
             <div
               v-if="submitted && errors.has('password')"
               class="alert-danger"
             >{{errors.first('password')}}</div>
+          </div>
+          <div class="form-group">
+            <label for="passwordConfirm">Password Confirm</label>
+            <input
+              v-validate="'required|confirmed:password'"
+              type="password"
+              class="form-control"
+              name="passwordConfirm"
+            />
+            <div
+              v-if="submitted && errors.has('passwordConfirm')"
+              class="alert-danger"
+            >{{errors.first('passwordConfirm')}}</div>
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
@@ -60,7 +74,12 @@
         v-if="message"
         class="alert"
         :class="successful ? 'alert-success' : 'alert-danger'"
-      >{{message}}</div>
+      >{{message}}
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <span class="mr-2"> 아이디가 있으신가요? </span>
+      <router-link to="/login">로그인</router-link>
     </div>
   </div>
 </template>
@@ -98,6 +117,7 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;
+              this.$router.push('login');
             },
             error => {
               this.message =
