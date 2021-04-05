@@ -12,8 +12,13 @@ const routes = [
   },  
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/join',
+    name: 'Join',
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/find',
@@ -32,5 +37,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login', '/join', '/'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+
+  if (authRequired && !loggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 export default router

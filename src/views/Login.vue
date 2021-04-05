@@ -30,7 +30,7 @@
               <br><br>
     </form>
     <div class="footer">
-       <p>Don't have an account? <a href="/signup"> Create one now</a></p>
+       <p>Don't have an account? <a href="/join"> Create one now</a></p>
     </div>
             <br><br>
   </div>
@@ -47,6 +47,9 @@ export default {
   },
   components: {
     SocialLogin
+  },
+  methods: {
+
   }
 }
 </script>
