@@ -108,10 +108,3 @@ export default {
 }
 </script>
 
-<style type="text/css">
-img {
-  height:90px;
-  border-style: none;
-}
-</style>
-
