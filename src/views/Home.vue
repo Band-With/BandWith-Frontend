@@ -82,6 +82,9 @@
     components: {
     },
     computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      }
     },
     methods: {
       fetchData() {
@@ -101,7 +104,10 @@
         this.$store.dispatch('test');
       }
     },
-    created() {
+    created() {      
+      if(this.loggedIn){
+        this.$router.push('/profile');
+      }
       this.fetchData();
       this.test();
     }
