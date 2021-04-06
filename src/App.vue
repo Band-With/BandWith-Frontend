@@ -14,7 +14,7 @@
 import bandwithHeader from '@/components/Header.vue'
 
 export default {
-  name: 'me',
+  name: 'app',
   components: {
     bandwithHeader
   },
@@ -39,5 +39,10 @@ export default {
 
 #nav a {
   font-weight: bold;
+}
+
+.app{
+  width: 100%;
+  height: 100%
 }
 </style>
