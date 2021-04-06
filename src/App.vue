@@ -5,8 +5,8 @@
     <router-link to="/">Home</router-link> |
       <router-link to="/find">아이디나 비밀번호를 잊어버리셨나요?</router-link>
     </div>-->
-    <bandwithHeader v-if="!(isLogin || isRegister)"></bandwithHeader>
-    <router-view></router-view>
+    <bandwithHeader v-if="!(isLogin || isRegister)" style="z-index:2"></bandwithHeader>
+    <router-view style="z-index:1"></router-view>
   </div>
 </template>
 

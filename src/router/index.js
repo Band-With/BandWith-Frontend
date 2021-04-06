@@ -21,16 +21,6 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/find',
-    name: 'find',
-    component: () => import('../views/Find.vue')
-  },
-  {
-    path: '/login-success',
-    name: 'login-success',
-    component: () => import('../components/LoginSuccess.vue')
-  },
-  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue')

@@ -7,7 +7,6 @@
   .banner{
     flex: auto;
     height: 600px;
-    background-color: #FFF500;
   }
 
   .main-search{
@@ -112,4 +111,5 @@
       this.test();
     }
   }
+  
 </script>
