@@ -4,15 +4,27 @@
         <img src="../assets/images/logo.png"
                 width="50" height="50">
     </a>
-    <router-link to="/login">로그인</router-link>
+    <div class="login">    <router-link to="/login">로그인</router-link>
+</div>
+    <Dropdown></Dropdown>
   </div>  
 </template>
 
 <script>
+import Dropdown from '@/components/Dropdown.vue'
 export default {
   name: 'bandwith-header',
   props: {
     user: Object
+  },
+  components:{
+    Dropdown
   }
 }
 </script>
+<style>
+.login{
+  position:relative;
+  left:75%;
+}
+</style>

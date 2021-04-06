@@ -1,10 +1,10 @@
 <template>
   <div class="main-container">
     <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"/>
-  <autocomplete :search="search" placeholder="Search for a country" aria-label="Search for a country"  style="width:20%; position:absolute; left:40%; margin-top:10px;margin-bottom:10px;"></autocomplete> 
+  <autocomplete :search="search" placeholder="노래 검색" aria-label="Search for a country" class="autocomplete"></autocomplete> 
   <br>
-  <img src="../assets/e.png" style="width:60%; height:40%; position:absolute; left:20%; top:20%;">
-  <div style="border-top:5px solid #A4A4A4; margin-top:500px; margin-bottom:10px">
+  <img class="main-banner" src="../assets/e.png">
+  <div class="main">
   </div>
   <div style="overflow:auto;">
     <div style="width:50%; float:left; text-align:center;">
@@ -36,7 +36,7 @@
 import Autocomplete from '@trevoreyre/autocomplete-vue'
 
 export default {
-  name: 'LoginSuccess',
+  name: 'Profile',
   props: {
     msg: String
   },
@@ -51,3 +51,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.autocomplete{
+  width:20%;
+  position:relative;
+  left:40%;
+  margin-top:10px;
+}
+
+.main-banner{
+  width:60%;
+  height:40%;
+  position:relative;
+  left:20%;
+}
+.main{
+  border-top:5px solid #A4A4A4;
+  margin-top:10px;
+  margin-bottom:10px
+}
+</style>
