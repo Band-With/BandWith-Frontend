@@ -53,7 +53,6 @@
         <br><br>
         <div class="login-choice"><span>or Sign In with</span></div>
                 <br><br>
-        <SocialLogin />
       </div>
               <br><br>
     </form>
@@ -66,7 +65,6 @@
 
 
 <script>
-import SocialLogin from '@/components/SocialLogin'
 import User from '../models/user';
 
 export default {
@@ -82,7 +80,6 @@ export default {
     };
   },
   components: {
-    SocialLogin
   },
   computed: {
     loggedIn() {

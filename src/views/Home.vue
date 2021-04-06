@@ -68,43 +68,42 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import axios from 'axios';
+  // @ is an alias to /src
+  import axios from 'axios';
 
-export default {
-  name: 'me',
-  components: {
-  },
-  data() {
-    return{
+  export default {
+    name: 'Home',
+    data: function() {
+    return {      
       param: "",
       num: ""
-    }
-  },
-  computed: {
-  },
-  methods: {
-    fetchData() {
-        axios.get('http://3.133.139.224:8080/testAPI', {
-          params: { param: this.param },
-          timeout: 2000  
-        })
-        .then(res => {
-          this.num = res.data;
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }
     },
-    test(){
-      this.$store.dispatch('test');
+    components: {
+    },
+    computed: {
+    },
+    methods: {
+      fetchData() {
+          axios.get('http://3.133.139.224:8080/testAPI', {
+            params: { param: this.param },
+            timeout: 2000  
+          })
+          .then(res => {
+            this.num = res.data;
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      test(){
+        this.$store.dispatch('test');
+      }
+    },
+    created() {
+      this.fetchData();
+      this.test();
     }
-  },
-  created() {
-    this.fetchData();
-    this.test();
   }
-}
 </script>
-
