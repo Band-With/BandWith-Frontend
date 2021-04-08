@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     
     <nav style="border-color:#1C1C1C; border-width: 10px;">
-      <label for="btn" class="button">kimdj1026님<span class="fas fa-caret-down"></span>
+      <label for="btn" class="button">{{ user.username }}님<span class="fas fa-caret-down"></span>
       </label>
       <input type="checkbox" id="btn">
       <ul class="menu">
@@ -28,7 +28,7 @@
               <li><a href="#">노래 둘러보기</a></li>
               </ul>
               </li>
-              <li><a href="#">마이페이지</a></li>
+              <li><router-link :to="{ name: 'list', params: { username: user.username }}">마이페이지</router-link></li>
               <li><button @click="handleLogout">로그아웃</button></li>
               </ul>
               </nav>
@@ -38,14 +38,16 @@
 <script>
 export default {
   name: 'bandwith-header',
-  props: {
-    user: Object
-  },
   methods: {
     handleLogout() {
       this.$store.dispatch('auth/logout')
       this.$router.push('/login');
     }
+  },
+  computed: {
+		user() {
+			return JSON.parse(localStorage.getItem('user'));
+		}
   },
   mounted(){
       let recaptchaScript = document.createElement('script')
