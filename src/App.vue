@@ -30,19 +30,18 @@ export default {
 </script>
 
 <style>
+  #nav {
+    position: relative;
+    height: 70px;
+    border-bottom: 1px solid #ddd;
+  }
 
-#nav {
-  position: relative;
-  height: 70px;
-  border-bottom: 1px solid #ddd;
-}
+  #nav a {
+    font-weight: bold;
+  }
 
-#nav a {
-  font-weight: bold;
-}
-
-.app{
-  width: 100%;
-  height: 100%
-}
+  .app{
+    width: 100%;
+    height: 100%
+  }
 </style>
