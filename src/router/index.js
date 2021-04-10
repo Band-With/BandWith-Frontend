@@ -24,6 +24,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/music',
+    name: 'Music',
+    component: () => import('../views/Music.vue')
   }
 ]
 
@@ -34,7 +39,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/join', '/','/profile'];
+  const publicPages = ['/login', '/join', '/','/profile','/music'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
