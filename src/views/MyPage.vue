@@ -19,11 +19,12 @@
 }
 
 #band {
-    flex-grow: 1;
+    overflow: hidden;
+    width: 50%;
 }
 
 #instrument {
-    flex-grow: 1;
+    width: 50%;
 }
 
 .main{
@@ -53,7 +54,7 @@
     font-size: 15px;
     font-weight: bold;
     background-color: #fff;
-    height: 150px;
+    height: 170px;
     border: 1px solid #eee;
     border-radius: 15px;
 }
@@ -81,8 +82,8 @@ a:hover{
 <template>
     <div id="body" class="d-flex flex-column align-items-center">
         <div class="main">
-            <div class="pb-4 px-5">
-                <div class="d-flex pt-5 pb-4"> <!-- 프로필 공간 -->
+            <div class="pb-3 px-5">
+                <div class="d-flex pt-5 pb-3"> <!-- 프로필 공간 -->
                     <div style="flex-grow: 1"> <!-- 프로필 사진 -->
                         <img
                             id="profile-img"
@@ -94,21 +95,24 @@ a:hover{
                     <div class="pt-2 px-5" style="flex-grow: 3; width: 550px"> <!-- 이름 팔로우 -->
                         <div class="pb-2 h1"> {{ user.username }} </div>
                         <div> 
-                            <span class="mr-4">팔로우 {{ follow }}</span>
-                            <span>팔로워 {{ follower }}</span>
+                            <span class="mr-4">팔로우 {{ content.followingCount }}</span>
+                            <span>팔로워 {{ content.followerCount }}</span>
                         </div>
                     </div>
                     <div> <!-- mic -->
                         <router-link to="/record"><img id="mic" src="../assets/images/mic.jpg"/></router-link>
                     </div>
                 </div>
-                <div class="d-flex p-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
+                <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
                     <div id="band"> 
                         <span>소속 밴드</span>
                         <router-link to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
-                        <div class="d-flex pt-4">
-                            <div> <!--밴드-->
-
+                        <div class="d-flex align-items-center" style="overflow: auto; height: 100%; width: 100%">
+                            <div class="mr-4 text-center" v-for="band in content.bands" :key="band.band_id">
+                                <div class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"> <!--밴드-->
+                                    
+                                </div>
+                                <span style="font-size: 12px; font-weight: 100">{{ band.band_name }}</span>
                             </div>
                         </div>
                     </div>
@@ -139,6 +143,9 @@ a:hover{
 </template>
 
 <script>
+import UserService from '../services/user.service';
+
+
 export default {
     name: 'MyPage',
     data: function() {
@@ -157,7 +164,19 @@ export default {
         }
     },
     methods: {
+    },
+    mounted() {
+        UserService.getMyPageContent(this.user).then(
+            response => {
+                this.content = response.data;
+            },
+            error => {
+                this.content =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+        );
     }
 }
-  
 </script>
