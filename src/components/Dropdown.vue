@@ -5,7 +5,8 @@
     
     <nav id="nav" style="border-color:#1C1C1C; border-width: 10px;">
       <label for="btn" class="button">
-        <img class="circle-shape" style="height:30px; width:30px; border: 1px solid #000" :src="imgPreUrl + user.profileImg">
+        <img v-if="user.profileImg !== null" class="circle-shape" style="height:30px; width:30px; border: 1px solid #000" :src="imgPreUrl + user.profileImg">
+        <img v-else class="circle-shape" style="height:30px; width:30px; border: 1px solid #000" src="../assets/images/profile.jpg">
       </label>
       <input type="checkbox" id="btn">
       <ul class="menu">

@@ -85,9 +85,15 @@ a:hover{
             <div class="pb-3 px-5">
                 <div class="d-flex pt-5 pb-3"> <!-- 프로필 공간 -->
                     <div style="flex-grow: 1"> <!-- 프로필 사진 -->
-                        <img
+                        <img v-if="user.profileImg === null"
                             id="profile-img"
                             src="../assets/images/profile.jpg"
+                            class="profile-img-card circle-shape"
+                            style="width: 150px; height: 150px"
+                        />
+                        <img v-else
+                            id="profile-img"
+                            :src="imgPreUrl + user.profileImg"
                             class="profile-img-card circle-shape"
                             style="width: 150px; height: 150px"
                         />
