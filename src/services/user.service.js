@@ -13,6 +13,22 @@ class UserService {
         });
     }
 
+    getPracticeContent(user){
+        return axios.get(API_URL + 'record', {
+            params: {
+                username: user.username
+            }
+        });
+    }
+
+    getBookmarkContent(user){
+        return axios.get(API_URL + 'bookmark', {
+            params: {
+                username: user.username
+            }
+        });
+    }
+
     getUserBoard() {
         return axios.get(API_URL + 'user', { headers: authHeader() })
     }

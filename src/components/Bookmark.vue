@@ -34,7 +34,7 @@
 </template>
 
 <script>
-// import UserService from '../services/user.service';
+import UserService from '../services/user.service';
 
 export default {
     name: 'Bookmark',
@@ -44,18 +44,25 @@ export default {
           
       }
     },
+    computed: {
+        user() {
+            return JSON.parse(localStorage.getItem('user'));
+        }
+    },
     mounted() {
-        // UserService.getMyPageContent(this.user).then(
-        //     response => {
-        //         this.content = response.data;
-        //     },
-        //     error => {
-        //         this.content =
-        //         (error.response && error.response.data) ||
-        //         error.message ||
-        //         error.toString();
-        //     }
-        // );
+        UserService.getBookmarkContent(this.user).then(
+            response => {
+                if(Object.keys(response.data).length !== 0){
+                    this.content = response.data;
+                }            
+            },
+            error => {
+                this.content =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+        );
     }
 }
 </script>

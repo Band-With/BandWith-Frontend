@@ -4,7 +4,7 @@
 }
 
 #mic {
-    width: 40px;
+    width: 35px;
     height: 35px;
 }
 
@@ -100,18 +100,17 @@ a:hover{
                         </div>
                     </div>
                     <div> <!-- mic -->
-                        <router-link to="/record"><img id="mic" src="../assets/images/mic.jpg"/></router-link>
+                        <router-link to="/record"><img id="mic" src="../assets/images/mic.png"/></router-link>
                     </div>
                 </div>
                 <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
                     <div id="band"> 
                         <span>소속 밴드</span>
                         <router-link to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
-                        <div class="d-flex align-items-center" style="overflow: auto; height: 100%; width: 100%">
-                            <div class="mr-4 text-center" v-for="band in content.bands" :key="band.band_id">
-                                <div class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"> <!--밴드-->
-                                    
-                                </div>
+                        <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
+                            <div v-for="band in content.bands" :key="band.band_id" class="d-flex flex-column mr-4 pt-3 text-center">
+                                <img v-if="band.img === null" src="../assets/images/band_profile_default.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
+                                <img v-else :src="imgPreUrl + band.img" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                 <span style="font-size: 12px; font-weight: 100">{{ band.band_name }}</span>
                             </div>
                         </div>
@@ -149,12 +148,12 @@ import UserService from '../services/user.service';
 export default {
     name: 'MyPage',
     data: function() {
-      return {
-          content: '',
-          follow: 0,
-          follower: 0,
-          
-      }
+        return {
+            content: '',
+            follow: 0,
+            follower: 0,
+            imgPreUrl: "data:image/jpg;base64,",
+        }
     },
     components: {
     },
@@ -169,6 +168,7 @@ export default {
         UserService.getMyPageContent(this.user).then(
             response => {
                 this.content = response.data;
+                console.log(this.content.bands[1].img);
             },
             error => {
                 this.content =
