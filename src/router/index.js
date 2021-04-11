@@ -33,7 +33,24 @@ const routes = [
   {
     path: '/musics',
     name: 'search-music',
-    component: () => import('../views/SearchMusic.vue')
+    component: () => import('../views/SearchMusic.vue'),
+    children: [
+      {
+        path: '',
+        name: 'music-by-related',
+        component: () => import('../components/SearchMusicByRelated.vue'),
+      },
+      {
+        path: '../musics',
+        name: 'music-by-record',
+        component: () => import('../components/SearchMusicByRecord.vue'),
+      },
+      {
+        path: '../musics',
+        name: 'music-by-like',
+        component: () => import('../components/SearchMusicByLike.vue'),
+      }
+    ]
   }
 ]
 
@@ -49,7 +66,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
-    next('/login');
+    // next('/login');
+    next();
   } else {
     next();
   }
