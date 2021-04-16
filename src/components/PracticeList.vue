@@ -5,16 +5,20 @@
         overflow: hidden;
         min-height: 400px;
     }
-    .circle-shape{
-        -moz-border-radius: 30%;
-        -webkit-border-radius: 30%;
-        border-radius: 30%;
-    }
     .playlist-item{
+        overflow: hidden;
         min-width: 280px;
-        min-height: 250px;
+        min-height: 280px;
         border: 1px solid #ddd;
-        border-radius: 10px;
+        border-radius: 20px;
+    }
+    .text-area{
+        height: 28%;
+        bottom: 0;
+        border-radius: 0 0 20px 20px;
+        /* background-color: rgb(255, 255, 255, 0.15); */
+        background-color: rgb(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
     }
 </style>
 
@@ -31,14 +35,16 @@
         </div>
         <div v-else class="justify-contents-center">
             <div class="d-flex p-4 flex-wrap justify-content-between">
-                <div v-for="item in content" :key="item.record.record_id" class="d-flex playlist-item m-2 p-2">
-                    <div>
-                        <img :src="imgPreUrl + item.music.img" class="circle-shape" style="width:170px; height:170px"/>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <span>{{ item.music.title }}</span>
-                        <span>{{ item.music.singer }}</span>
-                        <span>{{ item.music.composer }}</span>
+                <div v-for="item in content" :key="item.record.record_id" class="position-relative d-flex playlist-item m-2">
+                    <img :src="imgPreUrl + item.music.img" class="w-100 h-100"/>
+                    <div class="position-absolute d-flex justify-content-between align-items-center px-4  w-100 text-area">
+                        <div class="d-flex flex-column">
+                            <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.music.title }}</span>
+                            <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.music.singer }} {{ item.music.composer }}</span>
+                        </div>
+                        <router-link :to="{ name: 'prac-detail', params: { username: user.username, music: item.music.title }}">
+                            <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
+                        </router-link>
                     </div>  
                 </div>
             </div>

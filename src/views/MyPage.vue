@@ -129,7 +129,7 @@ a:hover{
             <div> <!-- 하단 탭 -->
                 <ul class="nav nav-tabs d-flex justify-content-center">
                     <li class="nav-item pr-5">
-                        <router-link :to="{ name: 'list' }" class="nav-link">
+                        <router-link :to="{ name: 'prac' }" class="nav-link">
                             <img id="note" src="../assets/images/note.png"/>
                             <span class="pl-2">연습 중인 곡</span>
                         </router-link>
