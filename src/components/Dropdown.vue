@@ -1,51 +1,60 @@
 <template>
-  <div>
+  <div style="height: 30px">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     
-    <nav style="border-color:#1C1C1C; border-width: 10px;">
-      <label for="btn" class="button">kimdj1026님<span class="fas fa-caret-down"></span>
+    <nav id="nav" style="border-color:#1C1C1C; border-width: 10px;">
+      <label for="btn" class="button">
+        <img v-if="user.profileImg !== null" class="circle-shape" style="height:30px; width:30px; border: 1px solid #000" :src="imgPreUrl + user.profileImg">
+        <img v-else class="circle-shape" style="height:30px; width:30px; border: 1px solid #000" src="../assets/images/profile.jpg">
       </label>
       <input type="checkbox" id="btn">
       <ul class="menu">
-          <li><a href="#">메인화면</a></li>
-          <li>
+        <li><a href="#">메인화면</a></li>
+        <li>
           <label for="btn-2" class="first">회원정보 수정
             <span class="fas fa-caret-down"></span>
           </label>
           <input type="checkbox" id="btn-2">
           <ul>
-              <li><a href="#">비밀번호 변경</a></li>
-              </ul>
-              </li>
-              <li>
+            <li><a href="#">비밀번호 변경</a></li>
+          </ul>
+        </li>
+        <li>
           <label for="btn-3" class="second">둘러보기
             <span class="fas fa-caret-down"></span>
           </label>
           <input type="checkbox" id="btn-3">
           <ul>
-              <li><a href="#">밴드 둘러보기</a></li>
-              <li><a href="#">노래 둘러보기</a></li>
-              </ul>
-              </li>
-              <li><a href="#">마이페이지</a></li>
-              <li><button @click="handleLogout">로그아웃</button></li>
-              </ul>
-              </nav>
-    </div>  
+            <li><a href="#">밴드 둘러보기</a></li>
+            <li><a href="#">노래 둘러보기</a></li>
+          </ul>
+        </li>
+        <li><router-link :to="{ name: 'list', params: { username: user.username }}">마이페이지</router-link></li>
+        <li><button @click="handleLogout">로그아웃</button></li>
+      </ul>
+    </nav>
+  </div>  
 </template>
 
 <script>
 export default {
   name: 'bandwith-header',
-  props: {
-    user: Object
+  data() {
+    return{
+      imgPreUrl: "data:image/jpeg;base64,",
+    }
   },
   methods: {
     handleLogout() {
       this.$store.dispatch('auth/logout')
       this.$router.push('/login');
     }
+  },
+  computed: {
+		user() {
+			return JSON.parse(localStorage.getItem('user'));
+		}
   },
   mounted(){
       let recaptchaScript = document.createElement('script')
@@ -65,14 +74,7 @@ export default {
   font-family: 'Poppins', sans-serif;
 }
 nav{
-  position: absolute;
-  left: 90%;
-  transform: translate(-50%, -50%);
-  background: #F2F2F2;
-  width: 200px;
-  line-height: 40px;
-  padding: 8px 25px;
-  border-radius: 30px;
+  position: relative;
 }
 nav label{
   color: #1b1b1b;
@@ -93,9 +95,9 @@ nav ul{
   position: absolute;
   background: #F2F2F2;
   list-style: none;
-  top: 75px;
-  left: 0;
-  width: 100%;
+  top: 50px;
+  left: -145px;
+  width: 190px;
   border-radius: 5px;
   display: none;
 }
@@ -164,5 +166,9 @@ nav ul li span.rotate{
 input{
   display: none;
 }
-
+.circle-shape{
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
 </style>

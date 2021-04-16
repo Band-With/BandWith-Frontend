@@ -24,6 +24,24 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/:username',
+    name: 'myPage',
+    component: () => import('../views/MyPage.vue'),
+    pathToRegexpOptions: { strict: true },
+    children: [
+      {
+        name: 'bookmark',
+        path: 'bookmark',
+        component: () => import('../components/Bookmark.vue') 
+      },
+      {
+        name: 'list',
+        path: '',
+        component: () => import('../components/PracticeList.vue') 
+      }
+    ]
   }
 ]
 

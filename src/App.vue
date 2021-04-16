@@ -31,15 +31,6 @@ export default {
 
 <style>
 
-#nav {
-  position: relative;
-  height: 70px;
-  border-bottom: 1px solid #ddd;
-}
-
-#nav a {
-  font-weight: bold;
-}
 
 .app{
   width: 100%;
