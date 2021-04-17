@@ -35,14 +35,14 @@
         </div>
         <div v-else class="justify-contents-center">
             <div class="d-flex p-4 flex-wrap justify-content-between">
-                <div v-for="item in content" :key="item.record.record_id" class="position-relative d-flex playlist-item m-2">
-                    <img :src="imgPreUrl + item.music.img" class="w-100 h-100"/>
+                <div v-for="item in content" :key="item.music_id" class="position-relative d-flex playlist-item m-2">
+                    <img :src="imgPreUrl + item.img" class="w-100 h-100"/>
                     <div class="position-absolute d-flex justify-content-between align-items-center px-4  w-100 text-area">
                         <div class="d-flex flex-column">
-                            <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.music.title }}</span>
-                            <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.music.singer }} {{ item.music.composer }}</span>
+                            <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.title }}</span>
+                            <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.singer }} {{ item.composer }}</span>
                         </div>
-                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music.title }}">
+                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.title }}">
                             <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
                         </router-link>
                     </div>  
