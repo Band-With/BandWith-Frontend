@@ -80,6 +80,12 @@ export default {
     computed: {
         user() {
             return JSON.parse(localStorage.getItem('user'));
+        },
+        userParam() {
+            return this.$route.params.username;
+        },
+        condition() {
+            return this.userParam === this.user.username
         }
     },
     methods: {
@@ -97,7 +103,7 @@ export default {
         }
     },
     mounted() {
-        UserService.getBookmarkContent(this.user).then(
+        UserService.getBookmarkContent(this.userParam, this.condition).then(
             response => {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;

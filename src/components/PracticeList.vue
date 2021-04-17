@@ -42,7 +42,7 @@
                             <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.music.title }}</span>
                             <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.music.singer }} {{ item.music.composer }}</span>
                         </div>
-                        <router-link :to="{ name: 'prac-detail', params: { username: user.username, music: item.music.title }}">
+                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music.title }}">
                             <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
                         </router-link>
                     </div>  
@@ -67,12 +67,18 @@ export default {
     computed: {
         user() {
             return JSON.parse(localStorage.getItem('user'));
+        },
+        userParam() {
+            return this.$route.params.username;
+        },
+        condition() {
+            return this.userParam === this.user.username
         }
     },
     methods:{
     },
     mounted() {
-        UserService.getPracticeContent(this.user).then(
+        UserService.getPracticeContent(this.userParam, this.condition).then(
             response => {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;

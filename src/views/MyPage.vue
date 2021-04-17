@@ -85,7 +85,7 @@ a:hover{
             <div class="pb-3 px-5">
                 <div class="d-flex pt-5 pb-3"> <!-- 프로필 공간 -->
                     <div style="flex-grow: 1"> <!-- 프로필 사진 -->
-                        <img v-if="user.profileImg === null"
+                        <img v-if="content.member.profile === null"
                             id="profile-img"
                             src="../assets/images/profile.jpg"
                             class="profile-img-card circle-shape"
@@ -93,13 +93,13 @@ a:hover{
                         />
                         <img v-else
                             id="profile-img"
-                            :src="imgPreUrl + user.profileImg"
+                            :src="imgPreUrl + content.member.profile"
                             class="profile-img-card circle-shape"
                             style="width: 150px; height: 150px"
                         />
                     </div>
                     <div class="pt-2 px-5" style="flex-grow: 3; width: 550px"> <!-- 이름 팔로우 -->
-                        <div class="pb-2 h1"> {{ user.username }} </div>
+                        <div class="pb-2 h1"> {{ content.member.username }} </div>
                         <div> 
                             <span class="mr-4">팔로우 {{ content.followingCount }}</span>
                             <span>팔로워 {{ content.followerCount }}</span>
@@ -166,20 +166,23 @@ export default {
     computed: {
         user() {
             return JSON.parse(localStorage.getItem('user'));
+        },
+        userParam() {
+            return this.$route.params.username;
         }
     },
     methods: {
     },
     mounted() {
-        UserService.getMyPageContent(this.user).then(
+        UserService.getMyPageContent(this.userParam).then(
             response => {
-                this.content = response.data;
+                if(Object.keys(response.data).length !== 0){
+                    this.content = response.data;
+                }
             },
             error => {
-                this.content =
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
+                if(error.response.status === 404)
+                    this.$router.push({ name: '404'});
             }
         );
     }

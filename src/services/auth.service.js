@@ -11,8 +11,7 @@ class AuthService{
             })
             .then(response => {
                 if (response.data.user !== null) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                    console.log(response.data);
+                    localStorage.setItem('user', JSON.stringify(response.data))
                 }
                 return response.data;
             });

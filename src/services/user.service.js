@@ -5,26 +5,28 @@ const API_URL = 'http://localhost:8080/';
 
 //test
 class UserService {
-    getMyPageContent(user) {
+    getMyPageContent(username) {
         return axios.get(API_URL + 'myPage', {
             params: {
-                username: user.username
+                username: username
             }
         });
     }
 
-    getPracticeContent(user){
+    getPracticeContent(username, condition){
         return axios.get(API_URL + 'record', {
             params: {
-                username: user.username
+                username: username,
+                condition: condition
             }
         });
     }
 
-    getBookmarkContent(user){
+    getBookmarkContent(username, condition){
         return axios.get(API_URL + 'bookmark', {
             params: {
-                username: user.username
+                username: username,
+                condition: condition
             }
         });
     }
