@@ -174,7 +174,6 @@ export default {
         UserService.getMyPageContent(this.user).then(
             response => {
                 this.content = response.data;
-                console.log(this.content.bands[1].img);
             },
             error => {
                 this.content =

@@ -77,7 +77,6 @@ export default {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;
                 }
-                console.log(response.data);
                 this.loading=false;
             },
             error => {

@@ -26,11 +26,6 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    name: 'prac-detail',
-    path: '/:username/:music',
-    component: () => import('../components/PracticeDetail.vue') 
-  },
-  {
     path: '/:username',
     name: 'myPage',
     component: () => import('../views/MyPage.vue'),
@@ -47,6 +42,11 @@ const routes = [
         component: () => import('../components/PracticeList.vue') 
       }
     ]
+  },
+  {
+    path: '/:username/:music',
+    name: 'prac-detail',
+    component: () => import('../components/PracticeDetail.vue') 
   }
 ]
 
