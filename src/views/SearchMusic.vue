@@ -125,6 +125,7 @@ export default {
 }
 
 .background {
+  padding-top: 60px;
   width: 100%;
   background-color: #fafafa;
 }

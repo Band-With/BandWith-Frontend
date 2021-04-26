@@ -9,11 +9,11 @@
           <a :href="`./musics/${music.id}`" class="card-title font-weight-bold">
             {{ music.title }}</a
           >
-          <div class="d-flex justify-content-between mt-2">
-            <dt class="col">가수</dt>
-            <dd class="col">{{ music.singer }}</dd>
-            <dt class="col">작곡가</dt>
-            <dd class="col">{{ music.composer }}</dd>
+          <div class="d-flex mt-2">
+            <dt style="width: 10%">가수</dt>
+            <dd style="width: 30%">{{ music.singer }}</dd>
+            <dt style="width: 10%">작곡가</dt>
+            <dd style="width: 40%">{{ music.composer }}</dd>
           </div>
         </div>
       </div>

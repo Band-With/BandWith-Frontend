@@ -9,7 +9,7 @@
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">ID</label>
             <input
               v-model="user.username"
               v-validate="'required|min:3|max:20'"
@@ -17,13 +17,10 @@
               class="form-control"
               name="username"
             />
-            <div
-              v-if="submitted && errors.has('username')"
-              class="alert-danger"
-            >{{errors.first('username')}}</div>
+            <span v-if="submitted &&errors.has('username')">ID를 정상적으로 입력해주세요.</span><br>
           </div>
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">이름</label>
             <input
               v-model="user.name"
               v-validate="'required|min:3|max:20'"
@@ -31,13 +28,11 @@
               class="form-control"
               name="name"
             />
-            <div
-              v-if="submitted && errors.has('name')"
-              class="alert-danger"
-            >{{errors.first('name')}}</div>
+                        <span v-if="submitted &&errors.has('name')">이름을 정상적으로 입력해주세요.</span><br>
+
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input
               v-model="user.password"
               v-validate="'required|min:6|max:40'"
@@ -45,24 +40,26 @@
               class="form-control"
               name="password"
               ref="password"
+              id="password"
             />
-            <div
-              v-if="submitted && errors.has('password')"
-              class="alert-danger"
-            >{{errors.first('password')}}</div>
+                <span v-if="user.password.length<6">여섯자 이상으로 해주세요.</span><br>
+                <span v-if="score === 0">보안에 취약한 비밀번호입니다.</span>
+                <span v-else-if="score === 2">좋은 비밀번호입니다.</span>
+                <span v-else-if="score === 3">완벽해요! 외울수 있죠?</span>
+            <passwordMeter :password="user.password" @score="onScore" />
           </div>
           <div class="form-group">
             <label for="passwordConfirm">Password Confirm</label>
             <input
+            v-model="passwordConfirm"
               v-validate="'required|confirmed:password'"
               type="password"
               class="form-control"
               name="passwordConfirm"
             />
-            <div
-              v-if="submitted && errors.has('passwordConfirm')"
-              class="alert-danger"
-            >{{errors.first('passwordConfirm')}}</div>
+            <span v-if="passwordConfirm===user.password">일치합니다!!</span>
+            <span v-if="passwordConfirm===null"></span>
+            <span v-if="(passwordConfirm!==user.password)&&(passwordConfirm!==null)">일치하지 않습니다.</span>
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
@@ -72,7 +69,6 @@
 
       <div
         v-if="message"
-        class="alert"
         :class="successful ? 'alert-success' : 'alert-danger'"
       >{{message}}
       </div>
@@ -86,6 +82,7 @@
 
 <script>
 import User from '../models/user';
+import passwordMeter from "vue-simple-password-meter";
 
 export default {
   name: 'Register',
@@ -94,8 +91,13 @@ export default {
       user: new User('', '', ''),
       submitted: false,
       successful: false,
-      message: ''
+      message: '',
+      score: null,
+      passwordConfirm:null
     };
+  },
+  components:{
+    passwordMeter 
   },
   computed: {
     loggedIn() {
@@ -108,6 +110,9 @@ export default {
     }
   },
   methods: {
+    onScore({ score }) {
+      this.score = score;
+    },
     handleRegister() {
       this.message = '';
       this.submitted = true;

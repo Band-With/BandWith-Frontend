@@ -21,9 +21,9 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/find',
-    name: 'find',
-    component: () => import('../views/Find.vue')
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/Profile.vue')
   },
   {
     path: '/login-success',
@@ -51,7 +51,25 @@ const routes = [
         component: () => import('../components/SearchMusicByLike.vue'),
       }
     ]
-  }
+  },
+  {
+    path: '/:username',
+    name: 'myPage',
+    component: () => import('../views/MyPage.vue'),
+    pathToRegexpOptions: { strict: true },
+    children: [
+      {
+        name: 'bookmark',
+        path: 'bookmark',
+        component: () => import('../components/Bookmark.vue') 
+      },
+      {
+        name: 'list',
+        path: '',
+        component: () => import('../components/PracticeList.vue') 
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

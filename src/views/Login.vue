@@ -1,32 +1,26 @@
 <template>
-  <div class="main-container" align="center" style="margin: auto;
-  width: 30%; background-color: #E2A9F3;
-    border:2px solid #1bf;
-  line-height: 1em;
-  border-radius:0.5em;
-  -moz-border-radius: 0.5em;
-  -webkit-border-radius: 0.5em;" >
-    <br><br><br>
-    <form name="form" @submit.prevent="handleLogin" style="width:300px; background-color: #BF00FF">
+  <div class="main-container" >
+    <img alt="Vue logo" src="../assets/images/logo/logo-with-text.png" class="logo">
+
+   <form name="form" @submit.prevent="handleLogin" class="form">
       <div class="box-container">
         <div class="form-fields"><br>
-          <label for="username">아이디 입력</label>
+          <label for="username">ID</label>
           <input id="ID"
             class="form-control"
             name="username"
             type="text"
             v-model="user.username"
             v-validate="'required'" 
-            placeholder="Username"/>
+            placeholder="ID"/>
             <div v-if="errors.has('username')"
-            class="alert alert-danger"
             role="alert">
-              Username is required!
+              ID를 입력해주세요!
             </div>
         </div>
         <br><br>
         <div class="form-fields">
-          <div>비밀번호 입력</div>
+          <div>비밀번호</div>
           <input id="password"
             class="form-control" 
             name="password" 
@@ -35,9 +29,8 @@
             v-validate="'required'"
             placeholder="Password"/>
             <div v-if="errors.has('password')"
-            class="alert alert-danger"
             role="alert">
-              Password is required!
+              비밀번호를 입력해주세요!
             </div>
         </div>
         <br><br>
@@ -51,14 +44,12 @@
           {{message}}
         </div>
         <br><br>
-        <div class="login-choice"><span>or Sign In with</span></div>
-                <br><br>
       </div>
-              <br><br>
-    </form>
     <div class="footer">
        <p>Don't have an account? <a href="/join"> Create one now</a></p>
     </div>
+    </form>
+
             <br><br>
   </div>
 </template>
@@ -134,6 +125,25 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #BF00FF;
+  color: #5882FA;
+}  
+.logo{
+    width: 30%;
+    height: 30%;
+    position:relative;
+    left:35%;
+  }
+.main-container{
+  background-color:#f7f7f7;
+  margin-top: 5%;
+  width: 30%;
+  left:35%;
+  position:relative;
+  border-radius: 10px;
+}
+.form{
+  width: 80%;
+  left: 10%;
+  position:relative;
 }
 </style>
