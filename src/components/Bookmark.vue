@@ -8,7 +8,7 @@
     
     .bookmark-item{
         border-bottom: 1px solid #ddd;
-        height: 210px;
+        height: 160px;
     }
 
     .circle-shape{
@@ -35,28 +35,36 @@
             </div>
         </div>    
         <div v-else class="w-100">
-            <div v-for="item in content" :key="item.bookmark_id" class="d-flex align-items-center bookmark-item p-4">
-                <img :src="imgPreUrl + item.music.img" style="width: 140px; height: 140px; border-radius: 20%"/>
-                <div class="d-flex flex-row w-100 justify-content-between px-4">
-                    <div class="d-flex flex-column">                <!-- 즐겨찾기 정보 + 노래 정보 -->
+            <div class="d-flex align-items-center justify-content-between w-100" style="border-bottom: 1px solid #bbb; height: 35px; font-size: 14px; color: #555">
+                <span class="px-4" style="text-align: center; flex: 2"> 북마크 이름 </span>
+                <span class="px-4" style="text-align: center; flex: 2"> 노래 정보 </span>
+                <span class="px-4" style="text-align: center; flex: 4"> 북마크 재생 </span>
+                <span class="px-4" style="text-align: center; flex: 3"> 참여한 아티스트 </span>
+            </div>
+            <div v-for="item in content" :key="item.bookmark_id" class="d-flex flex-column bookmark-item py-3">
+                <div class="d-flex w-100 h-100 align-items-center">
+                    <span class="px-4" style="text-align: center; flex:2;font-size: 18px">{{ item.title }}</span>                
+                     <!-- <div>
                         <span style="font-size: 18px"> {{ item.title }} </span>
                         <span style="font-weight: lighter; font-size: 12px"> 추가 날짜: {{ toDate(item.created_at) }} </span>
-                        <div>
-                            {{ item.music.title }} {{ item.music.singer }} {{ item.music.composer }}
+                    </div> -->
+                    <div class="d-flex flex-row px-4" style="flex:2">                <!-- 즐겨찾기 정보 + 노래 정보 -->
+                        <img :src="imgPreUrl + item.music.img" style="width: 70px; height: 70px; border-radius: 20%"/>
+                    
+                        <div class="d-flex flex-column ml-3 justify-content-center">
+                            <span style="font-size: 20px">{{ item.music.title }}</span>
+                            <span style="font-weight: lighter">{{ item.music.singer }}   {{ item.music.composer }}</span>
                         </div>
                     </div>
-                    <audio controls>                            <!-- 오디오 컨트롤러 -->
+                    <audio controls class="px-4" style="flex:4">                            <!-- 오디오 컨트롤러 -->
                         <source src="https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3" type="audio/mpeg">
                         Your browser does not support the audio tag.
                     </audio>
-                    <div>                                           <!-- 녹음 정보 -->
-                        <span> 참여한 아티스트 </span>
-                        <div class="d-flex flex-row">               <!-- 북마크 구성 멤버 -->
-                            <div v-for="member in item.members" :key="member.member_id">
-                                <img v-if="member.profile === null" src="../assets/images/profile.jpg" style="width: 40px; height: 40px; border-radius: 50%"/>
-                                <img v-else :src="imgPreUrl + member.profile" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #bbb"/>
-                                {{member.username}}
-                            </div>
+                    <div class="d-flex flex-row px-4" style="flex:3">               <!-- 북마크 구성 멤버 -->
+                        <div class="d-flex flex-column align-items-center mx-2" style="width: 55px; overflow: hidden" v-for="member in item.members" :key="member.member_id">
+                            <img v-if="member.profile === null" src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%"/>
+                            <img v-else :src="imgPreUrl + member.profile" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #bbb"/>
+                            <span style="font-weight: lighter; font-size:12px; max-width: 55px;">{{member.username}}</span>
                         </div>
                     </div>
                 </div>
