@@ -1,31 +1,25 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/';
+const API_URL = 'http://localhost:8080/members/';
 
 //test
 class UserService {
     getMyPageContent(username) {
-        return axios.get(API_URL + 'myPage', {
-            params: {
-                username: username
-            }
-        });
+        return axios.get(API_URL + username);
     }
 
     getPracticeContent(username, condition){
-        return axios.get(API_URL + 'record', {
+        return axios.get(API_URL + username + '/records', {
             params: {
-                username: username,
                 condition: condition
             }
         });
     }
 
     getBookmarkContent(username, condition){
-        return axios.get(API_URL + 'bookmark', {
+        return axios.get(API_URL + username + '/bookmarks', {
             params: {
-                username: username,
                 condition: condition
             }
         });

@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <audio controls class="px-4" style="flex:4">                            <!-- 오디오 컨트롤러 -->
-                        <source src="https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3" type="audio/mpeg">
+                        <source src="https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a" type="audio/mpeg">
                         Your browser does not support the audio tag.
                     </audio>
                     <div class="d-flex flex-row px-4" style="flex:3">               <!-- 북마크 구성 멤버 -->

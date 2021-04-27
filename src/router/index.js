@@ -88,7 +88,7 @@ const routes = [
   {
     path: '/:username/:music',
     name: 'prac-detail',
-    component: () => import('../components/PracticeDetail.vue') 
+    component: () => import('../views/PracticeDetail.vue') 
   }
 ]
 
