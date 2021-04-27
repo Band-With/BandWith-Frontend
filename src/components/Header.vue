@@ -7,7 +7,7 @@
 
       <headerHome v-if="isHome"></headerHome>
       <div v-else class="d-flex w-100 h-100 align-items-center justify-content-end">
-        <router-link to="/" class="mr-3"><img src="../assets/images/home.png" style="width:30px; height: 30px"></router-link>
+        <router-link to="/" class="mr-3"><img src="../assets/images/icon/home.png" style="width:30px; height: 30px"></router-link>
         <Dropdown></Dropdown>
       </div>
     </div>

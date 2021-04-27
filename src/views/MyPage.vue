@@ -106,7 +106,7 @@ a:hover{
                         </div>
                     </div>
                     <div> <!-- mic -->
-                        <router-link to="/record"><img id="mic" src="../assets/images/mic.png"/></router-link>
+                        <router-link to="/record"><img id="mic" src="../assets/images/icon/mic.png"/></router-link>
                     </div>
                 </div>
                 <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
@@ -115,7 +115,7 @@ a:hover{
                         <router-link to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
                         <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
                             <div v-for="band in content.bands" :key="band.band_id" class="d-flex flex-column mr-4 pt-3 text-center">
-                                <img v-if="band.img === null" src="../assets/images/band_profile_default.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
+                                <img v-if="band.img === null" src="../assets/images/icon/band_profile_default.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                 <img v-else :src="imgPreUrl + band.img" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                 <span style="font-size: 12px; font-weight: 100">{{ band.band_name }}</span>
                             </div>
@@ -130,13 +130,13 @@ a:hover{
                 <ul class="nav nav-tabs d-flex justify-content-center">
                     <li class="nav-item pr-5">
                         <router-link :to="{ name: 'prac' }" class="nav-link">
-                            <img id="note" src="../assets/images/note.png"/>
+                            <img id="note" src="../assets/images/icon/note.png"/>
                             <span class="pl-2">연습 중인 곡</span>
                         </router-link>
                     </li>
                     <li class="nav-item pl-5">
                         <router-link :to="{ name: 'bookmark' }" class="nav-link">
-                            <img id="bookmark" src="../assets/images/bookmark.png"/>
+                            <img id="bookmark" src="../assets/images/icon/bookmark.png"/>
                             <span class="pl-2">북마크</span>
                         </router-link>
                     </li>

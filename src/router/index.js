@@ -31,6 +31,43 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
+    path: '/music',
+    name: 'Music',
+    component: () => import('../views/Music.vue')
+  },
+  {
+    path: '/record',
+    name: 'Record',
+    component: () => import('../views/Record.vue')
+  },
+  {
+    path: '/login-success',
+    name: 'login-success',
+    component: () => import('../components/LoginSuccess.vue')
+  },
+  {
+    path: '/musics',
+    name: 'search-music',
+    component: () => import('../views/SearchMusic.vue'),
+    children: [
+      {
+        path: '',
+        name: 'music-by-related',
+        component: () => import('../components/SearchMusicByRelated.vue'),
+      },
+      {
+        path: '../musics',
+        name: 'music-by-record',
+        component: () => import('../components/SearchMusicByRecord.vue'),
+      },
+      {
+        path: '../musics',
+        name: 'music-by-like',
+        component: () => import('../components/SearchMusicByLike.vue'),
+      }
+    ]
+  },
+  {
     path: '/:username',
     name: 'myPage',
     component: () => import('../views/MyPage.vue'),
@@ -62,7 +99,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/join', '/'];
+  const publicPages = ['/login', '/join', '/',];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

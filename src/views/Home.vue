@@ -34,7 +34,7 @@
     height: 23px;
     border: none;
     cursor: pointer;
-    background: no-repeat center/100% url("../assets/images/srch_ico.png");
+    background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
   }
   .search-button:focus{
     outline: none;

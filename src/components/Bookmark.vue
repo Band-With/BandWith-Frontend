@@ -25,7 +25,7 @@
         <div v-else-if="content === null" class="d-flex flex-column justify-content-center align-items-center w-100">
             <div style="max-width: 380px" class="d-flex flex-column justify-content-center align-items-center">
                 <div style="width: 80px; height: 80px; border: 4px solid #000; overflow:hidden" class="circle-shape d-flex justify-content-center align-items-center">
-                    <img src="../assets/images/bookmark.png" style="width: 50px; height: 50px"/>
+                    <img src="../assets/images/icon/bookmark.png" style="width: 50px; height: 50px"/>
                 </div>
                 <span class="pt-3 pb-1" style="font-size: 18px; font-weight: bold">북마크, 내가 좋아하는 조합</span>
                 <span class="pb-3" style="text-align: center; font-size: 16px; font-weight: lighter">
