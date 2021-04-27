@@ -36,11 +36,6 @@ const routes = [
     component: () => import('../views/Music.vue')
   },
   {
-    path: '/record',
-    name: 'Record',
-    component: () => import('../views/Record.vue')
-  },
-  {
     path: '/login-success',
     name: 'login-success',
     component: () => import('../components/LoginSuccess.vue')
@@ -66,6 +61,11 @@ const routes = [
         component: () => import('../components/SearchMusicByLike.vue'),
       }
     ]
+  },  
+  {
+    path: '/records',
+    name: 'search-record',
+    component: () => import('../views/SearchRecord.vue')
   },
   {
     path: '/:username',
