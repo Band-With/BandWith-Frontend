@@ -1,51 +1,46 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-   <form name="form" @submit.prevent="insertMusic" class="form">
-      <div class="box-container">
-        <div class="form-fields"><br>
-          <label for="username">노래 제목</label>
-          <input id="Title"
-            class="form-control"
-            name="title"
-            type="text"
-            v-model="music.title"
-            v-validate="'required'" 
-            placeholder="제목"/>
-        </div>
-        <br><br>
-<div class="form-fields"><br>
-          <label for="username">노래 작곡가제목</label>
-          <input id="Composer"
-            class="form-control"
-            name="username"
-            type="text"
-            v-model="music.composer"
-            placeholder="ddd제목"/>
-        </div>
-        <br><br>
-        <div class="form-fields"><br>
-          <label for="username">노래 sdf작곡가제목</label>
-          <input id="Singer"
-            class="form-control"
-            name="username"
-            type="text"
-            v-model="music.singer"
-            placeholder="가수"/>
-        </div>
-        <div class="form-fields">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-            <span>SignIn</span>
-          </button>
-        </div>
-        <div v-if="message" class="alert alert-danger" role="alert">
-          {{message}}
-        </div>
-        <br><br>
-      </div>
+    <form name="form" @submit.prevent="insertMusic(music)">
+        <div v-if="!successful">
+          <div class="form-group">
+            <label for="title">노래제목</label>
+            <input
+              v-model="music.title"
+              v-validate="'required|min:3|max:20'"
+              type="text"
+              class="form-control"
+              name="title"
+            />
+            <span v-if="submitted &&errors.has('title')">ID를 정상적으로 입력해주세요.</span><br>
+          </div>
+          <div class="form-group">
+            <label for="composer">작곡가 이름</label>
+            <input
+              v-model="music.composer"
+              v-validate="'required|min:3|max:20'"
+              type="text"
+              class="form-control"
+              name="composer"
+            />
+                        <span v-if="submitted &&errors.has('composer')">이름을 정상적으로 입력해주세요.</span><br>
 
-    </form>
+          </div>
+          <div class="form-group">
+            <label for="singer">가수</label>
+            <input
+              v-model="music.singer"
+              v-validate="'required|min:6|max:40'"
+              class="form-control"
+              name="singer"
+              type="text"
+            />
+          </div>
+                  <div class="form-group">
+            <button class="btn btn-primary btn-block">Sign Up</button>
+          </div>
+        </div>
+      </form>
   </div>
 
   </div>
@@ -53,6 +48,8 @@
 
 <script>
 import Music from '../models/music';
+import axios from 'axios';
+const API_URL = 'http://localhost:8080/';
 
 export default {
   name: 'Music',
@@ -60,7 +57,8 @@ export default {
     return {
         music: new Music('', '', ''),
         loading: false,
-        message: ''
+        submitted: false,
+        successful: false,
     };
   },
   components:{
@@ -68,14 +66,17 @@ export default {
   computed: {
   },
   methods: {
- insertMusic() {
-              this.$store.dispatch('/musics', this.music).then(
-            () => {
-              this.$router.push('/');
-            }
-
-          );
-      }
+    insertMusic() {
+      axios.post(API_URL+'musics/insert', {
+        title: "dfd.",
+        composer:"df",
+        singer:"sdf"
+        })
+        .then(res => {
+          console.log(res.data)
+        })
     }
+   
+  }
 };
 </script>

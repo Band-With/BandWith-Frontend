@@ -1,70 +1,72 @@
 <template>
-  <div class="main-container">
-    <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"/>
-  <autocomplete :search="search" placeholder="노래 검색" aria-label="Search for a country" class="autocomplete"></autocomplete> 
-  <div class="main">
-  </div>
+  <div id="home">
+    <div id="banner" class="background">
+          <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"/>
+           <autocomplete :search="search" placeholder="노래 검색" aria-label="Search for a country" class="autocomplete"></autocomplete>
+    </div>
+    
+    <div style="position:absolute; height:5px; width: 100%; border:5px solid #CECEF6;"></div>
+    <div style="margin-top:10px;width:40%; position:relative; top:70%; left:10%;float:left;">
+            <a class="font">이달의 연주자</a>
 
-  <div style="width:100%;">
-      <div style="width:10%; display: inline-block;"></div>
-
- <div style="width:40%; display:inline-block;">
-              <a>이달의 연주자</a>
-  <hooper
-        style="height: 250px; position:relative; left:-20%;"
-        :itemsToShow="3"
-        :centerMode="true"
-        :autoPlay="true"
-        :infiniteScroll="true">
-        <slide>
-          <div style="text-align: center; hegith:130xp">
-            <pre></pre><pre></pre>
-          <img src="../assets/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>김동주</a>
-           </div>
-        </slide>
- <slide>
+      <center>
+                <hooper
+                style="height: 250px; position:relative; left:-20%;"
+                :itemsToShow="3"
+                :centerMode="true"
+                :autoPlay="true"
+                :infiniteScroll="true">
+                <slide>
+                <div style="text-align: center; hegith:130xp">
+                <pre></pre><pre></pre>
+                <img src="../assets/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+                <a class="font">김동주</a>
+               </div>
+                </slide>
+                <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>수지</a>
+          <a class="font">수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>조민규</a>
+          <a class="font">조민규</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>김동주</a>
+          <a class="font">김동주</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>수지</a>
+          <a class="font">수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>벤드</a>
+          <a class="font">벤드</a>
            </div>
         </slide>
       </hooper>
-  </div>
 
-  <div style="width:10%; display: inline-block;">
-</div>
-<div style="width:40%; display: inline-block;">
-              <a>이달의 밴드</a>
+      </center>
+    </div>
+
+    <div style="margin-top:10px;width:40%;width:40%; position:relative; top:70%; left:20%;float:left;">
+            <a class="font">이달의 밴드</a>
+
+      <center>
    <hooper
         style="height: 250px; position:relative; left:-20%;"
         :itemsToShow="3"
@@ -75,50 +77,53 @@
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>김동주</a>
+          <a class="font">김동주</a>
            </div>
         </slide>
  <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>수지</a>
+          <a class="font">수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>조민규</a>
+          <a class="font">조민규</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>김동주</a>
+          <a class="font">김동주</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>수지</a>
+          <a class="font">수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
           <img src="../assets/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a>벤드</a>
+          <a class="font">벤드</a>
            </div>
         </slide>
+        
       </hooper>
-  </div>
-  </div>
+
+      </center>
+
+    </div>
 
 
-</div>
+  </div>
 </template>
 
 
@@ -170,62 +175,55 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
 
 .main-container{
-  width:100%;
-  z-index: 0;
-  position:absolute;
+  width: 100%; position: absolute; top: 0; z-index: -1;
+
 }
 
 .autocomplete{
-  width:20%;
+  width:30%;
   position:relative;
-  left:40%;
-  margin-top:10px;
+  left:35%;
+  top:20%
 }
 
-.main-banner{
-  width: 100%;
-  height:100%;
-  position:absolute;
-}
-.main{
-  border-top:5px solid #A4A4A4;
-  margin-top:10px;
-  margin-bottom:10px
+ .background {
+    background-position:top center; background-repeat:no-repeat; background-size:100% 100%;
+  }
+  #home {
+    width: 100%; position: absolute; top: 0; z-index: -1;
+     background-color:#A4A4A4;
+  }
+  #banner {
+    height: 70vh; background-image: url("../assets/images/profile.jpg"); color: white;
+  }
+
+
+.hooper-slide.is-current {
+  transform: scale(1.3);
 }
 .hooper-slide.is-current {
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
-.hooper-slide.is-current {
-  transform: scale(1.2);
-}
+
 .images {
-  height: 70vh;
+  height: 50vh;
+  width: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
 }
-.img1 {
-  background: salmon;
-}
-.img2 {
-  background: lightblue;
-}
-.img3 {
-  background: coral;
-}
-.img4 {
-  background: lightgreen;
-}
-.img5 {
-  background: pink;
-}
-h2 {
-  color: #fff
-}
+
 .hooper {
-  height: 100vh;
+  height: 70vh;
+}
+.font{
+font-family: 'Nanum Brush Script', cursive;
+font-size: 30px;
+margin-left: 5px;
+color:#000000
 }
 </style>
