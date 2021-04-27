@@ -29,7 +29,7 @@
               </ul>
               </li>
               <li><a href="#">마이페이지</a></li>
-              <li><a href="#">로그아웃</a></li>
+              <li><button @click="handleLogout">로그아웃</button></li>
               </ul>
               </nav>
     </div>  
@@ -40,6 +40,12 @@ export default {
   name: 'bandwith-header',
   props: {
     user: Object
+  },
+  methods: {
+    handleLogout() {
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/login');
+    }
   },
   mounted(){
       let recaptchaScript = document.createElement('script')
@@ -123,6 +129,12 @@ nav ul li a{
   font-size: 18px;
   display: block;
 }
+
+nav ul li button{
+  border: none;
+}
+
+nav ul li button:hover,
 nav ul li a:hover,
 nav ul li label:hover{
   color: cyan;
