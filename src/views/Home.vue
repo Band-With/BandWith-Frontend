@@ -1,4 +1,4 @@
-<style>
+<style scoped>
   .logo{
     width: 550px;
     height: 550px;
@@ -34,7 +34,7 @@
     height: 23px;
     border: none;
     cursor: pointer;
-    background: no-repeat center/100% url("../assets/images/srch_ico.png");
+    background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
   }
   .search-button:focus{
     outline: none;
@@ -43,7 +43,6 @@
   .background {
     background-position:top center; background-repeat:no-repeat; background-size:cover;
   }
-
   #home {
     width: 100%; position: absolute; top: 0; z-index: -1;
   }

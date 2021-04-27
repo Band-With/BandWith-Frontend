@@ -30,9 +30,9 @@ export default {
 
       if (navigator.getUserMedia) {
         navigator.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
-            function(stream) {
-              console.log("Accessed the Microphone");
-            },
+            // function(stream) {
+            //   console.log("Accessed the Microphone");
+            // },
             function(err) {
               console.log("The following error occured: " + err.name);
             }

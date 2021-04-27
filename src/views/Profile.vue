@@ -19,43 +19,43 @@
                 <slide>
                 <div style="text-align: center; hegith:130xp">
                 <pre></pre><pre></pre>
-                <img src="../assets/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+                <img src="../assets/images/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
                 <a class="font">김동주</a>
                </div>
                 </slide>
                 <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
           <a class="font">수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">조민규</a>
+          <img src="../assets/images/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>조민규</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">김동주</a>
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>김동주</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">수지</a>
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">벤드</a>
+          <img src="../assets/images/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>벤드</a>
            </div>
         </slide>
       </hooper>
@@ -76,43 +76,43 @@
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">김동주</a>
-           </div>
-        </slide>
- <slide>
-          <div style="text-align: center; hegith:130xp">
-            <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">수지</a>
+          <img src="../assets/images/dongju.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>김동주</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">조민규</a>
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>수지</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">김동주</a>
+          <img src="../assets/images/mingue.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>조민규</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">수지</a>
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>김동주</a>
            </div>
         </slide>
         <slide>
           <div style="text-align: center; hegith:130xp">
             <pre></pre><pre></pre>
-          <img src="../assets/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
-          <a class="font">벤드</a>
+          <img src="../assets/images/suzy.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>수지</a>
+           </div>
+        </slide>
+        <slide>
+          <div style="text-align: center; hegith:130xp">
+            <pre></pre><pre></pre>
+          <img src="../assets/images/band.jpg" alt style="border-radius: 50%; width:100px; heights:100px;">
+          <a>벤드</a>
            </div>
         </slide>
         
