@@ -25,6 +25,14 @@ class UserService {
         });
     }
 
+    getPracticeDetail(username, title, condition){
+        return axios.get(API_URL + username + '/records/' + title, {
+            params: {
+                condition: condition
+            }
+        });
+    }
+
     getUserBoard() {
         return axios.get(API_URL + 'user', { headers: authHeader() })
     }
