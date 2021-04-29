@@ -84,7 +84,7 @@
                         <span style="font-size: 24px" class="d-flex flex-column mb-3">History</span>
 
                         <div class="px-3" style="height: 210px; overflow: auto">
-                            <button id="history-button" v-for="record in content.records" :key="record.records.record_id">
+                            <button id="history-button" v-for="record in content.records" :key="record.records.record_id" @click="getComments(record.records.record_id, record.commentNum)">
                                 <!-- <span> {{ record.records.searchable }} </span>
                                 <span> {{ record.records.access }} </span> -->
                                 <span> {{ toDate(record.records.created_at) }} </span>
@@ -97,8 +97,7 @@
 
                 <div class="mt-5">
                     <span style="font-size: 18px">댓글</span>
-
-
+                    <comment  class="mt-2" :content="comments" :count="count"></comment>
                 </div>
 
             </div>
@@ -108,14 +107,21 @@
 
 <script>
 import UserService from '../services/user.service';
+import CommentService from '../services/comment.service';
+import comment from '@/components/Comment.vue';
 
 export default {
     name: 'PracDetail',
+    components: {
+        comment
+    },
     data: function() {
       return {
+          count: 0,
           content: null,
           loading: true,
           imgPreUrl: "data:image/jpeg;base64,",
+          comments: ""
       }
     },
     computed: {
@@ -147,6 +153,14 @@ export default {
                 date = '0' + date;
 
             return [d.getFullYear(), month, date].join("-");
+        },
+        getComments(record_id, count){
+            this.count = count;
+            CommentService.getComments(this.userParam, record_id).then(
+                response => {
+                    this.comments = response.data;
+                }
+            )
         }
     },
     mounted() {
