@@ -48,24 +48,41 @@ const routes = [
       {
         path: '',
         name: 'music-by-related',
-        component: () => import('../components/SearchMusicByRelated.vue'),
+        component: () => import('../components/searchMusic/SearchMusicByRelated.vue'),
       },
       {
         path: '../musics',
         name: 'music-by-record',
-        component: () => import('../components/SearchMusicByRecord.vue'),
+        component: () => import('../components/searchMusic/SearchMusicByRecord.vue'),
       },
       {
         path: '../musics',
         name: 'music-by-like',
-        component: () => import('../components/SearchMusicByLike.vue'),
+        component: () => import('../components/searchMusic/SearchMusicByLike.vue'),
       }
     ]
   },  
   {
     path: '/records',
     name: 'search-record',
-    component: () => import('../views/SearchRecord.vue')
+    component: () => import('../views/SearchRecord.vue'),
+    children: [
+      {
+        path: '',
+        name: 'record-by-latest',
+        component: () => import('../components/searchRecord/SearchRecordByLatest.vue'),
+      },
+      {
+        path: 'like',
+        name: 'record-by-like',
+        component: () => import('../components/searchRecord/SearchRecordByLike.vue'),
+      },
+      {
+        path: 'follow',
+        name: 'record-by-follow',
+        component: () => import('../components/searchRecord/SearchRecordByFollow.vue'),
+      },
+    ]
   },
   {
     path: '/:username',
@@ -104,7 +121,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
-    next('/login');
+    next();
+    // next('/login');
   } else {
     next();
   }

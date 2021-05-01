@@ -3,7 +3,7 @@
     <li v-for="music in musics" :key="music.id" id="music-result-li">
       <div class="card-body d-flex flex-row">
         <div class="img-wrapper ml-4 mr-5">
-          <img class="img-profile" src="../assets/images/icon/default_music.png" />
+          <img class="img-profile" src="@/assets/images/icon/default_music.png" />
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
           <a :href="`./musics/${music.id}`" class="card-title font-weight-bold">
@@ -23,23 +23,17 @@
 
 <script>
 export default {
-  name: "music-by-record",
+  name: "music-by-like",
   data() {
     return {
       musics: [
+        // temp
         {
           id: 1,
           title: "라일락",
           composer: "임수호, Dr.JO, 웅킴, N!ko",
           singer: "아이유",
-          image: "../assets/images/icon/default_music.png",
-        },
-        {
-          id: 2,
-          title: "롤린 (Rollin')",
-          composer: "용감한 형제, 투챔프, 차쿤",
-          singer: "브레이브걸스",
-          image: "../assets/images/icon/default_music.png",
+          image: "@/assets/images/icon/default_music.png",
         },
       ]
     };
