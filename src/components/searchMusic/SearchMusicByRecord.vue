@@ -66,10 +66,13 @@ export default {
 
 .search-result-ul {
   list-style: none;
+  font-size: 0.9rem;
   padding-left: 0px;
+  min-width: 700px;
 }
 
 #music-result-li {
+  background: #ffffff;
   border-bottom: 1px solid #dfdfdf;
 }
 </style>

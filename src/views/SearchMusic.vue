@@ -13,42 +13,39 @@
       </div>
 
       <!-- row 2: search results -->
-      <div id="search-music-row2" class="card">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
+      <div id="search-music-row2" class="">
+        <!-- nav filter -->
+        <div>
+          <ul class="nav nav-tabs">
             <li class="nav-item">
               <router-link
-              :key="$route.fullPath"
+                :key="$route.fullPath"
                 :to="{ name: 'music-by-related', query: { filter: 'rel' } }"
-                :class="{ 'nav-link': true, active: order.isRelOrdActive }"
-                @click.native="setOrder('rel')"
+                class="nav-link"
                 >관련순</router-link
               >
             </li>
             <li class="nav-item">
               <router-link
-              :key="$route.fullPath"
+                :key="$route.fullPath"
                 :to="{ name: 'music-by-record', query: { filter: 'rcd' } }"
-                :class="{ 'nav-link': true, active: order.isRcdOrdActive }"
-                @click.native="setOrder('rcd')"
+                class="nav-link"
                 >녹음순</router-link
               >
             </li>
             <li class="nav-item">
               <router-link
-              :key="$route.fullPath"
+                :key="$route.fullPath"
                 :to="{ name: 'music-by-like', query: { filter: 'like' } }"
-                :class="{ 'nav-link': true, active: order.isLikeOrdActive }"
-                @click.native="setOrder('like')"
+                class="nav-link"
                 >좋아요순</router-link
               >
             </li>
           </ul>
         </div>
-        
+
         <!-- results -->
         <router-view></router-view>
-        
       </div>
 
       <!-- row 3: pagination -->
@@ -84,28 +81,10 @@
 export default {
   name: "search-music",
   data() {
-    return {
-      order: {
-        isRelOrdActive: true,
-        isRcdOrdActive: false,
-        isLikeOrdActive: false,
-      },
-    };
+    return {};
   },
 
-  methods: {
-    setOrder(clicked) {
-      for (var o in this.order) {
-        if (this.order[o]) {
-          this.order[o] = false;
-        }
-      }
-
-      if (clicked === "rel") this.order.isRelOrdActive = true;
-      else if (clicked === "rcd") this.order.isRcdOrdActive = true;
-      else if (clicked === "like") this.order.isLikeOrdActive = true;
-    },
-  },
+  methods: {},
 
   // create() {
   //   axios.get('/musics').then(res => {
@@ -165,6 +144,20 @@ export default {
 
 /* row 2: search result */
 #search-music-row2 {
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.nav-item a {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  border: none !important;
+  color: black;
+}
+
+.nav-item a.router-link-exact-active {
+  opacity: 1 !important;
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid #2080e0 !important;
 }
 </style>

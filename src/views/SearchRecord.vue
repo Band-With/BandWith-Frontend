@@ -15,7 +15,7 @@
               <li class="nav-item">
                 <router-link
                   :to="{ name: 'record-by-latest', query: {} }"
-                  :class="{ 'nav-link': true, active: false }"
+                  class="nav-link"
                 >
                   <!-- <img id="latest" src="../assets/images/icon/clock.png" /> -->
                   <span>최신순</span>
@@ -24,7 +24,7 @@
               <li class="nav-item">
                 <router-link
                   :to="{ name: 'record-by-like', query: {} }"
-                  :class="{ 'nav-link': true, active: false }"
+                  class="nav-link"
                 >
                   <!-- <img id="like" src="@/assets/images/icon/like_off.png" /> -->
                   <span>좋아요순</span>
@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <router-link
                   :to="{ name: 'record-by-follow', query: {} }"
-                  :class="{ 'nav-link': true, active: false }"
+                  class="nav-link"
                 >
                   <!-- <img id="follow" src="../assets/images/icon/follower.png" /> -->
                   <span>팔로우순</span>
@@ -64,7 +64,7 @@
                     </div>
                     <img
                       class="icon"
-                      src="@/assets/images/icon/close.png"
+                      src="@/assets/images/icon/close_light.png"
                       @click="alert('삭제되었습니다.')"
                       style="cursor: pointer"
                     />
@@ -185,8 +185,7 @@ export default {
     alert(msg) {
       alert(msg);
     },
-  },
-  create() {},
+  }
 };
 </script>
 

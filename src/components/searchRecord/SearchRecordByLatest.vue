@@ -112,7 +112,7 @@ export default {
     };
   },
   created() {
-    console.log("component record");
+    
   },
 };
 </script>
