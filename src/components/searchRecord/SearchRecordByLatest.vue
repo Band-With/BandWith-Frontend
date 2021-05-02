@@ -2,7 +2,7 @@
   <!-- record info -->
   <ul class="search-result-ul">
     <li v-for="record in records" :key="record.id" id="record-result-li">
-      <div class="card-body d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-3">
         <!-- member profile image -->
         <div class="img-wrapper ml-4 mr-5">
           <img
@@ -20,23 +20,23 @@
             >
               {{ record.username }}</a
             >
-            <div class="d-flex flex-row  align-items-center ">
+            <div class="d-flex flex-row align-items-center">
               <!-- like -->
               <button class="btn d-flex align-items-center">
-                <img class="img_like" src="@/assets/images/icon/like_off.png" />
+                <img class="icon" src="@/assets/images/icon/like_off.png" />
                 <span class="ml-2">{{ record.like }}</span>
               </button>
               <!-- comment -->
               <button class="btn d-flex align-items-center ml-3">
                 <img
-                  class="img_comment"
+                  class="icon"
                   src="@/assets/images/icon/comment.png"
                 />
                 <span class="ml-2">{{ record.comment }}</span>
               </button>
               <!-- add to cart -->
               <button id="add-to-cart" class="btn btn-primary ml-3">
-                <img class="img_cart" src="@/assets/images/icon/add_white.png" />
+                <img class="icon" src="@/assets/images/icon/add_white.png" />
               </button>
             </div>
           </div>
@@ -71,6 +71,37 @@ export default {
         },
         {
           id: 2,
+          username: "pkm1015",
+          url:
+            "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
+          like: 21,
+          comment: 1,
+        },
+        {
+          id: 3,
+          username: "2wjdwo97",
+          url:
+            "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
+          like: 15,
+          comment: 5,
+        },
+        {
+          id: 4,
+          username: "pkm1015",
+          url:
+            "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
+          like: 21,
+          comment: 1,
+        },{
+          id: 5,
+          username: "2wjdwo97",
+          url:
+            "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
+          like: 15,
+          comment: 5,
+        },
+        {
+          id: 6,
           username: "pkm1015",
           url:
             "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
@@ -122,9 +153,7 @@ export default {
     height: fit-content;
 }
 
-.img_like,
-.img_comment,
-.img_cart {
+.icon {
   width: 15px;
   height: 15px;
 }
