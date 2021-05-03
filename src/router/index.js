@@ -59,30 +59,13 @@ const routes = [
         path: '../musics',
         name: 'music-by-like',
         component: () => import('../components/searchMusic/SearchMusicByLike.vue'),
-      }
+      },
     ]
   },  
   {
-    path: '/records',
+    path: '/musics/:id/records',
     name: 'search-record',
     component: () => import('../views/SearchRecord.vue'),
-    children: [
-      {
-        path: '',
-        name: 'record-by-latest',
-        component: () => import('../components/searchRecord/SearchRecordByLatest.vue'),
-      },
-      {
-        path: 'like',
-        name: 'record-by-like',
-        component: () => import('../components/searchRecord/SearchRecordByLike.vue'),
-      },
-      {
-        path: 'follow',
-        name: 'record-by-follow',
-        component: () => import('../components/searchRecord/SearchRecordByFollow.vue'),
-      },
-    ]
   },
   {
     path: '/:username',

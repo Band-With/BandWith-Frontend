@@ -49,34 +49,13 @@
       </div>
 
       <!-- row 3: pagination -->
-      <nav
-        id="search-music-row3"
-        class="d-flex align-items-center justify-content-center"
-      >
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Paging />
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import Paging from "@/components/Paging.vue";
 
 export default {
   name: "search-music",
@@ -84,13 +63,17 @@ export default {
     return {};
   },
 
-  methods: {},
+  components: {
+    Paging
+  },
 
-  // create() {
-  //   axios.get('/musics').then(res => {
-  //     this.musics = res.data;
-  //   })
-  // }
+  methods: {
+
+  },
+
+  mounted() {
+    
+  },
 };
 </script>
 
@@ -105,7 +88,7 @@ export default {
 
 .background {
   padding-top: 60px;
-  width: 100%;
+  min-height: 100vh;
   background-color: #fafafa;
 }
 
@@ -143,18 +126,20 @@ export default {
 }
 
 /* row 2: search result */
-#search-music-row2 {
-  min-height: 100vh;
-}
-
-.nav-item a {
+.nav-item {
   opacity: 0.5;
   font-size: 0.8rem;
   border: none !important;
-  color: black;
 }
 
-.nav-item a.router-link-exact-active {
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  cursor: pointer;
+}
+
+.active {
   opacity: 1 !important;
   color: black;
   font-weight: bold;

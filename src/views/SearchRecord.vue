@@ -12,186 +12,146 @@
           <!-- nav filter -->
           <div>
             <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <router-link
-                  :to="{ name: 'record-by-latest', query: {} }"
-                  class="nav-link"
-                >
-                  <!-- <img id="latest" src="../assets/images/icon/clock.png" /> -->
-                  <span>최신순</span>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link
-                  :to="{ name: 'record-by-like', query: {} }"
-                  class="nav-link"
-                >
-                  <!-- <img id="like" src="@/assets/images/icon/like_off.png" /> -->
-                  <span>좋아요순</span>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link
-                  :to="{ name: 'record-by-follow', query: {} }"
-                  class="nav-link"
-                >
-                  <!-- <img id="follow" src="../assets/images/icon/follower.png" /> -->
-                  <span>팔로우순</span>
-                </router-link>
+              <li
+                v-for="type in filter_list"
+                :key="type.ename"
+                class="nav-item"
+                :class="{ active: type.ename == sort_type }"
+              >
+                <a class="nav-link" @click="toggleFilter(type.ename)">{{
+                  type.kname
+                }}</a>
               </li>
             </ul>
           </div>
           <!-- result records -->
-          <div>
-            <router-view></router-view>
-          </div>
+          <Records :records="records" :loading="loading" />
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
-          <!-- cart -->
-          <div id="record-cart" class="card mb-3">
-            <div class="card-body">
-              <h6 class="card-title">장바구니</h6>
-              <div>
-                <ul class="list-group list-group-horizontal d-flex flex-wrap">
-                  <li
-                    v-for="record in cart"
-                    :key="record.id"
-                    class="list-group-item d-flex"
-                  >
-                    <div class="img-wrapper">
-                      <img class="img-profile" src="@/assets/images/suzy.jpg" />
-                    </div>
-                    <img
-                      class="icon"
-                      src="@/assets/images/icon/close_light.png"
-                      @click="alert('삭제되었습니다.')"
-                      style="cursor: pointer"
-                    />
-                  </li>
-                </ul>
-              </div>
-              <div class="text-right">
-                <a href="#" class="btn btn-primary">합주 생성</a>
-              </div>
-            </div>
-          </div>
-          <!-- comment -->
-          <div id="record-comment" :class="{ card: true, invisible: false }">
-            <div class="card-body">
-              <h6 class="card-title">댓글</h6>
-              <!-- leave a comment -->
-              <form class="d-flex">
-                <div class="form-group mr-3 mb-2 flex-grow-1">
-                  <input
-                    type="text"
-                    class="form-control  flex-grow-1"
-                    id="inputPassword2"
-                    placeholder="댓글을 입력하세요."
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">
-                  등록
-                </button>
-              </form>
-              <!-- comment contents -->
-              <div>
-                <ul class="list-group">
-                  <li
-                    v-for="comment in comments"
-                    :key="comment.id"
-                    class="list-group-item"
-                  >
-                    <b class="card-title">{{ comment.username }}</b>
-                    <p class="card-text">
-                      {{ comment.p }}
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <Cart />
+          <Comments />
         </div>
       </div>
       <!-- row 3: pagination -->
-      <div
-        id="search-reocrd-row3"
-        class="d-flex justify-content-center pt-3 pb-5"
-      >
-        <nav>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <Paging />
     </div>
   </div>
 </template>
 
 <script>
+import Records from "@/components/searchRecord/Records.vue";
+import Comments from "@/components/searchRecord/Comments.vue";
+import Cart from "@/components/searchRecord/Cart.vue";
+import Paging from "@/components/Paging.vue";
+import SearchService from "../services/search.service";
+
 export default {
-  name: "search-music",
+  name: "search-record",
   data() {
     return {
+      loading: true,
       music_title: "아이유 - 하루끝",
-      cart: [
-        {
-          id: 1,
-          image: "@/assets/images/suzy.jpg",
-        },
-        {
-          id: 2,
-          image: "@/assets/images/dongju.jpg",
-        },
-        {
-          id: 3,
-          image: "@/assets/images/dongju.jpg",
-        },
-        {
-          id: 4,
-          image: "@/assets/images/dongju.jpg",
-        },
+      filter_list: [
+        { ename: "latest", kname: "최신순" },
+        { ename: "like", kname: "좋아요순" },
+        { ename: "follow", kname: "팔로우순" },
       ],
-      comments: [
-        {
-          id: 1,
-          username: "pkm1015",
-          p: "I like your guitar playing!",
-        },
-        {
-          id: 2,
-          username: "2wjdwo97",
-          p: "I love playing!",
-        },
+      sort_type: "latest", // 검색 필터 초깃값 설정
+      records: [
+        //   {
+        //     id: 1,
+        //     username: "2wjdwo97",
+        //     url:
+        //       "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
+        //     like: 15,
+        //     comment: 5,
+        //   },
       ],
     };
   },
 
+  components: {
+    Records,
+    Comments,
+    Cart,
+    Paging,
+  },
+
   methods: {
-    alert(msg) {
-      alert(msg);
+    toggleFilter(type) {
+      if (this.sort_type != type) {
+        this.setFilter(type); // 필터 설정
+        this.getRecords(type); // 데이터 가져오기
+
+        // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
+        return this.$router.replace({
+          path: "",
+          query: {
+            filter: type,
+          },
+        });
+      }
     },
-  }
+
+    setFilter(type) {
+      if (this.sort_type != type) {
+        this.sort_type = type;
+      }
+    },
+
+    getRecords(filter) {
+      SearchService.getRecords(this.music_id, filter).then(
+        (response) => {
+          if (Object.keys(response.data).length !== 0) {
+            this.records = response.data;
+          }
+          this.loading = false;
+        },
+        (error) => {
+          error =
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+          this.loading = false;
+          console.log(error);
+        }
+      );
+    },
+  },
+
+  computed: {
+    qs_page() {
+      return this.$route.query.p || 1;
+    },
+    music_id() {
+      return this.$route.params.id;
+    },
+  },
+
+  mounted() {
+    // TODO this.music_id -> title, singer
+    this.music_title = this.music_id;
+
+    const sort_type = this.$route.query.filter;
+
+    // query string = "like", "follow"
+    if (sort_type === "like" || sort_type === "follow") {
+      this.setFilter(sort_type);
+      this.getRecords(sort_type);
+    }
+    // query string = "latest", undefined, etc.
+    else {
+      this.getRecords("latest");
+    }
+  },
 };
 </script>
 
 <style scoped>
 .background {
   padding-top: 60px;
+  min-height: 100vh;
   background-color: #fafafa;
 }
 
@@ -219,32 +179,23 @@ export default {
 }
 
 /* row 2 left: filter */
-.nav-item a {
+.nav-item {
   opacity: 0.5;
   font-size: 0.8rem;
   border: none !important;
-  color: black;
 }
 
-.nav-item a.router-link-exact-active {
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  cursor: pointer;
+}
+
+.active {
   opacity: 1 !important;
   color: black;
   font-weight: bold;
   border-bottom: 2px solid #2080e0 !important;
-}
-
-/* row 2 right */
-#search-record-right {
-  min-width: max-content;
-  font-size: 0.8rem;
-}
-
-#record-cart {
-  max-width: fit-content;
-}
-
-.list-group-item {
-  padding: 0.75rem 0.5rem;
-  border: none;
 }
 </style>
