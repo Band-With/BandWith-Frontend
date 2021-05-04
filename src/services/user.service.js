@@ -36,5 +36,13 @@ class UserService {
     getUserBoard() {
         return axios.get(API_URL + 'user', { headers: authHeader() })
     }
+
+    patchRecordAttribute(username, record_id, access, searchable){
+        console.log(access)
+        return axios.patch(API_URL + username + '/records/' + record_id, {
+            access: access,
+            searchable: searchable
+        });
+    }
 }
 export default new UserService();

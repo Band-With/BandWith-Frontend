@@ -40,8 +40,8 @@
 <template>
     <div>
         <div class="d-flex justify-content-between py-4 px-4 comment-write-box"> <!-- 댓글 작성 -->
-            <img v-if="user.profileImg === null" style="min-width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" src="../assets/images/profile.jpg"/>
-            <img v-else style="min-width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" :src="imgPreUrl + user.profileImg"/>
+            <img v-if="user.profileImg === null" style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" src="../assets/images/profile.jpg"/>
+            <img v-else style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" :src="imgPreUrl + user.profileImg"/>
 
             <div id="comment-area">
                 <textarea class="comment-input w-100" placeholder="댓글을 입력하세요..."/>
@@ -81,7 +81,7 @@ export default {
       }
   },
   props: {
-    content: Object,
+    content: Array,
     count: Number,
   },
     computed: { 
