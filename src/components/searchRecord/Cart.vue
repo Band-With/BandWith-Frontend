@@ -2,7 +2,7 @@
   <div id="record-cart" class="card mb-3">
     <div class="card-body">
       <h6 class="card-title">장바구니</h6>
-      <div>
+      <div id="cart-contents">
         <ul class="list-group list-group-horizontal d-flex flex-wrap">
           <li
             v-for="record in cart"
@@ -15,14 +15,14 @@
             <img
               class="icon"
               src="@/assets/images/icon/close_light.png"
-              @click="alert('삭제되었습니다.')"
+              @click="delete_from_cart(record.id)"
               style="cursor: pointer"
             />
           </li>
         </ul>
       </div>
       <div class="text-right">
-        <a href="#" class="btn btn-primary">합주 생성</a>
+        <a :href="'../../' + this.user.username + '/bookmarks/new'" class="btn btn-primary">합주 생성</a>
       </div>
     </div>
   </div>
@@ -32,23 +32,24 @@
 export default {
   data() {
     return {
-      cart: [
-        {
-          id: 1,
-          image: "@/assets/images/suzy.jpg",
-        },
-        {
-          id: 2,
-          image: "@/assets/images/dongju.jpg",
-        },
-      ],
+
     };
   },
 
-  methods: {
-    alert(msg) {
-      alert(msg);
+  computed: {
+    cart() {
+      return this.$store.state.records.cart;
     },
+    user() {
+      return JSON.parse(localStorage.getItem('user'));
+    }
+  },
+
+  methods: {
+    delete_from_cart(id) {
+      this.$store.commit("records/DELETE_FROM_CART", id);
+      alert("삭제되었습니다.")
+    }
   },
 };
 </script>
@@ -76,5 +77,9 @@ export default {
   padding: 0.75rem 0.5rem;
   font-size: 0.8rem;
   border: none;
+}
+
+#cart-contents {
+  min-height: 100px;
 }
 </style>

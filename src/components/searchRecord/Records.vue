@@ -41,7 +41,7 @@
                   <span class="ml-2">{{ record.comment }}</span>
                 </button>
                 <!-- add to cart -->
-                <button id="add-to-cart" class="btn btn-primary ml-3" @click="add_to_cart()">
+                <button id="add-to-cart" class="btn btn-primary ml-3" @click="add_to_cart(record)">
                   <img class="icon" src="@/assets/images/icon/add_white.png" />
                 </button>
               </div>
@@ -66,6 +66,7 @@ export default {
   data() {
     return {};
   },
+
   computed: {
     loading() {
       return this.$store.state.records.loading;
@@ -73,7 +74,16 @@ export default {
     records() {
       return this.$store.state.records.records;
     }
-  }
+  },
+
+  methods: {
+    add_to_cart(record) { 
+      this.$store.commit("records/ADD_TO_CART", {
+        id: record.id,
+        profile: record.profile,
+      });
+    }
+  },
 };
 </script>
 
