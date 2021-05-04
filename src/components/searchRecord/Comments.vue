@@ -1,5 +1,5 @@
 <template>
-  <div id="record-comment" :class="{ card: true, invisible: false }">
+  <div id="record-comment" class="card" :class="{ invisible: !is_visible }">
     <div class="card-body">
       <h6 class="card-title">댓글</h6>
       <!-- leave a comment -->
@@ -18,9 +18,23 @@
       </form>
       <!-- comment contents -->
       <div>
-        <ul class="list-group">
+        <!-- loading -->
+        <div v-if="loading_cmt" class="d-flex justify-content-center">
+          <span
+            class="m-5 spinner-border spinner-border-sm"
+            style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
+          ></span>
+        </div>
+        <!-- no result -->
+        <div
+          v-else-if="comments == null"
+          class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
+        >
+          <b style="font-size: 0.8rem">댓글이 없습니다.</b>
+        </div>
+        <ul v-else class="list-group">
           <li
-            v-for="comment in comments"
+            v-for="comment in this.comments"
             :key="comment.id"
             class="list-group-item"
           >
@@ -37,23 +51,26 @@
 
 <script>
 export default {
-  data() {
-    return {
-      comments: [
-        {
-          id: 1,
-          username: "pkm1015",
-          p: "I like your guitar playing!",
-        },
-        {
-          id: 2,
-          username: "2wjdwo97",
-          p: "I love playing!",
-        },
-      ],
-    };
+  props: {
+    is_visible: {
+      type: Boolean,
+      required: true,
+    },
   },
-}
+
+  data() {
+    return {};
+  },
+
+  computed: {
+    comments() {
+      return this.$store.state.records.comments;
+    },
+    loading_cmt() {
+      return this.$store.state.records.loading_cmt;
+    },
+  },
+};
 </script>
 
 <style scoped>

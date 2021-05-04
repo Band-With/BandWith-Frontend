@@ -25,12 +25,15 @@
             </ul>
           </div>
           <!-- result records -->
-          <Records />
+          <Records
+            :is_visible="this.is_comment_visible"
+            @update-visibility="updateVisibility"
+          />
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
           <Cart />
-          <Comments />
+          <Comments :is_visible="this.is_comment_visible" />
         </div>
       </div>
       <!-- row 3: pagination -->
@@ -49,13 +52,14 @@ export default {
   name: "search-record",
   data() {
     return {
-      music_title: "아이유 - 하루끝",
+      music_title: "아이유 - 하루끝", // 노래 제목
       filter_list: [
         { ename: "latest", kname: "최신순" },
         { ename: "like", kname: "좋아요순" },
         { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
+      is_comment_visible: false, // 댓글창 visibility
     };
   },
 
@@ -96,6 +100,11 @@ export default {
         music_id: this.music_id,
         filter: sort_type,
       });
+    },
+
+    // 댓글창 visibility 전환
+    updateVisibility() {
+      this.is_comment_visible = !this.is_comment_visible;
     },
   },
 

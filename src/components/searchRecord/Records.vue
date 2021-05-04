@@ -2,18 +2,25 @@
   <div class="d-flex justify-content-center ">
     <!-- loading -->
     <span
-      v-if="loading"
+      v-if="loading_rcd"
       class="m-5 spinner-border spinner-border-sm"
       style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
     ></span>
     <!-- no result -->
-    <div v-else-if="records == null" class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5">
-      <img class="m-3" src="@/assets/images/icon/no_result.png" style="width: 40px; height: 40px;"/>
+    <div
+      v-else-if="records == null"
+      class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
+    >
+      <img
+        class="m-3"
+        src="@/assets/images/icon/no_result.png"
+        style="width: 40px; height: 40px;"
+      />
       <b>녹음이 존재하지 않습니다.</b>
     </div>
     <!-- records -->
     <ul v-else class="search-result-ul">
-      <li v-for="record in records" :key="record.id" id="record-result-li">
+      <li v-for="record in records" :key="record.r_id" id="record-result-li">
         <div class="d-flex align-items-center justify-content-center p-3">
           <!-- member profile image -->
           <div class="img-wrapper ml-4 mr-5">
@@ -36,12 +43,19 @@
                   <span class="ml-2">{{ record.like }}</span>
                 </button>
                 <!-- comment -->
-                <button class="btn d-flex align-items-center ml-3">
+                <button
+                  class="btn d-flex align-items-center ml-3"
+                  @click="get_comments(record)"
+                >
                   <img class="icon" src="@/assets/images/icon/comment.png" />
                   <span class="ml-2">{{ record.comment }}</span>
                 </button>
                 <!-- add to cart -->
-                <button id="add-to-cart" class="btn btn-primary ml-3" @click="add_to_cart(record)">
+                <button
+                  id="add-to-cart"
+                  class="btn btn-primary ml-3"
+                  @click="add_to_cart(record)"
+                >
                   <img class="icon" src="@/assets/images/icon/add_white.png" />
                 </button>
               </div>
@@ -63,26 +77,48 @@
 
 <script>
 export default {
+  props: {
+    is_visible: {
+      type: Boolean,
+      required: true,
+    },
+  },
+
   data() {
     return {};
   },
 
   computed: {
-    loading() {
-      return this.$store.state.records.loading;
+    loading_rcd() {
+      return this.$store.state.records.loading_rcd;
     },
     records() {
       return this.$store.state.records.records;
+    },
+    comment_rcd_id() {
+      return this.$store.state.records.comment_rcd_id;
     }
   },
 
   methods: {
-    add_to_cart(record) { 
+    add_to_cart(record) {
       this.$store.commit("records/ADD_TO_CART", {
-        id: record.id,
+        id: record.r_id,
         profile: record.profile,
       });
-    }
+    },
+    get_comments(record) {
+      if (this.comment_rcd_id === record.r_id) {
+        this.$emit("update-visibility");
+        this.$store.commit("records/SET_COMMENT_RCD_ID", -1);
+      }
+      else {
+        if (this.comment_rcd_id === -1)
+          this.$emit("update-visibility");
+        this.$store.dispatch("records/getComments", record.r_id);
+        this.$store.commit("records/SET_COMMENT_RCD_ID", record.r_id);
+      }
+    },
   },
 };
 </script>

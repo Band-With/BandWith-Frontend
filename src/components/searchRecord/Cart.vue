@@ -6,7 +6,7 @@
         <ul class="list-group list-group-horizontal d-flex flex-wrap">
           <li
             v-for="record in cart"
-            :key="record.id"
+            :key="record.r_id"
             class="list-group-item d-flex"
           >
             <div class="img-wrapper">
@@ -15,7 +15,7 @@
             <img
               class="icon"
               src="@/assets/images/icon/close_light.png"
-              @click="delete_from_cart(record.id)"
+              @click="delete_from_cart(record.r_id)"
               style="cursor: pointer"
             />
           </li>
