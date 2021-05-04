@@ -25,7 +25,7 @@
             </ul>
           </div>
           <!-- result records -->
-          <Records :records="records" :loading="loading" />
+          <Records />
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
@@ -44,13 +44,11 @@ import Records from "@/components/searchRecord/Records.vue";
 import Comments from "@/components/searchRecord/Comments.vue";
 import Cart from "@/components/searchRecord/Cart.vue";
 import Paging from "@/components/Paging.vue";
-import SearchService from "../services/search.service";
 
 export default {
   name: "search-record",
   data() {
     return {
-      loading: true,
       music_title: "아이유 - 하루끝",
       filter_list: [
         { ename: "latest", kname: "최신순" },
@@ -58,16 +56,6 @@ export default {
         { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
-      records: [
-        //   {
-        //     id: 1,
-        //     username: "2wjdwo97",
-        //     url:
-        //       "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
-        //     like: 15,
-        //     comment: 5,
-        //   },
-      ],
     };
   },
 
@@ -79,6 +67,7 @@ export default {
   },
 
   methods: {
+    // 화면 필터 토글
     toggleFilter(type) {
       if (this.sort_type != type) {
         this.setFilter(type); // 필터 설정
@@ -94,29 +83,19 @@ export default {
       }
     },
 
+    // 필터 설정
     setFilter(type) {
       if (this.sort_type != type) {
         this.sort_type = type;
       }
     },
 
-    getRecords(filter) {
-      SearchService.getRecords(this.music_id, filter).then(
-        (response) => {
-          if (Object.keys(response.data).length !== 0) {
-            this.records = response.data;
-          }
-          this.loading = false;
-        },
-        (error) => {
-          error =
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString();
-          this.loading = false;
-          console.log(error);
-        }
-      );
+    // 데이터 가져오기 (axios)
+    getRecords(sort_type) {
+      this.$store.dispatch("records/getRecords", {
+        music_id: this.music_id,
+        filter: sort_type,
+      });
     },
   },
 
@@ -127,10 +106,13 @@ export default {
     music_id() {
       return this.$route.params.id;
     },
+    records() {
+      return this.$store.state.records.records;
+    },
   },
 
   mounted() {
-    // TODO this.music_id -> title, singer
+    // TODO 레코드 제목/가수 설정 this.music_id -> title, singer
     this.music_title = this.music_id;
 
     const sort_type = this.$route.query.filter;

@@ -7,7 +7,7 @@
       style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
     ></span>
     <!-- no result -->
-    <div v-else-if="records === null" class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5">
+    <div v-else-if="records == null" class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5">
       <img class="m-3" src="@/assets/images/icon/no_result.png" style="width: 40px; height: 40px;"/>
       <b>녹음이 존재하지 않습니다.</b>
     </div>
@@ -26,7 +26,7 @@
           <div class="d-flex flex-column flex-grow-1 pr-5">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <!-- username -->
-              <a :href="`./musics/${record.id}`" class="font-weight-bold ml-2">
+              <a :href="`./${record.username}}`" class="font-weight-bold ml-2">
                 {{ record.username }}</a
               >
               <div class="d-flex flex-row align-items-center">
@@ -41,7 +41,7 @@
                   <span class="ml-2">{{ record.comment }}</span>
                 </button>
                 <!-- add to cart -->
-                <button id="add-to-cart" class="btn btn-primary ml-3">
+                <button id="add-to-cart" class="btn btn-primary ml-3" @click="add_to_cart()">
                   <img class="icon" src="@/assets/images/icon/add_white.png" />
                 </button>
               </div>
@@ -63,18 +63,17 @@
 
 <script>
 export default {
-  props: {
-    records: {
-      required: true,
-    },
-    loading: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data() {
     return {};
   },
+  computed: {
+    loading() {
+      return this.$store.state.records.loading;
+    },
+    records() {
+      return this.$store.state.records.records;
+    }
+  }
 };
 </script>
 
