@@ -7,6 +7,7 @@ const records = {
     loading_rcd: true,
     loading_cmt: true,
     records: [
+      // ------ test ------ //
       {
         r_id: 1,
         username: "2wjdwo97",
@@ -25,20 +26,23 @@ const records = {
         like: 3,
         comment: 2,
       },
+      // ------------------ //
     ],
     cart: [],
     comment_rcd_id: -1, // 댓글 보기로 선택된 녹음의 ID
     comments: [
+      // ------ test ------ //
       {
         id: 1,
         username: "pkm1015",
-        p: "I like your guitar playing!",
+        text: "I like your guitar playing!",
       },
       {
         id: 2,
         username: "2wjdwo97",
-        p: "I love playing!",
+        text: "I love playing!",
       },
+      // ------------------ //
     ],
   },
 
@@ -78,11 +82,13 @@ const records = {
       });
       state.cart.splice(index, 1);
     },
+    ADD_COMMENT(state, payload) {
+      state.comments.push(payload);
+    },
   },
 
   actions: {
     getRecords({ commit }, { music_id, filter }) {
-      console.log(music_id, "/", filter);
       // commit("GET_RECORDS", null);
       commit("SET_LOADING_RCD", true);
 
@@ -98,7 +104,7 @@ const records = {
         (error) => {
           error =
             (error.res && error.res.data) || error.message || error.toString();
-          console.log(error);
+          alert(error);
           commit("SET_LOADING_RCD", false);
         }
       );
@@ -120,10 +126,37 @@ const records = {
         (error) => {
           error =
             (error.res && error.res.data) || error.message || error.toString();
-          console.log(error);
+          alert(error);
           commit("SET_LOADING_CMT", false);
         }
       );
+    },
+
+    addComment({ commit }, { username, text }) {
+      SearchService.addComment(this.comment_rcd_id, username, text).then(
+        (res) => {
+          if (Object.keys(res.data).length !== 0) {
+            commit("ADD_COMMENT", {
+              id: res.data,
+              username: username,
+              text: text,
+            });
+          }
+        },
+        (error) => {
+          error =
+            (error.res && error.res.data) || error.message || error.toString();
+          alert(error);
+        }
+      );
+
+      // ------ test ------ //
+      commit("ADD_COMMENT", {
+        id: Math.floor(Math.random() * 100) + 1,
+        username: username,
+        text: text,
+      });
+      // ------------------ //
     },
   },
 };

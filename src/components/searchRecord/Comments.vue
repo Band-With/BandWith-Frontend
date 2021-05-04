@@ -3,12 +3,13 @@
     <div class="card-body">
       <h6 class="card-title">댓글</h6>
       <!-- leave a comment -->
-      <form class="d-flex">
+      <form class="d-flex" @submit="addComment">
         <div class="form-group mr-3 mb-2 flex-grow-1">
           <input
             type="text"
             class="form-control  flex-grow-1"
             id="inputPassword2"
+            v-model="text"
             placeholder="댓글을 입력하세요."
           />
         </div>
@@ -40,7 +41,7 @@
           >
             <b class="card-title">{{ comment.username }}</b>
             <p class="card-text">
-              {{ comment.p }}
+              {{ comment.text }}
             </p>
           </li>
         </ul>
@@ -59,15 +60,34 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      text: "",
+    };
   },
 
   computed: {
+    user() {
+      return JSON.parse(localStorage.getItem("user"));
+    },
     comments() {
       return this.$store.state.records.comments;
     },
     loading_cmt() {
       return this.$store.state.records.loading_cmt;
+    },
+  },
+
+  methods: {
+    addComment(e) {
+      e.preventDefault();
+      var answer = confirm("댓글을 추가하시겠습니까?");
+      if (answer) {
+        this.$store.dispatch("records/addComment", {
+          username: this.user.username,
+          text: this.text,
+        });
+        this.text = "";
+      }
     },
   },
 };

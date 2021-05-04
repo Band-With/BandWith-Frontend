@@ -14,6 +14,13 @@ class SearchService {
   getComments(record_id) {
     return axios.get(API_URL + "records/" + record_id + "/comments");
   }
+
+  addComment(record_id, username, text) {  // return comment id
+    return axios.post(API_URL + "records/" + record_id + "/comments", {
+      username: username,
+      text: text,
+    });
+  }
 }
 
 export default new SearchService();
