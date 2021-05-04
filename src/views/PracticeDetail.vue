@@ -78,7 +78,7 @@
                     <div class="d-flex align-items-center music-info">
                         <img style="border: 1px solid #ddd; width: 300px; height: 300px" :src="imgPreUrl + content.music.img"/>
                         <div class="position-relative d-flex flex-column p-4 w-100">
-                            <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 10px; right: 10px">
+                            <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 35px; right: 30px">
                                 <div class="d-flex flex-row">
                                     <img v-if="record.access === true" class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/public.png" />
                                     <img v-else class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/private.png" />
