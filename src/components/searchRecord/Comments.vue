@@ -6,9 +6,7 @@
       <form class="d-flex" @submit="addComment">
         <div class="form-group mr-3 mb-2 flex-grow-1">
           <input
-            type="text"
             class="form-control  flex-grow-1"
-            id="inputPassword2"
             v-model="text"
             placeholder="댓글을 입력하세요."
           />

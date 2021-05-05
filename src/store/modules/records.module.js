@@ -10,7 +10,7 @@ const records = {
       // ------ test ------ //
       {
         r_id: 1,
-        username: "2wjdwo97",
+        username: "admin",
         profile: "",
         url:
           "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
@@ -19,7 +19,7 @@ const records = {
       },
       {
         r_id: 2,
-        username: "pkm1015",
+        username: "test",
         profile: "",
         url:
           "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
@@ -34,12 +34,12 @@ const records = {
       // ------ test ------ //
       {
         id: 1,
-        username: "pkm1015",
+        username: "test",
         text: "I like your guitar playing!",
       },
       {
         id: 2,
-        username: "2wjdwo97",
+        username: "admin",
         text: "I love playing!",
       },
       // ------------------ //
@@ -65,7 +65,7 @@ const records = {
     ADD_TO_CART(state, payload) {
       if (state.cart.length < 5) {
         const index = state.cart.findIndex((record) => {
-          return record.r_id === payload.id;
+          return record.r_id === payload.r_id;
         });
         if (index === -1) {
           state.cart.push(payload);
@@ -132,8 +132,8 @@ const records = {
       );
     },
 
-    addComment({ commit }, { username, text }) {
-      SearchService.addComment(this.comment_rcd_id, username, text).then(
+    addComment({ commit, state }, { username, text }) {
+      SearchService.addComment(state.comment_rcd_id, username, text).then(
         (res) => {
           if (Object.keys(res.data).length !== 0) {
             commit("ADD_COMMENT", {

@@ -33,8 +33,10 @@
           <div class="d-flex flex-column flex-grow-1 pr-5">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <!-- username -->
-              <a :href="`./${record.username}}`" class="font-weight-bold ml-2">
-                {{ record.username }}</a
+              <router-link
+                :to="`/${record.username}`"
+                class="font-weight-bold ml-2"
+                >{{ record.username }}</router-link
               >
               <div class="d-flex flex-row align-items-center">
                 <!-- like -->
@@ -97,13 +99,13 @@ export default {
     },
     comment_rcd_id() {
       return this.$store.state.records.comment_rcd_id;
-    }
+    },
   },
 
   methods: {
     add_to_cart(record) {
       this.$store.commit("records/ADD_TO_CART", {
-        id: record.r_id,
+        r_id: record.r_id,
         profile: record.profile,
       });
     },
@@ -111,10 +113,8 @@ export default {
       if (this.comment_rcd_id === record.r_id) {
         this.$emit("update-visibility");
         this.$store.commit("records/SET_COMMENT_RCD_ID", -1);
-      }
-      else {
-        if (this.comment_rcd_id === -1)
-          this.$emit("update-visibility");
+      } else {
+        if (this.comment_rcd_id === -1) this.$emit("update-visibility");
         this.$store.dispatch("records/getComments", record.r_id);
         this.$store.commit("records/SET_COMMENT_RCD_ID", record.r_id);
       }

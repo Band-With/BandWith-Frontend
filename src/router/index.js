@@ -44,23 +44,23 @@ const routes = [
     path: '/musics',
     name: 'search-music',
     component: () => import('../views/SearchMusic.vue'),
-    children: [
-      {
-        path: '',
-        name: 'music-by-related',
-        component: () => import('../components/searchMusic/SearchMusicByRelated.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-record',
-        component: () => import('../components/searchMusic/SearchMusicByRecord.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-like',
-        component: () => import('../components/searchMusic/SearchMusicByLike.vue'),
-      },
-    ]
+    // children: [
+    //   {
+    //     path: '',
+    //     name: 'music-by-related',
+    //     component: () => import('../components/searchMusic/SearchMusicByRelated.vue'),
+    //   },
+    //   {
+    //     path: '../musics',
+    //     name: 'music-by-record',
+    //     component: () => import('../components/searchMusic/SearchMusicByRecord.vue'),
+    //   },
+    //   {
+    //     path: '../musics',
+    //     name: 'music-by-like',
+    //     component: () => import('../components/searchMusic/SearchMusicByLike.vue'),
+    //   },
+    // ]
   },  
   {
     path: '/musics/:id/records',

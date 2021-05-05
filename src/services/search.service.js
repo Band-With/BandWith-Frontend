@@ -3,6 +3,15 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/";
 
 class SearchService {
+  getMusics(query, filter) {
+    return axios.get(API_URL + "musics", {
+      params: {
+        q: query,
+        filter: filter,
+      },
+    });
+  }
+
   getRecords(music_id, filter) {
     return axios.get(API_URL + "musics/" + music_id + "/records", {
       params: {
