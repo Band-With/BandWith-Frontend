@@ -36,11 +36,6 @@ const routes = [
     component: () => import('../views/Music.vue')
   },
   {
-    path: '/record',
-    name: 'Record',
-    component: () => import('../views/Record.vue')
-  },
-  {
     path: '/login-success',
     name: 'login-success',
     component: () => import('../components/LoginSuccess.vue')
@@ -49,23 +44,28 @@ const routes = [
     path: '/musics',
     name: 'search-music',
     component: () => import('../views/SearchMusic.vue'),
-    children: [
-      {
-        path: '',
-        name: 'music-by-related',
-        component: () => import('../components/SearchMusicByRelated.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-record',
-        component: () => import('../components/SearchMusicByRecord.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-like',
-        component: () => import('../components/SearchMusicByLike.vue'),
-      }
-    ]
+    // children: [
+    //   {
+    //     path: '',
+    //     name: 'music-by-related',
+    //     component: () => import('../components/searchMusic/SearchMusicByRelated.vue'),
+    //   },
+    //   {
+    //     path: '../musics',
+    //     name: 'music-by-record',
+    //     component: () => import('../components/searchMusic/SearchMusicByRecord.vue'),
+    //   },
+    //   {
+    //     path: '../musics',
+    //     name: 'music-by-like',
+    //     component: () => import('../components/searchMusic/SearchMusicByLike.vue'),
+    //   },
+    // ]
+  },  
+  {
+    path: '/musics/:id/records',
+    name: 'search-record',
+    component: () => import('../views/SearchRecord.vue'),
   },
   {
     path: '/:username',
@@ -104,7 +104,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
-    next('/login');
+    next();
+    // next('/login');
   } else {
     next();
   }

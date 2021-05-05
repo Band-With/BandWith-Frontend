@@ -6,112 +6,171 @@
         id="search-music-row1"
         class="d-flex align-items-center justify-content-center"
       >
-        <div id="search-input-wrapper" class="d-flex align-items-center">
-          <input id="search-input" placeholder="Enter any keyword ..." />
-          <button id="search-button"></button>
-        </div>
+        <form id="search-input-wrapper" class="d-flex align-items-center" @submit="searchMusic" >
+          <input
+            id="search-input"
+            placeholder="검색어를 입력하세요."
+            v-model="query"
+          />
+          <button type="submit" id="search-button"></button>
+        </form>
       </div>
 
       <!-- row 2: search results -->
-      <div id="search-music-row2" class="card">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <router-link
-              :key="$route.fullPath"
-                :to="{ name: 'music-by-related', query: { filter: 'rel' } }"
-                :class="{ 'nav-link': true, active: order.isRelOrdActive }"
-                @click.native="setOrder('rel')"
-                >관련순</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link
-              :key="$route.fullPath"
-                :to="{ name: 'music-by-record', query: { filter: 'rcd' } }"
-                :class="{ 'nav-link': true, active: order.isRcdOrdActive }"
-                @click.native="setOrder('rcd')"
-                >녹음순</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link
-              :key="$route.fullPath"
-                :to="{ name: 'music-by-like', query: { filter: 'like' } }"
-                :class="{ 'nav-link': true, active: order.isLikeOrdActive }"
-                @click.native="setOrder('like')"
-                >좋아요순</router-link
-              >
+      <div id="search-music-row2" style="min-height: 60vh">
+        <!-- nav filter -->
+        <div>
+          <ul class="nav nav-tabs">
+            <li
+              v-for="type in filter_list"
+              :key="type.ename"
+              class="nav-item"
+              :class="{ active: type.ename == sort_type }"
+            >
+              <a class="nav-link" @click="toggleFilter(type.ename)">{{
+                type.kname
+              }}</a>
             </li>
           </ul>
         </div>
-        
-        <!-- results -->
-        <router-view></router-view>
-        
+
+        <!-- loading -->
+        <div v-if="loading" class="d-flex justify-content-center ">
+          <span
+            class="m-5 spinner-border spinner-border-sm"
+            style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
+          ></span>
+        </div>
+        <!-- no result -->
+        <div
+          v-else-if="musics == null"
+          class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
+        >
+          <img
+            class="m-3"
+            src="@/assets/images/icon/no_result.png"
+            style="width: 40px; height: 40px;"
+          />
+          <b>녹음이 존재하지 않습니다.</b>
+        </div>
+        <!-- search results -->
+        <Musics v-else :musics="musics" />
       </div>
 
       <!-- row 3: pagination -->
-      <nav
-        id="search-music-row3"
-        class="d-flex align-items-center justify-content-center"
-      >
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Paging />
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import Musics from "@/components/searchMusic/Musics.vue";
+import Paging from "@/components/Paging.vue";
+import SearchService from "@/services/search.service";
 
 export default {
   name: "search-music",
   data() {
     return {
-      order: {
-        isRelOrdActive: true,
-        isRcdOrdActive: false,
-        isLikeOrdActive: false,
-      },
+      loading: true,
+      query: "",
+      filter_list: [
+        { ename: "related", kname: "관련순" },
+        { ename: "record", kname: "녹음순" },
+        { ename: "like", kname: "좋아요순" },
+      ],
+      sort_type: "related", // 검색 필터 초깃값 설정
+      musics: [
+        // temp
+        {
+          id: 1,
+          title: "라일락",
+          composer: "임수호, Dr.JO, 웅킴, N!ko",
+          singer: "아이유",
+          image: "@/assets/images/icon/default_music.png",
+        },
+      ],
     };
   },
 
-  methods: {
-    setOrder(clicked) {
-      for (var o in this.order) {
-        if (this.order[o]) {
-          this.order[o] = false;
-        }
-      }
+  components: {
+    Musics,
+    Paging,
+  },
 
-      if (clicked === "rel") this.order.isRelOrdActive = true;
-      else if (clicked === "rcd") this.order.isRcdOrdActive = true;
-      else if (clicked === "like") this.order.isLikeOrdActive = true;
+  methods: {
+    // 화면 필터 토글
+    toggleFilter(type) {
+      if (this.sort_type != type) {
+        this.setFilter(type); // 필터 설정
+        this.getMusics(type); // 데이터 가져오기
+        this.changeQuery(type);
+      }
+    },
+    
+    // 검색 버튼 눌렀을 때
+    searchMusic(e) {
+      e.preventDefault();
+      this.getMusics(this.sort_type);
+      this.changeQuery(this.sort_type);
+    },
+
+    // 필터 설정
+    setFilter(type) {
+      if (this.sort_type != type) {
+        this.sort_type = type;
+      }
+    },
+
+    // 데이터 가져오기 (axios)
+    getMusics(sort_type) {
+      // musics = null;
+      this.loading = true;
+      SearchService.getMusics(this.query, sort_type).then(
+        (res) => {
+          if (Object.keys(res.data).length !== 0) {
+            this.musics = res.data;
+          } else {
+            this.musics = null;
+            this.loading = false;
+          }
+        },
+        (error) => {
+          error =
+            (error.res && error.res.data) || error.message || error.toString();
+          alert(error);
+          this.loading = false;
+        }
+      );
+    },
+
+    // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
+    changeQuery(type) {
+      return this.$router.replace({
+        path: "",
+        query: {
+          q: this.query,
+          filter: type,
+        },
+      });
     },
   },
 
-  // create() {
-  //   axios.get('/musics').then(res => {
-  //     this.musics = res.data;
-  //   })
-  // }
+  mounted() {
+    this.query =this.$route.query.q;
+
+    const sort_type = this.$route.query.filter;
+
+    // query string = "record", "like"
+    if (sort_type === "record" || sort_type === "like") {
+      this.setFilter(sort_type);
+      this.getMusics(sort_type);
+    }
+    // query string = "latest", undefined, etc.
+    else {
+      this.getMusics("related");
+    }
+  },
 };
 </script>
 
@@ -126,7 +185,7 @@ export default {
 
 .background {
   padding-top: 60px;
-  width: 100%;
+  min-height: 100vh;
   background-color: #fafafa;
 }
 
@@ -139,9 +198,9 @@ export default {
 #search-input-wrapper {
   width: 450px;
   height: 50px;
-  border-radius: 30px;
+  border-radius: 10px;
   background-color: #ffffff;
-  box-shadow: 0px 3px 7px #aaa;
+  box-shadow: 0px 2px 4px #aaa;
 }
 
 #search-input {
@@ -164,7 +223,23 @@ export default {
 }
 
 /* row 2: search result */
-#search-music-row2 {
-  height: 100vh;
+.nav-item {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  border: none !important;
+}
+
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  cursor: pointer;
+}
+
+.active {
+  opacity: 1 !important;
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid #2080e0 !important;
 }
 </style>
