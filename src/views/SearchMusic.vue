@@ -2,10 +2,10 @@
   <div class="background justify-content-center">
     <div id="search-music" class="container">
       <!-- row 1: search input -->
+      <div><button v-on:click="musicInsert"/></div>
       <div
         id="search-music-row1"
-        class="d-flex align-items-center justify-content-center"
-      >
+        class="d-flex align-items-center justify-content-center">
         <div id="search-input-wrapper" class="d-flex align-items-center">
           <input id="search-input" placeholder="Enter any keyword ..." />
           <button id="search-button"></button>
@@ -80,11 +80,21 @@
 
 <script>
 // import axios from 'axios'
+import Music from '../models/music';
+//model을 안쓰고 파라미터로 넘겨줘도된다
+import axios from 'axios';
+const API_URL = 'http://localhost:8080/musics/';
 
 export default {
   name: "search-music",
   data() {
     return {
+      title:"1",
+      singer:"2",
+      composer:'3',
+    
+      music: new Music('', '', ''),
+
       order: {
         isRelOrdActive: true,
         isRcdOrdActive: false,
@@ -104,9 +114,24 @@ export default {
       if (clicked === "rel") this.order.isRelOrdActive = true;
       else if (clicked === "rcd") this.order.isRcdOrdActive = true;
       else if (clicked === "like") this.order.isLikeOrdActive = true;
-    },
-  },
 
+    },
+    musicInsert(title, singer, composer){
+        return axios
+            .post(API_URL + 'insert', {
+                title: title,
+                singer: singer,
+                composer: composer
+            })
+            .then(response => {
+                return response.data;
+            });
+    }
+
+  },
+  mounted() {
+         
+  }
   // create() {
   //   axios.get('/musics').then(res => {
   //     this.musics = res.data;

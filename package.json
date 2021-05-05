@@ -18,6 +18,7 @@
     "cors": "^2.8.5",
     "hooper": "^0.3.4",
     "jquery": "^3.6.0",
+    "simple-vue-timeline": "^2.0.8",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.12",
     "vue-audio-recorder": "^3.0.1",
