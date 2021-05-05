@@ -68,6 +68,11 @@ const routes = [
     ]
   },
   {
+    path: '/bands/:bandname',
+    name: 'bandPage',
+    component: () => import('../views/BandPage.vue'), 
+  },
+  {
     path: '/:username',
     name: 'myPage',
     component: () => import('../views/MyPage.vue'),
