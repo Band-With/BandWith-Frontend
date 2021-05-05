@@ -17,7 +17,7 @@
               class="form-control"
               name="username"
             />
-            <span v-if="submitted &&errors.has('username')">ID를 정상적으로 입력해주세요.</span><br>
+            <span v-if="submitted &&errors.has('username')">ID를 정상적으로 입력해주세요.</span>
           </div>
           <div class="form-group">
             <label for="name">이름</label>
@@ -28,7 +28,7 @@
               class="form-control"
               name="name"
             />
-                        <span v-if="submitted &&errors.has('name')">이름을 정상적으로 입력해주세요.</span><br>
+                        <span v-if="submitted &&errors.has('name')">이름을 정상적으로 입력해주세요.</span>
 
           </div>
           <div class="form-group">
@@ -42,14 +42,14 @@
               ref="password"
               id="password"
             />
-                <span v-if="user.password.length<6">여섯자 이상으로 해주세요.</span><br>
-                <span v-if="score === 0">보안에 취약한 비밀번호입니다.</span>
-                <span v-else-if="score === 2">좋은 비밀번호입니다.</span>
-                <span v-else-if="score === 3">완벽해요! 외울수 있죠?</span>
+                <span v-if="user.password.length<6" class="fs-8">여섯자 이상으로 해주세요.</span>
+                <span v-if="score === 0" class="fs-8">보안에 취약한 비밀번호입니다.</span>
+                <span v-else-if="score === 2" class="fs-8">좋은 비밀번호입니다.</span>
+                <span v-else-if="score === 3" class="fs-8">완벽해요! 외울수 있죠?</span>
             <passwordMeter :password="user.password" @score="onScore" />
           </div>
           <div class="form-group">
-            <label for="passwordConfirm">Password Confirm</label>
+            <label for="passwordConfirm">비밀번호 확인</label>
             <input
             v-model="passwordConfirm"
               v-validate="'required|confirmed:password'"
@@ -57,11 +57,11 @@
               class="form-control"
               name="passwordConfirm"
             />
-            <span v-if="passwordConfirm===user.password">일치합니다!!</span>
-            <span v-if="passwordConfirm===null"></span>
-            <span v-if="(passwordConfirm!==user.password)&&(passwordConfirm!==null)">일치하지 않습니다.</span>
+            <span v-if="passwordConfirm===user.password" class="fs-8">일치합니다!!</span>
+            <span v-if="passwordConfirm===null" class="fs-8"></span>
+            <span v-if="(passwordConfirm!==user.password)&&(passwordConfirm!==null)" class="fs-8">일치하지 않습니다.</span>
           </div>
-          <div class="form-group">
+          <div class="form-group mt-5">
             <button class="btn btn-primary btn-block">Sign Up</button>
           </div>
         </div>
@@ -171,5 +171,9 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+.fs-8 {
+  font-size: 0.8rem;
 }
 </style>
