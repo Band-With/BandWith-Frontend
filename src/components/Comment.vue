@@ -51,15 +51,14 @@
         </div>
         <div class="mt-4 mb-2" style="font-size: 14px">총 <span style="color: rgb(51, 139, 255)">{{count}}</span>개</div>
         <div style="border-top: 1px solid #bdbdbd; overflow:hidden"> <!-- 작성된 댓글 -->
-            <div class="d-flex comment-item px-4 py-3" v-for="item in content" :key="item.comment.comment_id">
-
-                <div style="flex: 2; min-width: 190px" class="d-flex"> <!-- 작성자 정보 -->
+            <div class="d-flex comment-item px-4 py-3" v-for="item in content" :key="item.comment.comment_id"> 
+                <router-link style="flex: 2; min-width: 190px" class="d-flex" :to="{ name: 'prac', params: { username: item.member.username }}"> <!-- 작성자 정보 -->
                     <img v-if="item.member.profile !== null" :src="imgPreUrl + item.member.profile" style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 50%"/>
                     <img v-else src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>
                     <div class="ml-4" style="color: #616161; font-size: 15px">
                         {{ item.member.username }}
                     </div>
-                </div>
+                </router-link>
                 <div style="flex: 9" class="d-flex flex-column"> <!-- 댓글 정보 -->
                     <span class="mb-3">{{ item.comment.content }}</span>
                     <div class="d-flex flex-row" style="font-size: 13px; color: #8f8f8f">
