@@ -80,7 +80,7 @@ const routes = [
       },
       {
         name: 'prac',
-        path: '',
+        path: '/',
         component: () => import('../components/PracticeList.vue') 
       }
     ]
