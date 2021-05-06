@@ -197,7 +197,7 @@ export default {
      background-color:#A4A4A4;
   }
   #banner {
-    height: 70vh; background-image: url("../assets/images/profile.jpg"); color: white;
+    height: 70vh; background-image: url("../assets/images/home-background.jpg"); color: white;
   }
 
 
