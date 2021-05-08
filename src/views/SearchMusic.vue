@@ -64,13 +64,9 @@
 </template>
 
 <script>
-import MusicService from '../services/music.service';
-import MonthService from '../services/monthly.service';
-
 import Musics from "@/components/searchMusic/Musics.vue";
 import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
-
 export default {
   name: "search-music",
   data() {
@@ -95,12 +91,10 @@ export default {
       ],
     };
   },
-
   components: {
     Musics,
     Paging,
   },
-
   methods: {
     // 화면 필터 토글
     toggleFilter(type) {
@@ -117,14 +111,12 @@ export default {
       this.getMusics(this.sort_type);
       this.changeQuery(this.sort_type);
     },
-
     // 필터 설정
     setFilter(type) {
       if (this.sort_type != type) {
         this.sort_type = type;
       }
     },
-
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
       // musics = null;
@@ -146,7 +138,6 @@ export default {
         }
       );
     },
-
     // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
     changeQuery(type) {
       return this.$router.replace({
@@ -157,52 +148,10 @@ export default {
         },
       });
     },
-    hadnleSearch(title){
-      MusicService.searchMusic(title).then(
-          response => {
-              if(Object.keys(response.data).length !== 0){
-                    this.content = response.data;
-                  }
-              },
-              error => {
-                  if(error.response.status === 404)
-                      this.$router.push({ name: '404'});
-          }
-      )
-    },
-    recordView(music_id){
-      MusicService.searchRecord(music_id).then(
-          response => {
-              if(Object.keys(response.data).length !== 0){
-                    this.content = response.data;
-                  }
-              },
-              error => {
-                  if(error.response.status === 404)
-                      this.$router.push({ name: '404'});
-          }
-      )
-    },
-    monthMember(){
-      MonthService.monthlyMember().then(
-          response => {
-              if(Object.keys(response.data).length !== 0){
-                    this.content = response.data;
-                  }
-              },
-              error => {
-                  if(error.response.status === 404)
-                      this.$router.push({ name: '404'});
-          }
-      )
-    },
-    
-
+  },
   mounted() {
     this.query =this.$route.query.q;
-
     const sort_type = this.$route.query.filter;
-
     // query string = "record", "like"
     if (sort_type === "record" || sort_type === "like") {
       this.setFilter(sort_type);
@@ -212,7 +161,7 @@ export default {
     else {
       this.getMusics("related");
     }
-  },}
+  },
 };
 </script>
 
@@ -224,19 +173,16 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
-
 .background {
   padding-top: 60px;
   min-height: 100vh;
   background-color: #fafafa;
 }
-
 /* row 1: search input */
 #search-music-row1,
 #search-music-row3 {
   height: 110px;
 }
-
 #search-input-wrapper {
   width: 450px;
   height: 50px;
@@ -244,18 +190,15 @@ export default {
   background-color: #ffffff;
   box-shadow: 0px 2px 4px #aaa;
 }
-
 #search-input {
   width: 80%;
   height: 100%;
   margin: 20px;
   border: none;
 }
-
 #search-input:focus {
   outline: none;
 }
-
 #search-button {
   width: 25px;
   height: 25px;
@@ -263,21 +206,18 @@ export default {
   cursor: pointer;
   background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
 }
-
 /* row 2: search result */
 .nav-item {
   opacity: 0.5;
   font-size: 0.8rem;
   border: none !important;
 }
-
 .nav-item a {
   color: black;
 }
 .nav-item a:hover {
   cursor: pointer;
 }
-
 .active {
   opacity: 1 !important;
   color: black;

@@ -127,7 +127,7 @@ a.item{
                     <vue-horizontal-list :items="content.band_musics" :options="options">
                         <template v-slot:default="{ item }">
                             <div class="d-flex flex-column align-items-center">
-                                <router-link :to="{ name: 'processing-music', params: { title: item.title }}" class="item">
+                                <router-link :to="{name:'processing-music', params: { bandname: content.band.band_name, music:item.music.title}}" class="item">
                                     <section  class="px-2 p-1 text-area">
                                         <span style="font-size: 13px; color: #444">{{ item.music.title }}</span>
                                     </section>

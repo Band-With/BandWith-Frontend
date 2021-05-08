@@ -30,7 +30,7 @@
             <img src="../assets/images/record.jpg" style="width:445px; height: 400px" />
             <div class="d-flex flex-column justify-content-center align-items-center w-100">
                 <span class="pb-3" style="font-size: 16px; font-weight: lighter">나만의 연주를 지금 바로 공유해 보세요.</span>
-                <router-link to="/record" class="btn btn-primary">연주 녹음하기</router-link>
+                <router-link :to="{ name: 'search-music' }" class="btn btn-primary">연주 녹음하기</router-link>
             </div>
         </div>
         <div v-else class="justify-contents-center">

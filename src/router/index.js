@@ -31,8 +31,8 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    path: '/record',
-    name: 'Record',
+    path: '/musics/:id/recording',
+    name: 'recording',
     component: () => import('../views/Record.vue')
   },
   {
@@ -80,9 +80,14 @@ const routes = [
     component: () => import('../views/PracticeDetail.vue') 
   },
   {
-    path: '/bands/:bandname/processing-music',
+    path: '/:bandname/:music/processing-music',
     name: 'processing-music',
-    component: () => import('../views/ProcessingMusic.vue')
+    component: () => import('../views/ProcessingMusic.vue'),
+  },
+  {
+    path: '/:username/bucket/:music',
+    name: 'bucket',
+    component: () => import('../views/Bucket.vue'),
   },
 ]
 

@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="text-right">
-        <a :href="'../../' + this.user.username + '/bookmarks/new'" class="btn btn-primary">합주 생성</a>
+        <router-link :to="{ name: 'bucket', params: { username: user.username, music:title }}" class="btn btn-primary">합주 생성</router-link>
       </div>
     </div>
   </div>
@@ -32,9 +32,10 @@
 export default {
   data() {
     return {
-
+      title:this.music_title
     };
   },
+  props:['music_title'],
 
   computed: {
     cart() {

@@ -44,5 +44,34 @@ class UserService {
             searchable: searchable
         });
     }
+
+    uploadRecord(member_id, music_id, instrument, searchable, open, file) {  // return comment id
+
+        console.log("a")
+        const obj = {
+            member_id:member_id,
+            music_id:music_id,
+            instrument:instrument,
+            searchable:searchable,
+            open:open,
+        };
+        console.log("b")
+
+        const json = JSON.stringify(obj);
+        console.log("c")
+
+        const blob = new Blob([json], {
+          type: 'application/json'
+        });
+        const data = new FormData();
+        data.append(file, blob);
+
+        return axios.post(API_URL + member_id + "/records", {
+            json:json,
+            data:data
+        });
+      }
+
+
 }
 export default new UserService();

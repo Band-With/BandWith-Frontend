@@ -32,7 +32,7 @@
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
-          <Cart />
+          <Cart v-bind:music_title="music_title" />
           <Comments :is_visible="this.is_comment_visible" />
         </div>
       </div>
@@ -62,7 +62,6 @@ export default {
       is_comment_visible: false, // 댓글창 visibility
     };
   },
-
   components: {
     Records,
     Comments,
