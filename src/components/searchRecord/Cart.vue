@@ -1,5 +1,5 @@
 <template>
-  <div id="record-cart" class="card mb-3">
+  <div v-if="this.user !== null" id="record-cart" class="card mb-3">
     <div class="card-body">
       <h6 class="card-title">장바구니</h6>
       <div id="cart-contents">

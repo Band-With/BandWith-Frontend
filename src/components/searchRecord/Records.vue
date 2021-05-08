@@ -1,11 +1,12 @@
 <template>
-  <div class="d-flex justify-content-center ">
+  <div class="d-flex justify-content-center " :class="{ 'vw100': loading_rcd }" style="min-height: 60vh">
     <!-- loading -->
-    <span
-      v-if="loading_rcd"
-      class="m-5 spinner-border spinner-border-sm"
-      style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
-    ></span>
+    <div v-if="loading_rcd" class="d-flex justify-content-center">
+      <span
+        class="m-5 spinner-border spinner-border-sm"
+        style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"
+      ></span>
+    </div>
     <!-- no result -->
     <div
       v-else-if="records == null"
@@ -124,6 +125,10 @@ export default {
 </script>
 
 <style scoped>
+.vw100 {
+  width: 100vw;
+}
+
 .audio {
   height: 40px;
   width: 100%;

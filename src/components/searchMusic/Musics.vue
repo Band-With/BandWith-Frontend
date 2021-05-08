@@ -1,7 +1,7 @@
 <template>
   <ul class="search-result-ul">
     <li v-for="music in musics" :key="music.id" id="music-result-li">
-      <div class="card-body d-flex flex-row">
+      <div class="card-body d-flex flex-row align-items-center">
         <div class="img-wrapper ml-4 mr-5">
           <img
             class="img-profile"
@@ -10,7 +10,7 @@
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
           <router-link
-            :to="`./musics/${music.id}/records`"
+            :to="`./${music.id}/records`"
             class="card-title font-weight-bold"
             >{{ music.title }}</router-link
           >
@@ -20,6 +20,11 @@
             <dt style="width: 10%">작곡가</dt>
             <dd style="width: 40%">{{ music.composer }}</dd>
           </div>
+        </div>
+        <div>
+          <router-link :to="`./${music.id}/recording`"
+            ><button class="btn btn-primary">녹음하기</button></router-link
+          >
         </div>
       </div>
     </li>
