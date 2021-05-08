@@ -1,21 +1,37 @@
 <template>
-  <div id="record-cart" class="card mb-3">
+  <div v-if="user !== null" id="record-cart" class="card mb-3">
     <div class="card-body">
       <h6 class="card-title">장바구니</h6>
-      <div id="cart-contents">
+      <div
+        v-if="cart.length === 0"
+        class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
+      >
+        <img class="icon mb-3" src="@/assets/images/icon/cart.png" />
+        <b style="font-size: 0.8rem">장바구니가 비었습니다.</b>
+      </div>
+      <div v-else id="cart-contents">
         <ul class="list-group list-group-horizontal d-flex flex-wrap">
           <li
             v-for="record in cart"
-            :key="record.r_id"
+            :key="record.record_id"
             class="list-group-item d-flex"
           >
             <div class="img-wrapper">
-              <img class="img-profile" src="@/assets/images/suzy.jpg" />
+              <img
+                v-if="record.profile == null"
+                src="@/assets/images/icon/default_user.png"
+                class="img-profile"
+              />
+              <img
+                v-else
+                :src="imgPreUrl + record.profile"
+                class="img-profile"
+              />
             </div>
             <img
               class="icon"
               src="@/assets/images/icon/close_light.png"
-              @click="delete_from_cart(record.r_id)"
+              @click="delete_from_cart(record.record_id)"
               style="cursor: pointer"
             />
           </li>
@@ -32,7 +48,8 @@
 export default {
   data() {
     return {
-      title:this.music_title
+      title:this.music_title,
+      imgPreUrl: "data:image/jpeg;base64,",
     };
   },
   props:['music_title'],
@@ -42,15 +59,15 @@ export default {
       return this.$store.state.records.cart;
     },
     user() {
-      return JSON.parse(localStorage.getItem('user'));
-    }
+      return JSON.parse(localStorage.getItem("user"));
+    },
   },
 
   methods: {
     delete_from_cart(id) {
       this.$store.commit("records/DELETE_FROM_CART", id);
-      alert("삭제되었습니다.")
-    }
+      alert("삭제되었습니다.");
+    },
   },
 };
 </script>

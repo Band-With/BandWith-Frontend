@@ -116,7 +116,7 @@ a:hover{
                         <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
                             <div v-for="band in content.bands" :key="band.band_id">
                                 <router-link :to="{ name: 'bandPage', params: { bandname: band.band_name }}" class="d-flex flex-column mr-4 pt-3 text-center">
-                                    <img v-if="band.img === null" src="../assets/images/icon/band_profile_default.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
+                                    <img v-if="band.img === null" src="../assets/images/icon/default_band_profile.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                     <img v-else :src="imgPreUrl + band.img" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                     <span style="font-size: 12px; font-weight: 100">{{ band.band_name }}</span>
                                 </router-link>
@@ -180,6 +180,8 @@ export default {
             response => {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;
+                    this.$router.push({ name: '404'});
+
                 }
             },
             error => {

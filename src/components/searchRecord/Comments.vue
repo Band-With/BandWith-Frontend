@@ -34,12 +34,17 @@
         <ul v-else class="list-group">
           <li
             v-for="comment in this.comments"
-            :key="comment.id"
+            :key="comment.comment.id"
             class="list-group-item"
           >
-            <b class="card-title">{{ comment.username }}</b>
+            <div class="d-flex justify-content-between">
+              <b class="card-title">{{ comment.member.username }}</b>
+              <span class="text-right" style="color: #808080">
+                {{ toDate(comment.comment.created_at) }}
+              </span>
+            </div>
             <p class="card-text">
-              {{ comment.text }}
+              {{ comment.comment.content }}
             </p>
           </li>
         </ul>
@@ -86,6 +91,17 @@ export default {
         });
         this.text = "";
       }
+    },
+
+    toDate(timestamp) {
+      const d = new Date(timestamp);
+      let month = "" + (d.getMonth() + 1);
+      let date = "" + d.getDate();
+
+      if (month.length < 2) month = "0" + month;
+      if (date.length < 2) date = "0" + date;
+
+      return [d.getFullYear(), month, date].join("-");
     },
   },
 };

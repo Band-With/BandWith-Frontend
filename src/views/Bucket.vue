@@ -16,6 +16,7 @@
                 <div>
                     <div style="text-align: center;">
                         <div style="position:relative; display: inline-block; ">
+                            {{cart}}
                             <vue-audio-mixer 
                             :config="config" 
                             size="medium" 
@@ -41,12 +42,17 @@ export default {
     components: {
     VueAudioMixer
   },
-
+  computed:{
+    cart() {
+      return this.$store.state.records.cart;
+    },
+  },
 
   data : function(){     
     return {
       is_loaded:false,
       newconfig:{},
+      trac:this.$store.state.records.cart,
       config: {
         "tracks":[
             {
