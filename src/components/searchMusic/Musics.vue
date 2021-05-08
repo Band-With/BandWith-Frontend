@@ -4,13 +4,19 @@
       <div class="card-body d-flex flex-row align-items-center">
         <div class="img-wrapper ml-4 mr-5">
           <img
-            class="img-profile"
+            v-if="music.img === null"
             src="@/assets/images/icon/default_music.png"
+            class="img-profile"
+          />
+          <img
+            v-else
+            :src="imgPreUrl + music.img"
+            class="img-profile"
           />
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
           <router-link
-            :to="`./${music.id}/records`"
+            :to="`/musics/${music.id}/records`"
             class="card-title font-weight-bold"
             >{{ music.title }}</router-link
           >
@@ -22,7 +28,7 @@
           </div>
         </div>
         <div>
-          <router-link :to="`./${music.id}/recording`"
+          <router-link :to="`/musics/${music.id}/recording`"
             ><button class="btn btn-primary">녹음하기</button></router-link
           >
         </div>
@@ -41,7 +47,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      imgPreUrl: "data:image/jpeg;base64,",
+    };
   },
 };
 </script>
