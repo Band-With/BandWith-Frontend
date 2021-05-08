@@ -127,8 +127,9 @@ export default {
   methods: {
     add_to_cart(record) {
       this.$store.commit("records/ADD_TO_CART", {
-        record_id: record.record.record_id,
-        profile: record.member.profile,
+        music_id: this.music_id,
+        record: record.record,
+        member: record.member,
       });
     },
     get_comments(record_id) {
