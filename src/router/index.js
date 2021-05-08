@@ -45,26 +45,16 @@ const routes = [
     name: 'search-music',
     props:true,
     component: () => import('../views/SearchMusic.vue'),
-    children: [
-      {
-        path: '',
-        name: 'music-by-related',
-        props:true,
-        component: () => import('../components/SearchMusicByRelated.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-record',
-        props:true,
-        component: () => import('../components/SearchMusicByRecord.vue'),
-      },
-      {
-        path: '../musics',
-        name: 'music-by-like',
-        props:true,
-        component: () => import('../components/SearchMusicByLike.vue'),
-      }
-    ]
+  },  
+  {
+    path: '/musics/:id/records',
+    name: 'search-record',
+    component: () => import('../views/SearchRecord.vue'),
+  },
+  {
+    path: '/bands/:bandname',
+    name: 'bandPage',
+    component: () => import('../views/BandPage.vue'), 
   },
   {
     path: '/:username',
@@ -79,7 +69,7 @@ const routes = [
       },
       {
         name: 'prac',
-        path: '',
+        path: '/',
         component: () => import('../components/PracticeList.vue') 
       }
     ]
@@ -88,6 +78,11 @@ const routes = [
     path: '/:username/:music',
     name: 'prac-detail',
     component: () => import('../views/PracticeDetail.vue') 
+  },
+  {
+    path: '/bands/:bandname/processing-music',
+    name: 'processing-music',
+    component: () => import('../views/ProcessingMusic.vue')
   },
 ]
 
@@ -103,7 +98,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
-    next('/login');
+    next();
+    // next('/login');
   } else {
     next();
   }

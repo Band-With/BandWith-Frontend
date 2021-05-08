@@ -1,44 +1,85 @@
 <template>
-  <div class="inner d-flex">
-	<div class="record">
-		<div class="mictest">
-      <MusicVisual id="bar1" style="float:left; margin-left:3px; animation-play-state:paused;"></MusicVisual>
-      <MusicVisual id="bar2" style="float:left;margin-left:3px; animation-delay: 0.2s;animation-play-state:paused;"></MusicVisual>
-      <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
+  <div class="background justify-content-center">
+    <div id="search-music" class="container">
+      <!-- row 1: search input -->
+      <div
+        id="search-music-row1"
+        class="d-flex align-items-center justify-content-center"
+      >
+        
+      </div>
+
+      <!-- row 2: search results -->
+      <div id="search-music-row2" style="min-height: 25vh;" >
+        <!-- nav filter -->
+        <div class="musicinfo" style="float:left;">
+          <img src="../assets/images/IU.jpg" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
+          <div style="float:left; margin-right:10px; font-size:20px; margin-left:15px; margin-top:10px">김동주</div>
+          <div style="float:left; font-size:18px; margin-top:10px;">전선을 간다</div>
+        </div>
+        <!-- no result -->
+        <!-- search results -->
+
+        <div style="margin-left:40px; width:210px; float:left;">
+           <div class="visibility">
+             <div class="noise">공개 범위</div><div style="margin-left:20px; margin-right:100px">
+                <div style="float:left; height:50px;">
+                  <input type="radio" name="visible" value="visible" checked="checked" style="margin-top:20px; margin-bottom:10px;">
+                </div>
+                <div class="radio">Public</div>
+             </div>
+             <div>
+              <div style="float:left; height:50px;">
+               <input type="radio" name="visible" value="visible" style="margin-top:20px; margin-bottom:10px;">
+              </div>
+                <div class="radio">Privacy</div></div>
+                </div>
+        </div>
+
+        <div style="margin-left:10px; width:210px; float:left;">
+           <div class="option">
+             <div class="noise">소음 제거</div><div style="margin-left:20px; margin-right:100px">
+                <div style="float:left; height:50px;">
+                  <input type="radio" name="option" value="option" checked="checked" style="margin-top:20px; margin-bottom:10px;">
+                </div>
+                <div class="radio">적용</div>
+             </div>
+             <div>
+              <div style="float:left; height:50px;">
+               <input type="radio" name="option" value="option" style="margin-top:20px; margin-bottom:10px;">
+              </div>
+                <div class="radio">적용 안함</div></div>
+                </div>
+        </div>
+        <div style="margin-left:10px; width:210px; float:left;">
+           <div class="inst">
+             악기 선택
+                <img src="../assets/images/icon/guitar.png" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img src="../assets/images/icon/piano.png" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img src="../assets/images/icon/drum.png" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
+
+
+            </div>
+        </div>
+
+      </div>
+
+      <!-- row 3: pagination -->
+      <div id="search-music-row3" style="width:1000px; margin-top:100px;">
+        <div style="margin-left:100px; float:left;">
+           <MusicVisual id="bar1" style="float:left; margin-left:3px; animation-play-state:paused;"></MusicVisual>
+           <MusicVisual id="bar2" style="float:left;margin-left:3px; animation-delay: 0.2s;animation-play-state:paused;"></MusicVisual>
+           <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
+        </div>
+        <vue-confirmation-button style="width:250px" :messages="customMessages" v-on:confirmation-success="send()"></vue-confirmation-button>  
+        <div id="search-music-row4" >
+          <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
+        </div>
+      </div>
     </div>
-    <div class="visibility">
-      <div class="noise">공개 범위</div><div style="margin-left:20px; margin-right:100px">
-      <div style="float:left; height:50px;"><input type="radio" name="visible" value="noise" checked="checked" style="margin-top:20px; margin-bottom:10px;"></div>
-      <div class="radio">Public</div></div>
-      <div>
-      <div style="float:left; height:50px;"><input type="radio" name="visible" value="none" style="margin-top:20px; margin-bottom:10px;"></div>
-      <div class="radio">Privacy</div></div>
-    </div>
-		<div class="options">
-      <div class="noise">잡음 제거</div><div style="margin-left:20px; margin-right:100px">
-      <div style="float:left; height:50px;"><input type="radio" name="chk_info" value="noise" checked="checked" style="margin-top:20px; margin-bottom:10px;"></div>
-      <div class="radio">자동</div></div>
-      <div>
-      <div style="float:left; height:50px;"><input type="radio" name="chk_info" value="none" style="margin-top:20px; margin-bottom:10px;"></div>
-      <div class="radio">없음</div></div>
-    </div>
-    <div class="submit">
-<div class="confirmation__button">
-  <vue-confirmation-button
-    :messages="customMessages"
-    v-on:confirmation-success="submit()">
-  </vue-confirmation-button>
-</div>    </div>
-		<div class="musicinfo">
-			<img src="../assets/images/IU.jpg" alt style="border-radius: 50%; width:150px; heights:150px; float:left;">
-      <div style="float:left; margin-right:10px; font-size:20px; margin-left:15px; margin-top:10px">김동주</div>
-      <div style="float:left; font-size:18px; margin-top:10px;">전선을 간다</div>
-		</div>
-		<audio-recorder ref="recorder" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord"
-    :pause-recording="visual" />
-	</div>
   </div>
 </template>
+
 
 <script>
 import Vue from 'vue';
@@ -46,12 +87,13 @@ import AudioRecorder from 'vue-audio-recorder'
 import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 
+
 Vue.use(AudioRecorder)
 export default {
   components: {
     MusicVisual,
-    'vue-confirmation-button': vueConfirmationButton
-  },
+    'vue-confirmation-button': vueConfirmationButton,
+      },
  data: function() {
     return {
       visualization:"false",
@@ -61,7 +103,9 @@ export default {
       '녹음본을 선택하고 눌러주세요',
       '정말 이 녹음본으로 하시겠습니까?',
       '1초 뒤 목록으로 이동합니다.'
-    ]
+    ],
+       
+    
     }
   },
  methods:{
@@ -75,7 +119,6 @@ export default {
     document.getElementById("bar1").style.animationPlayState='paused';
     document.getElementById("bar2").style.animationPlayState='paused';
     document.getElementById("bar3").style.animationPlayState='paused';
-
     }
   },
 	setPlayerDisabled() {
@@ -106,10 +149,7 @@ export default {
         this.setPlayerDisabled();
         this.setVisual(false);
 
-        setTimeout(() => {
-            this.setRecentRecord();
-            this.setPlayerAbled();
-        }, 800);
+
 	},
 	startRecord() {
 		this.showStopBtn();
@@ -117,31 +157,34 @@ export default {
     },
 	selectedRecord() {
     console.log("hi")
-    var i;
     const recorder = this.$refs.recorder;
-    for(i=0; i<recorder.recordList.length; i++){
-        console.log(recorder.recordList)
-
-    }
     
-  }
+    console.log(recorder.selected);
+
+    this.selectedData=recorder.selected;
+
   },
   visual() {
     this.setVisual(false);
-	}
+	},
+  send(){
+    const file = new File([this.selectedData.blob], 'music', { type: this.selectedData.blob.type })
+    console.log(file)
+  }
+ }
 }
 </script>
 
 
 <style scoped>
+
 ::v-deep .ar-content{
 	width:1000px;
 	height:200px;
 	flex-direction: row !important
 }
 ::v-deep .ar{
-	align-content: center;
-	justify-content: center;
+	float:left;
 }
 ::v-deep .ar-player__play {
   fill: white !important;
@@ -173,7 +216,73 @@ export default {
     background-color: #ff6b64 !important;
   }
 }
+.container {
+  width: 100%;
+  padding-right: 5%;
+  padding-left: 5%;
+  margin-right: auto;
+  margin-left: auto;
+}
 
+.background {
+  padding-top: 60px;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+/* row 1: search input */
+#search-music-row1,#search-music-row2
+#search-music-row3 {
+  height: 110px;
+}
+
+#search-input-wrapper {
+  width: 450px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px #aaa;
+}
+
+#search-input {
+  width: 80%;
+  height: 100%;
+  margin: 20px;
+  border: none;
+}
+
+#search-input:focus {
+  outline: none;
+}
+
+#search-button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
+}
+
+/* row 2: search result */
+.nav-item {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  border: none !important;
+}
+
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  cursor: pointer;
+}
+
+.active {
+  opacity: 1 !important;
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid #2080e0 !important;
+}
 ::v-deep .ar-icon {
   border: none;
   box-shadow: 0 2px 5px 1px rgba(158, 158, 158, 0.5);
@@ -189,7 +298,7 @@ export default {
 }
 
 ::v-deep div.ar {
-  margin: auto;
+  margin-top:100px;
   width: 1000px;
   box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
   background-color: #fff;
@@ -202,16 +311,10 @@ export default {
   width: 400px;
 }
 .record{
-  position:absolute;
-  top : 85%;
-  left:50%;
-  transform: translate(-50%,-60%);
+
 }
 .submit{
-  position:absolute;
-  top : -16%;
-  left:70%;
-  transform: translate(-50%,-60%);
+
 }
 .radio{
   font-size: 20px;
@@ -222,28 +325,16 @@ export default {
   margin-bottom:10px;
 }
 .musicinfo{
-  position:absolute;
-  top : -170%;
-  left:17%;
-  transform: translate(-50%,-60%);
+
 }
 .options{
-  position:absolute;
-  top : -15%;
-  left:10%;
-  transform: translate(-50%,-60%);
+
 }
 .mictest{
-  position:absolute;
-  top : -90%;
-  left:27%;
-  transform: translate(-50%,-60%);
+
 }
 .visibility{
-  position:absolute;
-  top : -110%;
-  left:60%;
-  transform: translate(-50%,-60%);
+
 }
 /* disalbed 처리 */
 ::v-deep .ar-player {
@@ -304,26 +395,13 @@ export default {
 
 ::v-deep .confirmation__button{
   width:200px;
-  position:absolute;
-  top : 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  padding:0px;
   }
 
 ::v-deep .confirmation__button.confirmation__button--complete{
   width:200px;
-  position:absolute;
-  top : 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
   }
 ::v-deep #data-v-4917ee8b{
   width:200px;
-  position:absolute;
-  top : 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
 }
 .inner d-flex {
 	height: 400px;

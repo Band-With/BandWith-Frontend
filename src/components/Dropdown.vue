@@ -30,7 +30,7 @@
             <li><a href="#">노래 둘러보기</a></li>
           </ul>
         </li>
-        <li><a :href="'/' + user.username + '/'">마이페이지</a></li>
+        <li><router-link :to="{ name:'prac', params: {username: user.username}}">마이페이지</router-link></li>
         <li><button @click="handleLogout">로그아웃</button></li>
       </ul>
     </nav>

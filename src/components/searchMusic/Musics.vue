@@ -3,11 +3,16 @@
     <li v-for="music in musics" :key="music.id" id="music-result-li">
       <div class="card-body d-flex flex-row">
         <div class="img-wrapper ml-4 mr-5">
-          <img class="img-profile" src="../assets/images/icon/default_music.png" />
+          <img
+            class="img-profile"
+            src="@/assets/images/icon/default_music.png"
+          />
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
-          <a :href="`./musics/${music.id}`" class="card-title font-weight-bold">
-            {{ music.title }}</a
+          <router-link
+            :to="`./musics/${music.id}/records`"
+            class="card-title font-weight-bold"
+            >{{ music.title }}</router-link
           >
           <div class="d-flex mt-2">
             <dt style="width: 10%">가수</dt>
@@ -23,25 +28,17 @@
 
 <script>
 export default {
-  name: "music-by-like",
+  props: {
+    musics: {
+      type: Array,
+      required: true,
+    },
+  },
+
   data() {
-    return {
-      musics: [
-        // temp
-        {
-          id: 1,
-          title: "라일락",
-          composer: "임수호, Dr.JO, 웅킴, N!ko",
-          singer: "아이유",
-          image: "../assets/images/icon/default_music.png",
-        },
-      ]
-    };
+    return {};
   },
-  created() {
-      console.log("component record")
-  },
-}
+};
 </script>
 
 <style scoped>
@@ -60,10 +57,13 @@ export default {
 
 .search-result-ul {
   list-style: none;
+  font-size: 0.9rem;
   padding-left: 0px;
+  min-width: 700px;
 }
 
 #music-result-li {
+  background: #ffffff;
   border-bottom: 1px solid #dfdfdf;
 }
 </style>
