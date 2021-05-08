@@ -56,6 +56,7 @@ export default {
     return {
       visualization:"false",
       volumne:"0",
+      selectedData:"",
       customMessages: [
       '녹음본을 선택하고 눌러주세요',
       '정말 이 녹음본으로 하시겠습니까?',
@@ -115,7 +116,14 @@ export default {
     this.setVisual(true);
     },
 	selectedRecord() {
+    console.log("hi")
+    var i;
+    const recorder = this.$refs.recorder;
+    for(i=0; i<recorder.recordList.length; i++){
+        console.log(recorder.recordList)
 
+    }
+    
   }
   },
   visual() {

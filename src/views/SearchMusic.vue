@@ -2,13 +2,12 @@
   <div class="background justify-content-center">
     <div id="search-music" class="container">
       <!-- row 1: search input -->
-      <div><button v-on:click="musicInsert"/></div>
       <div
         id="search-music-row1"
         class="d-flex align-items-center justify-content-center">
         <div id="search-input-wrapper" class="d-flex align-items-center">
-          <input id="search-input" placeholder="Enter any keyword ..." />
-          <button id="search-button"></button>
+          <input v-model="title" id="search-input" placeholder="Enter any keyword ..." type="text"/>
+          <button v-on:click="monthMember(title, filter)" id="search-button"></button>
         </div>
       </div>
 
@@ -22,8 +21,7 @@
                 :to="{ name: 'music-by-related', query: { filter: 'rel' } }"
                 :class="{ 'nav-link': true, active: order.isRelOrdActive }"
                 @click.native="setOrder('rel')"
-                >관련순</router-link
-              >
+                >관련순</router-link>
             </li>
             <li class="nav-item">
               <router-link
@@ -31,8 +29,7 @@
                 :to="{ name: 'music-by-record', query: { filter: 'rcd' } }"
                 :class="{ 'nav-link': true, active: order.isRcdOrdActive }"
                 @click.native="setOrder('rcd')"
-                >녹음순</router-link
-              >
+                >녹음순</router-link>
             </li>
             <li class="nav-item">
               <router-link
@@ -40,8 +37,7 @@
                 :to="{ name: 'music-by-like', query: { filter: 'like' } }"
                 :class="{ 'nav-link': true, active: order.isLikeOrdActive }"
                 @click.native="setOrder('like')"
-                >좋아요순</router-link
-              >
+                >좋아요순</router-link>
             </li>
           </ul>
         </div>
@@ -80,21 +76,23 @@
 
 <script>
 // import axios from 'axios'
+import MusicService from '../services/music.service';
+import MonthService from '../services/monthly.service';
+
 import Music from '../models/music';
 //model을 안쓰고 파라미터로 넘겨줘도된다
-import axios from 'axios';
-const API_URL = 'http://localhost:8080/musics/';
 
 export default {
   name: "search-music",
   data() {
     return {
-      title:"1",
+      title:'',
+      filter:'latest',
       singer:"2",
       composer:'3',
-    
       music: new Music('', '', ''),
-
+      content:'',
+      music_id:1,
       order: {
         isRelOrdActive: true,
         isRcdOrdActive: false,
@@ -116,17 +114,46 @@ export default {
       else if (clicked === "like") this.order.isLikeOrdActive = true;
 
     },
-    musicInsert(title, singer, composer){
-        return axios
-            .post(API_URL + 'insert', {
-                title: title,
-                singer: singer,
-                composer: composer
-            })
-            .then(response => {
-                return response.data;
-            });
-    }
+    hadnleSearch(title){
+      MusicService.searchMusic(title).then(
+          response => {
+              if(Object.keys(response.data).length !== 0){
+                    this.content = response.data;
+                  }
+              },
+              error => {
+                  if(error.response.status === 404)
+                      this.$router.push({ name: '404'});
+          }
+      )
+    },
+    recordView(music_id){
+      MusicService.searchRecord(music_id).then(
+          response => {
+              if(Object.keys(response.data).length !== 0){
+                    this.content = response.data;
+                  }
+              },
+              error => {
+                  if(error.response.status === 404)
+                      this.$router.push({ name: '404'});
+          }
+      )
+    },
+    monthMember(){
+      MonthService.monthlyMember().then(
+          response => {
+              if(Object.keys(response.data).length !== 0){
+                    this.content = response.data;
+                  }
+              },
+              error => {
+                  if(error.response.status === 404)
+                      this.$router.push({ name: '404'});
+          }
+      )
+    },
+    
 
   },
   mounted() {

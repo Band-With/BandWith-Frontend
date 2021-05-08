@@ -43,21 +43,25 @@ const routes = [
   {
     path: '/musics',
     name: 'search-music',
+    props:true,
     component: () => import('../views/SearchMusic.vue'),
     children: [
       {
         path: '',
         name: 'music-by-related',
+        props:true,
         component: () => import('../components/SearchMusicByRelated.vue'),
       },
       {
         path: '../musics',
         name: 'music-by-record',
+        props:true,
         component: () => import('../components/SearchMusicByRecord.vue'),
       },
       {
         path: '../musics',
         name: 'music-by-like',
+        props:true,
         component: () => import('../components/SearchMusicByLike.vue'),
       }
     ]
