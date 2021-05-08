@@ -13,25 +13,25 @@
         <ul class="list-group list-group-horizontal d-flex flex-wrap">
           <li
             v-for="record in cart"
-            :key="record.record_id"
+            :key="record.record.record_id"
             class="list-group-item d-flex"
           >
             <div class="img-wrapper">
               <img
-                v-if="record.profile == null"
+                v-if="record.member.profile == null"
                 src="@/assets/images/icon/default_user.png"
                 class="img-profile"
               />
               <img
                 v-else
-                :src="imgPreUrl + record.profile"
+                :src="imgPreUrl + record.member.profile"
                 class="img-profile"
               />
             </div>
             <img
               class="icon"
               src="@/assets/images/icon/close_light.png"
-              @click="delete_from_cart(record.record_id)"
+              @click="delete_from_cart(record.record.record_id)"
               style="cursor: pointer"
             />
           </li>
