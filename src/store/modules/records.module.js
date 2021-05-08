@@ -9,7 +9,7 @@ const records = {
     records: [
       // ------ test ------ //
       {
-        r_id: 1,
+        record_id: 1,
         username: "admin",
         profile: "",
         url:
@@ -18,7 +18,7 @@ const records = {
         comment: 5,
       },
       {
-        r_id: 2,
+        record_id: 2,
         username: "test",
         profile: "",
         url:
@@ -65,7 +65,7 @@ const records = {
     ADD_TO_CART(state, payload) {
       if (state.cart.length < 5) {
         const index = state.cart.findIndex((record) => {
-          return record.r_id === payload.r_id;
+          return record.record_id === payload.record_id;
         });
         if (index === -1) {
           state.cart.push(payload);
@@ -78,7 +78,7 @@ const records = {
     },
     DELETE_FROM_CART(state, id) {
       const index = state.cart.findIndex((record) => {
-        return record.r_id === id;
+        return record.record_id === id;
       });
       state.cart.splice(index, 1);
     },
@@ -98,8 +98,8 @@ const records = {
             commit("SET_RECORDS", res.data);
           } else {
             commit("SET_RECORDS", null);
-            commit("SET_LOADING_RCD", false);
           }
+          commit("SET_LOADING_RCD", false);
         },
         (error) => {
           error =
@@ -119,9 +119,9 @@ const records = {
           if (Object.keys(res.data).length !== 0) {
             commit("SET_COMMENTS", res.data);
           } else {
-            commit("SET_RECORDS", null);
-            commit("SET_LOADING_CMT", false);
+            commit("SET_COMMENTS", null);
           }
+          commit("SET_LOADING_CMT", false);
         },
         (error) => {
           error =
