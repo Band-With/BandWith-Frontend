@@ -21,7 +21,7 @@
     <!-- records -->
     <ul v-else class="search-result-ul">
       <li
-        v-for="(index, record) in records"
+        v-for="record in records"
         :key="record.record.record_id"
         id="record-result-li"
       >

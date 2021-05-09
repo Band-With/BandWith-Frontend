@@ -6,44 +6,10 @@ const records = {
   state: {
     loading_rcd: true,
     loading_cmt: true,
-    records: [
-      // ------ test ------ //
-      {
-        record_id: 1,
-        username: "admin",
-        profile: "",
-        url:
-          "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
-        like: 15,
-        comment: 5,
-      },
-      {
-        record_id: 2,
-        username: "test",
-        profile: "",
-        url:
-          "https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a",
-        like: 3,
-        comment: 2,
-      },
-      // ------------------ //
-    ],
+    records: [],
     cart: [],
     comment_rcd_id: -1, // 댓글 보기로 선택된 녹음의 ID
-    comments: [
-      // ------ test ------ //
-      {
-        id: 1,
-        username: "test",
-        text: "I like your guitar playing!",
-      },
-      {
-        id: 2,
-        username: "admin",
-        text: "I love playing!",
-      },
-      // ------------------ //
-    ],
+    comments: [],
   },
 
   mutations: {
@@ -65,12 +31,12 @@ const records = {
     ADD_TO_CART(state, payload) {
       if (state.cart.length < 5) {
         const index = state.cart.findIndex((record) => {
-          return record.record_id === payload.record_id;
+          return record.record.record_id === payload.record.record_id;
         });
         if (index === -1) {
           state.cart.push(payload);
         } else {
-          state.cart.push(payload);
+          alert("이미 장바구니에 담겨있습니다.");
         }
       } else {
         alert("장바구니에는 5개까지 담을 수 있습니다.");
@@ -89,12 +55,12 @@ const records = {
 
   actions: {
     getRecords({ commit }, { music_id, filter }) {
-      // commit("GET_RECORDS", null);
       commit("SET_LOADING_RCD", true);
 
       SearchService.getRecords(music_id, filter).then(
         (res) => {
           if (Object.keys(res.data).length !== 0) {
+            console.log(res.data);
             commit("SET_RECORDS", res.data);
           } else {
             commit("SET_RECORDS", null);
@@ -111,7 +77,6 @@ const records = {
     },
 
     getComments({ commit }, record_id) {
-      // commit("SET_COMMENTS", null);
       commit("SET_LOADING_CMT", true);
 
       SearchService.getComments(record_id).then(
@@ -126,7 +91,8 @@ const records = {
         (error) => {
           error =
             (error.res && error.res.data) || error.message || error.toString();
-          alert(error);
+          if (error.response.status === 404) this.$router.push({ name: "404" });
+          else alert(error);
           commit("SET_LOADING_CMT", false);
         }
       );

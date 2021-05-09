@@ -8,11 +8,11 @@
       >
         <form id="search-input-wrapper" class="d-flex align-items-center">
           <input
-            name="input"
+            name="q"
             id="search-input"
             placeholder="검색어를 입력하세요."
           />
-          <button @click="submit()" id="search-button"></button>
+          <button @click="submit" id="search-button"></button>
         </form>
       </div>
     </div>
@@ -239,7 +239,8 @@ export default {
   },
   mounted() {},
   methods: {
-    submit() {
+    submit(e) {
+      e.preventDefault();
       this.searched = document.getElementById("search-input").value;
       this.$router.push({
         name: "search-music",

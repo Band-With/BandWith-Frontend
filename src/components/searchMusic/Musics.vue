@@ -16,13 +16,13 @@
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
           <router-link
-            :to="`/musics/${music.id}/records`"
+            :to="`/musics/${music.music_id}/records`"
             class="card-title font-weight-bold"
             >{{ music.title }}</router-link
           >
           <div class="d-flex mt-2">
             <dt style="width: 10%">가수</dt>
-            <dd style="width: 30%">{{ music.singer }}</dd>
+            <dd class="mr-4" style="width: 30%">{{ music.singer }}</dd>
             <dt style="width: 10%">작곡가</dt>
             <dd style="width: 40%">{{ music.composer }}</dd>
           </div>

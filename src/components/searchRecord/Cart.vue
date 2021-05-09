@@ -38,7 +38,14 @@
         </ul>
       </div>
       <div class="text-right">
-        <router-link :to="{ name: 'bucket', params: { username: user.username, music:title }}" class="btn btn-primary">합주 생성</router-link>
+        <router-link
+          :to="{
+            name: 'bucket',
+            params: { username: user.username, music: music_title },
+          }"
+          class="btn btn-primary"
+          >합주 생성</router-link
+        >
       </div>
     </div>
   </div>
@@ -48,11 +55,15 @@
 export default {
   data() {
     return {
-      title:this.music_title,
       imgPreUrl: "data:image/jpeg;base64,",
     };
   },
-  props:['music_title'],
+  props: {
+    music_title: {
+      type: String,
+      required: true,
+    },
+  },
 
   computed: {
     cart() {
