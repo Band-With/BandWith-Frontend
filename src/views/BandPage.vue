@@ -88,7 +88,7 @@ a.item{
                     </div>
                     <div v-for="member in content.members" :key="member.member_id" class="d-flex justify-content-between mt-3">
                         <div>
-                            <router-link :to="{ name: 'myPage', params: { username: member.username}}">
+                            <router-link :to="{ name: 'prac', params: { username: member.username}}">
                                 <img v-if="member.img !== null" :src="imgPreUrl + member.img" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <img v-else src="../assets/images/profile.jpg" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <span style="color: #444; font-size: 15px; margin-left: 10px">{{ member.username }}</span>
@@ -193,7 +193,7 @@ export default {
                     },
                     {
                         "member_id": 1,
-                        "username": "member1",
+                        "username": "bongbong",
                         "img": null
                     },
                     {
