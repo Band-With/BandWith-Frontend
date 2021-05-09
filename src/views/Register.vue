@@ -147,6 +147,9 @@ export default {
                 }
             );
         }
+        else{
+          this.loading=false;
+        }
       })
     }
   },
