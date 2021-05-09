@@ -126,7 +126,7 @@ export default {
 
   methods: {
     likeToggle(index){
-      
+      index;
     },
     add_to_cart(record) {
       this.$store.commit("records/ADD_TO_CART", {

@@ -3,7 +3,7 @@
     <div id="search-record" class="container">
       <!-- row 1: search info -->
       <div id="search-record-row1" class="mt-5 mb-3">
-        <b>'{{ music_info }}'</b>에 대한 결과입니다.
+        <b>'{{ music_title }}'</b>에 대한 결과입니다.
       </div>
       <!-- row 2 -->
       <div id="search-record-row2" class="row">
@@ -32,12 +32,12 @@
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
-          <Cart />
+          <Cart v-bind:music_title="music_title" />
           <Comments :is_visible="this.is_comment_visible" />
         </div>
       </div>
       <!-- row 3: pagination -->
-      <!-- <Paging :page="Number(this.page)" /> -->
+      <Paging />
     </div>
   </div>
 </template>
@@ -46,14 +46,13 @@
 import Records from "@/components/searchRecord/Records.vue";
 import Comments from "@/components/searchRecord/Comments.vue";
 import Cart from "@/components/searchRecord/Cart.vue";
-// import Paging from "@/components/Paging.vue";
-import SearchService from "@/services/search.service";
+import Paging from "@/components/Paging.vue";
 
 export default {
   name: "search-record",
   data() {
     return {
-      music_info: "",
+      music_title: "아이유 - 하루끝", // 노래 제목
       filter_list: [
         { ename: "latest", kname: "최신순" },
         { ename: "like", kname: "좋아요순" },
@@ -63,12 +62,11 @@ export default {
       is_comment_visible: false, // 댓글창 visibility
     };
   },
-
   components: {
     Records,
     Comments,
     Cart,
-    // Paging,
+    Paging,
   },
 
   methods: {
@@ -110,7 +108,7 @@ export default {
   },
 
   computed: {
-    page() {
+    qs_page() {
       return this.$route.query.p || 1;
     },
     music_id() {
@@ -122,13 +120,8 @@ export default {
   },
 
   mounted() {
-    SearchService.getMusic(this.music_id).then(
-      (res) => {
-        if (Object.keys(res.data).length !== 0) {
-          this.music_info = res.data.title + " - " + res.data.singer;
-        }
-      }
-    );
+    // TODO 레코드 제목/가수 설정 this.music_id -> title, singer
+    this.music_title = this.music_id;
 
     const sort_type = this.$route.query.filter;
 

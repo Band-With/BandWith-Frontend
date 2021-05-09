@@ -44,5 +44,27 @@ class UserService {
             searchable: searchable
         });
     }
+
+    uploadRecord(member_id, music_id, instrument, searchable, visible, file) {  // return comment id
+        const obj = {
+            member_id:member_id,
+            music_id:music_id,
+            instrument:instrument,
+            searchable:searchable,
+            public:visible,
+        };
+        const json = [JSON.stringify(obj)];
+
+        const data = new FormData();
+        data.append('json', json);
+        data.append('file', file);
+
+        return axios.post(API_URL + member_id + "/recording", data, {headers: {
+            'Content-Type': 'multipart/form-data'
+        }}
+        );
+      }
+
+
 }
 export default new UserService();

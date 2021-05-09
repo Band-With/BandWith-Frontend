@@ -31,9 +31,9 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    path: '/music',
-    name: 'Music',
-    component: () => import('../views/Music.vue')
+    path: '/musics/:title/recording',
+    name: 'recording',
+    component: () => import('../views/Record.vue')
   },
   {
     path: '/login-success',
@@ -43,6 +43,7 @@ const routes = [
   {
     path: '/musics',
     name: 'search-music',
+    props:true,
     component: () => import('../views/SearchMusic.vue'),
   },  
   {
@@ -77,7 +78,17 @@ const routes = [
     path: '/:username/:music',
     name: 'prac-detail',
     component: () => import('../views/PracticeDetail.vue') 
-  }
+  },
+  {
+    path: '/:bandname/:music/processing-music',
+    name: 'processing-music',
+    component: () => import('../views/ProcessingMusic.vue'),
+  },
+  {
+    path: '/:username/bucket/:music',
+    name: 'bucket',
+    component: () => import('../views/Bucket.vue'),
+  },
 ]
 
 const router = new VueRouter({
