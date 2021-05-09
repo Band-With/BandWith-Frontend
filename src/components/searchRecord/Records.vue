@@ -21,7 +21,7 @@
     <!-- records -->
     <ul v-else class="search-result-ul">
       <li
-        v-for="record in records"
+        v-for="(index, record) in records"
         :key="record.record.record_id"
         id="record-result-li"
       >
@@ -55,7 +55,7 @@
               </router-link>
               <div class="d-flex flex-row align-items-center">
                 <!-- like -->
-                <button class="btn d-flex align-items-center">
+                <button class="btn d-flex align-items-center" @click="likeToggle(index)">
                   <img class="icon" src="@/assets/images/icon/like_off.png" />
                   <span class="ml-2">{{ record.likeNum }}</span>
                 </button>
@@ -125,6 +125,9 @@ export default {
   },
 
   methods: {
+    likeToggle(index){
+      
+    },
     add_to_cart(record) {
       this.$store.commit("records/ADD_TO_CART", {
         music_id: this.music_id,

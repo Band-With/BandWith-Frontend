@@ -81,7 +81,7 @@ export default {
       filter_list: [
         { ename: "related", kname: "관련순" },
         { ename: "record", kname: "녹음순" },
-        { ename: "like", kname: "좋아요순" },
+        { ename: "latest", kname: "최신순" },
       ],
       sort_type: "related", // 검색 필터 초깃값 설정
       musics: [
@@ -142,11 +142,11 @@ export default {
 
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
-      // musics = null;
       this.loading = true;
       SearchService.getMusics(this.query, sort_type).then(
         (res) => {
           if (Object.keys(res.data).length !== 0) {
+            console.log(res.data);
             this.musics = res.data;
           } else {
             this.musics = null;
@@ -164,13 +164,22 @@ export default {
 
     // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
     changeQuery(type) {
-      return this.$router.replace({
-        path: "",
-        query: {
-          q: this.query,
-          filter: type,
-        },
-      });
+      if (this.query == null) {
+        return this.$router.replace({
+          path: "",
+          query: {
+            filter: type,
+          },
+        });
+      } else {
+        return this.$router.replace({
+          path: "",
+          query: {
+            q: this.query,
+            filter: type,
+          },
+        });
+      }
     },
   },
 
@@ -179,12 +188,12 @@ export default {
 
     const sort_type = this.$route.query.filter;
 
-    // query string = "record", "like"
-    if (sort_type === "record" || sort_type === "like") {
+    // query string = "record", "latest"
+    if (sort_type === "record" || sort_type === "latest") {
       this.setFilter(sort_type);
       this.getMusics(sort_type);
     }
-    // query string = "latest", undefined, etc.
+    // query string = "related", undefined, etc.
     else {
       this.getMusics("related");
     }

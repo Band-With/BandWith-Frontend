@@ -8,6 +8,8 @@ class SearchService {
   }
 
   getMusics(query, filter) {
+    if (query == null)
+      query = '';
     return axios.get(API_URL + "musics", {
       params: {
         q: query,
