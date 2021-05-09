@@ -77,7 +77,7 @@ a.item{
             <div id="band-info" class="d-flex flex-column position-fixed align-items-center py-5" :class="{ 'band-info-1' : this.windowWidth < 1300}"> <!-- band info -->
                 <div class="d-flex flex-column mb-1"> <!-- band info -->
                     <img v-if="content.band.img !== null" style="width: 160px; height: 160px; border: 1px solid #ddd; border-radius: 50%" :src="imgPreUrl + band.img"/>
-                    <img v-else style="width: 160px; height: 160px; border: 1px solid #ddd; border-radius: 50%" src="../assets/images/icon/band_profile_default.png"/>
+                    <img v-else style="width: 160px; height: 160px; border: 1px solid #ddd; border-radius: 50%" src="../assets/images/icon/default_band_profile.png"/>
                     <span style="font-size: 25px" class="mt-2 mb-3">{{ content.band.band_name }}</span>
                     <span style="font-size: 14px">좋아요 {{ totalLikes }}개</span>
                 </div>
