@@ -56,9 +56,9 @@ class UserService {
         });
     }
 
-    uploadRecord(member_id, music_id, instrument, searchable, visible, file) {  // return comment id
+    uploadRecord(username, music_id, instrument, searchable, visible, file) {  // return comment id
         const obj = {
-            memberId:1,
+            memberId:username,
             musicId:music_id,
             instrument:instrument,
             searchable:searchable,
@@ -73,7 +73,7 @@ class UserService {
         data.append('file', file);
         data.append('json', blob);
 
-        return axios.post(API_URL + member_id + "/recording", data, {
+        return axios.post(API_URL + username + "/recording", data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -103,7 +103,6 @@
            <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
         </div>
         <div style="width:200px; height:100px; position:absolute; left:45%; top:47%;">
-                  <PrintArray v-bind:OnlyMyRecord="OnlyMyRecord" />
         </div>
 
         <vue-confirmation-button  ref="confirmationButton"
@@ -126,7 +125,6 @@ import AudioRecorder from 'vue-audio-recorder'
 import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
-import PrintArray from "@/components/PrintArray.vue";
 
 
 Vue.use(AudioRecorder)
@@ -134,7 +132,7 @@ export default {
   name:'recording',
   components: {
     MusicVisual,
-    'vue-confirmation-button': vueConfirmationButton,PrintArray
+    'vue-confirmation-button': vueConfirmationButton,
       },
  data: function() {
     return {
@@ -145,7 +143,7 @@ export default {
       visible:true,
       instrunmentchecked:'0',
       music_id:'',
-      user_id:'',
+      username:'',
       recordchecked:'0',
       OnlyMyRecord:[],
       customMessages: [
@@ -161,7 +159,7 @@ export default {
         },
  
     musicParam() {
-            return this.$route.params.title;
+            return this.$route.params.musicId;
         },
 
     },
@@ -237,12 +235,11 @@ export default {
     this.setVisual(false);
 	},
   send(){
-    this.music_id=this.$route.params.title;
-    this.user_id=this.user.id;
+    this.music_id=this.$route.params.musicId;
+    this.username=this.user.username;
 
     const file = new File([this.selectedData.blob], 'file', { type: this.selectedData.blob.type });
-    UserService.uploadRecord(this.user_id, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
-
+    UserService.uploadRecord(this.username, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
 
   },
   pickPiano(){

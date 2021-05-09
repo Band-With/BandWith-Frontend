@@ -36,7 +36,7 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    path: '/musics/:title/recording',
+    path: '/musics/:musicId/recording',
     name: 'recording',
     component: () => import('../views/Record.vue')
   },

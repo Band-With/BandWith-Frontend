@@ -8,11 +8,7 @@
             src="@/assets/images/icon/default_music.png"
             class="img-profile"
           />
-          <img
-            v-else
-            :src="imgPreUrl + music.img"
-            class="img-profile"
-          />
+          <img v-else :src="imgPreUrl + music.img" class="img-profile" />
         </div>
         <div class="txt-wrapper card-text flex-grow-1">
           <router-link
@@ -28,7 +24,9 @@
           </div>
         </div>
         <div>
-          <router-link :to="{ name: 'recording', params: { title: music.title }}"  ><button class="btn btn-primary">녹음하기</button></router-link
+          <router-link
+            :to="{ name: 'recording', params: { musicId: music.music_id } }"
+            ><button class="btn btn-primary">녹음하기</button></router-link
           >
         </div>
       </div>
