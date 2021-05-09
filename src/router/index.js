@@ -11,6 +11,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/verification',
+    name: 'Verification',
+    component: () => import('../views/EmailAuthen')
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import('../views/404.vue')
