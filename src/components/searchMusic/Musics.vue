@@ -28,8 +28,7 @@
           </div>
         </div>
         <div>
-          <router-link :to="`/musics/${music.id}/recording`"
-            ><button class="btn btn-primary">녹음하기</button></router-link
+          <router-link :to="{ name: 'recording', params: { title: music.title }}"  ><button class="btn btn-primary">녹음하기</button></router-link
           >
         </div>
       </div>

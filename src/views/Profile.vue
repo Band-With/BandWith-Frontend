@@ -180,15 +180,14 @@ export default {
        
     },
   methods: {
-    
     submit(){
       this.searched=document.getElementById("search-input").value;
 
-       MusicService.searchMusic(this.searched).then(
+       MusicService.searchMusic(this.searched, 'rel').then(
             response => {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;
-                    this.$router.push({ name: 'search-music', query:{title:this.searched, filter:'rel'}});
+                    this.$router.push({ name: 'search-music', query:{q:this.searched, filter:'rel'}});
                 }
             },
             error => {

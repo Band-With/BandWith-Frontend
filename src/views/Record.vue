@@ -13,11 +13,43 @@
         <!-- nav filter -->
         <div class="musicinfo" style="float:left;">
           <img src="../assets/images/IU.jpg" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
-          <div style="float:left; margin-right:10px; font-size:20px; margin-left:15px; margin-top:10px">{{this.$route.params.id}}</div>
-          <div style="float:left; font-size:18px; margin-top:10px;">{{this.$route.params.id}}</div>
+          <div style="float:left; margin-right:10px; font-size:20px; margin-left:15px; margin-top:10px">{{musicParam}}
+                            
+          </div>
+          <img i src="../assets/images/icon/note.png" style="height:10%; width:10%; float:left;" />
+
+            
         </div>
         <!-- no result -->
         <!-- search results -->
+
+<div style="margin-left:10px; width:400px; float:left; font-size:25px; text-align:center;">
+                       악기 선택
+           <div class="inst" style="width:400px" >
+             <div style="position:relative">
+               <img v-on:click="pickGuitar" src="../assets/images/icon/guitar.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img id="guitar" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+             </div>
+             <div style="position:relative">
+                <img v-on:click="pickPiano" src="../assets/images/icon/piano.png" alt style="position:absolute; left:25%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img id="piano" src="../assets/images/icon/check.png" alt style="position:absolute;display:none; left:25%; top:0%;   border-radius: 50%; width:100px; heights:100px; float:left;">
+             </div>
+             <div style="position:relative">
+                <img v-on:click="pickViolin" src="../assets/images/icon/violin.png" alt style="position:absolute; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img id="violin" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
+             </div>
+             <div style="position:relative">
+                <img v-on:click="pickDrum" src="../assets/images/icon/drum.png" alt style="position:absolute;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+                <img id="drum" src="../assets/images/icon/check.png" alt style="position:absolute;display:none;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+             </div>
+            </div>
+        </div>
+
+
+
+
+
+
 
         <div style="margin-left:40px; width:210px; float:left;">
            <div class="visibility">
@@ -57,28 +89,9 @@
              </div>                </div>
                 </div>
         </div>
-        <div style="margin-left:10px; width:210px; float:left; font-size:25px;">
-                       악기 선택
+        
 
-           <div class="inst" style="width:400px" >
-             <div style="position:relative">
-               <img v-on:click="pickGuitar" src="../assets/images/icon/guitar.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="guitar" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickPiano" src="../assets/images/icon/piano.png" alt style="position:absolute; left:25%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="piano" src="../assets/images/icon/check.png" alt style="position:absolute;display:none; left:25%; top:0%;   border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickViolin" src="../assets/images/icon/violin.png" alt style="position:absolute; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="violin" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickDrum" src="../assets/images/icon/drum.png" alt style="position:absolute;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="drum" src="../assets/images/icon/check.png" alt style="position:absolute;display:none;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-            </div>
-        </div>
+
 
       </div>
 
@@ -89,8 +102,12 @@
            <MusicVisual id="bar2" style="float:left;margin-left:3px; animation-delay: 0.2s;animation-play-state:paused;"></MusicVisual>
            <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
         </div>
+        <div style="width:200px; height:100px; position:absolute; left:45%; top:47%;">
+                  <PrintArray v-bind:OnlyMyRecord="OnlyMyRecord" />
+        </div>
+
         <vue-confirmation-button  ref="confirmationButton"
-          style="width:250px; margin-left:600px;"
+          style="width:250px; margin-left:700px;"
           :messages="customMessages" v-on:confirmation-incremented="check()"
           v-on:confirmation-success="send()">
         </vue-confirmation-button>  
@@ -109,6 +126,7 @@ import AudioRecorder from 'vue-audio-recorder'
 import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
+import PrintArray from "@/components/PrintArray.vue";
 
 
 Vue.use(AudioRecorder)
@@ -116,21 +134,20 @@ export default {
   name:'recording',
   components: {
     MusicVisual,
-    'vue-confirmation-button': vueConfirmationButton,
+    'vue-confirmation-button': vueConfirmationButton,PrintArray
       },
  data: function() {
     return {
       visualization:"false",
       selectedInstrunment:' v-on:click="pick"',
-      volumne:"0",
       selectedData:"",
-      option:'do',
-      visible:'public',
+      option:true,
+      visible:true,
       instrunmentchecked:'0',
       music_id:'',
       user_id:'',
       recordchecked:'0',
-
+      OnlyMyRecord:[],
       customMessages: [
         '모두 선택하신 후에 클릭해주세요!',
       '모두 정상상적으로 선택되었나요?',
@@ -144,9 +161,7 @@ export default {
         },
  
     musicParam() {
-
-
-            return this.$route.params.id;
+            return this.$route.params.title;
         },
 
     },
@@ -194,7 +209,6 @@ export default {
         this.hideStopBtn();
         this.setPlayerDisabled();
         this.setVisual(false);
-    
 	},
 	startRecord() {
 		this.showStopBtn();
@@ -203,18 +217,31 @@ export default {
 	selectedRecord() {
     const recorder = this.$refs.recorder;
     this.selectedData=recorder.selected;
+    this.OnlyMyRecord.push(this.selectedData);
     this.recordchecked='1';
+
+    for(let i = 0; i < this.OnlyMyRecord.length; i++) {
+        const currElem = this.OnlyMyRecord[i];
+         for(let j = i+1; j < this.OnlyMyRecord.length; j++) {
+           if(currElem === this.OnlyMyRecord[j]) {
+             this.OnlyMyRecord.pop(currElem);
+
+   }
+  }
+
+}
+
+    console.log(this.OnlyMyRecord);
   },
   visual() {
     this.setVisual(false);
 	},
   send(){
-    this.music_id=this.$route.params.id;
+    this.music_id=this.$route.params.title;
     this.user_id=this.user.id;
 
-    const file = new File([this.selectedData.blob], 'music', { type: this.selectedData.blob.type });
-
-    UserService.uploadRecord(this.user_id, this.music_id,this.selectedInstrunment, this.visible, this.option, file);
+    const file = new File([this.selectedData.blob], 'file', { type: this.selectedData.blob.type });
+    UserService.uploadRecord(this.user_id, 1,this.selectedInstrunment, this.option, this.visible, file);
 
 
   },
@@ -256,25 +283,25 @@ export default {
   },
 
 setOption(){
-    this.option='do';
+    this.option=true;
     document.getElementById("option").style.display='inline';
     document.getElementById("no").style.display='none';
   },
 
   setNoOption(){
-    this.option='no';
+    this.option=false;
     document.getElementById("option").style.display='none';
     document.getElementById("no").style.display='inline';
   },
 
 setPublic(){
-    this.visible='public';
+    this.visible=true;
     document.getElementById("public").style.display='inline';
     document.getElementById("private").style.display='none';
   },
 
   setPrivate(){
-    this.visible='private';
+    this.visible=false;
     document.getElementById("public").style.display='none';
     document.getElementById("private").style.display='inline';
 
@@ -461,7 +488,7 @@ setPublic(){
   margin-bottom:10px;
 }
 .musicinfo{
-
+  width:300px;
 }
 .options{
 
@@ -546,8 +573,8 @@ setPublic(){
 	left:30%;
 	width: 100%;
 }
-
-
-
+::v-deep .ar-records__record--selected{
+  background-color:#F5F6CE;
+}
 
 </style>

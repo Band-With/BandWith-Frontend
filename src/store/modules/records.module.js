@@ -70,7 +70,7 @@ const records = {
         if (index === -1) {
           state.cart.push(payload);
         } else {
-          alert("이미 장바구니에 존재하는 녹음입니다.");
+          state.cart.push(payload);
         }
       } else {
         alert("장바구니에는 5개까지 담을 수 있습니다.");
