@@ -10,7 +10,13 @@
                 <div id="verification-box" class="mt-5 d-flex flex-column py-4 align-items-center justify-content-between">
                     <span>인증을 위한 코드를 입력하세요.</span>
                     <input style="border:1px solid #dbdbdb; height: 35px; border-radius: 4px" type="text" v-model="key"/>
-                    <button id="confirm-button" @click="handleRegister">이메일 인증하기</button>
+                    <div class="d-flex flex-row">
+                        <button id="resend-button" class="mr-3" @click="send(user.email)" :disabled="loading">
+                            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                            인증코드 재전송
+                        </button>
+                        <button id="confirm-button" @click="handleRegister" :disabled="loading">이메일 인증하기</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,6 +30,7 @@ export default {
     name: 'Email',
     data() {
         return {
+            loading: false,
             userinfo: "",
             key: ""
         };
@@ -34,6 +41,22 @@ export default {
         }
     },
     methods: {
+        send(email){
+            this.loading = true;
+            authService.sendEmail(email).then(
+                    response => {
+                        console.log(response);
+                        this.loading = false;
+                    },
+                    error => {
+                    console.log(error)
+                        // this.content =
+                        // (error.response && error.response.data) ||
+                        // error.message ||
+                        // error.toString();
+                    }
+                );
+            },
         handleRegister() {
             authService.checkCode(this.user.email, this.key).then(
                 () => {
@@ -59,7 +82,7 @@ export default {
             )
         }
     }
-};
+}
 </script>
 
 <style scoped>
@@ -88,7 +111,7 @@ export default {
         color: #fff;
         font-size: 13px;
         border-radius: 3px;
-        width: 120px;
+        width: 130px;
         height: 35px;
     }
     #resend-button{
@@ -97,7 +120,7 @@ export default {
         color: rgb(50, 98, 255);
         font-size: 13px;
         border-radius: 3px;
-        width: 120px;
+        width: 130px;
         height: 35px;
     }
 </style>
