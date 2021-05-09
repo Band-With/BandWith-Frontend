@@ -1,5 +1,5 @@
 <template>
-  <div id="record-comment" class="card" :class="{ invisible: !is_visible }">
+  <div id="record-comment" class="card mb-5" :class="{ invisible: !is_visible }">
     <div class="card-body">
       <h6 class="card-title">댓글</h6>
       <!-- leave a comment -->

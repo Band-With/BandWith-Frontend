@@ -21,7 +21,7 @@
     <!-- records -->
     <ul v-else class="search-result-ul">
       <li
-        v-for="record in records"
+        v-for="(record, idx) in records"
         :key="record.record.record_id"
         id="record-result-li"
       >
@@ -31,7 +31,7 @@
             :to="`/${record.member.username}`"
             class="font-weight-bold ml-2"
           >
-            <div class="img-wrapper ml-4 mr-5">
+            <div class="img-wrapper ml-2 mr-4">
               <img
                 v-if="record.member.profile === null"
                 src="@/assets/images/icon/default_user.png"
@@ -55,7 +55,7 @@
               </router-link>
               <div class="d-flex flex-row align-items-center">
                 <!-- like -->
-                <button class="btn d-flex align-items-center" @click="likeToggle(index)">
+                <button class="btn d-flex align-items-center" @click="likeToggle(idx)">
                   <img class="icon" src="@/assets/images/icon/like_off.png" />
                   <span class="ml-2">{{ record.likeNum }}</span>
                 </button>
@@ -80,7 +80,7 @@
             <audio controls class="audio mb-1">
               <!-- audio controller -->
               <source
-                src="https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a"
+                :src="record.record.file_url"
                 type="audio/mpeg"
               />
               Your browser does not support the audio tag.
@@ -109,6 +109,7 @@ export default {
   data() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",
+      likeToggleList: []
     };
   },
 

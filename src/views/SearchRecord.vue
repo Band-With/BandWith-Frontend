@@ -32,7 +32,7 @@
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
-          <Cart v-bind:music_title="music.title" />
+          <Cart :music_title="music.title" />
           <Comments :is_visible="this.is_comment_visible" />
         </div>
       </div>
@@ -57,7 +57,7 @@ export default {
       filter_list: [
         { ename: "latest", kname: "최신순" },
         { ename: "like", kname: "좋아요순" },
-        { ename: "follow", kname: "팔로우순" },
+        // { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
       is_comment_visible: false, // 댓글창 visibility
@@ -128,21 +128,23 @@ export default {
             this.music = res.data;
           }
           else {
-            // this.$router.go(-1);
+            this.$router.push('/musics');
           }
         },
         (error) => {
           error =
             (error.res && error.res.data) || error.message || error.toString();
           alert(error);
-          // this.$router.go(-1);
+          this.$router.push('/musics');
         }
       );
 
     const sort_type = this.$route.query.filter;
 
     // query string = "like", "follow"
-    if (sort_type === "like" || sort_type === "follow") {
+    if (sort_type === "like"
+    //  || sort_type === "follow"
+     ) {
       this.setFilter(sort_type);
       this.getRecords(sort_type);
     }
