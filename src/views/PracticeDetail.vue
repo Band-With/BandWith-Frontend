@@ -97,7 +97,7 @@
                             <span class="mb-1" style="font-size: 14px; color: #666">댓글 {{ record.count }}개</span>
                             <span class="mb-4" style="font-size: 14px; color: #666">좋아요 {{ record.likes }}개</span>
                             <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
-                                <source src="https://bucket-band-with.s3.ap-northeast-2.amazonaws.com/records/dcd1897b-09c7-4836-88c0-b58e2d3b8135-%EB%85%B9%EC%9D%8C.m4a" type="audio/mpeg">
+                                <source :src="record.fileUrl" type="audio/mpeg">
                                 Your browser does not support the audio tag.
                             </audio>
                         </div>
@@ -150,7 +150,8 @@ export default {
                 likes: 0,
                 access: false,
                 searchable: false,
-                createdAt: null
+                createdAt: null,
+                fileUrl: null,
             },
             content: null,
             loading: true,
@@ -197,6 +198,7 @@ export default {
             clickedButton.classList.add('button-clicked');
         },
         updateMusicPanel(record, index){
+            this.record.fileUrl = record.records.file_url;
             this.record.index = index;
             this.record.id = record.records.record_id;  
             this.record.createdAt = record.records.created_at;

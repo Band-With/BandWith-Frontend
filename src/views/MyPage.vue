@@ -106,11 +106,11 @@ a:hover{
                         </div>
                     </div>
                     <div> <!-- mic -->
-                              <router-link :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
-                                  <button class="btn btn-primary">
-                              <img id="mic" src="../assets/images/icon/mic.png"/>     
+                        <router-link :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
+                            <button class="btn">
+                                <img id="mic" src="../assets/images/icon/mic.png"/>     
                             </button>
-                            </router-link>
+                        </router-link>
                    </div>
                 </div>
                 <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
