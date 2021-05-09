@@ -73,7 +73,7 @@
 
         <div style="margin-left:10px; width:210px; float:left;">
            <div class="option">
-             <div class="noise">소음 제거</div><div style="margin-left:10px; margin-right:100px">
+             <div class="noise">검색 가능</div><div style="margin-left:10px; margin-right:100px">
                 <div style="float:left; height:50px;">
                 </div>
              <div style="position:relative; margin-top:10px;" >
@@ -241,7 +241,7 @@ export default {
     this.user_id=this.user.id;
 
     const file = new File([this.selectedData.blob], 'file', { type: this.selectedData.blob.type });
-    UserService.uploadRecord(this.user_id, 1,this.selectedInstrunment, this.option, this.visible, file);
+    UserService.uploadRecord(this.user_id, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
 
 
   },
@@ -282,7 +282,7 @@ export default {
 
   },
 
-setOption(){
+  setOption(){
     this.option=true;
     document.getElementById("option").style.display='inline';
     document.getElementById("no").style.display='none';

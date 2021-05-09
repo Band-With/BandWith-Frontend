@@ -16,6 +16,17 @@ class UserService {
             }
         });
     }
+    uploadBookMark(user_name, music_id, title, members, recordUrls){
+        return axios
+            .post(API_URL + user_name+'/bookmarks' ,{
+                username: user_name,
+                musicId: music_id,
+                title:title,
+                members:members,
+                recordUrls:recordUrls
+            })   
+     }
+
 
     getBookmarkContent(username, condition){
         return axios.get(API_URL + username + '/bookmarks', {
@@ -47,21 +58,26 @@ class UserService {
 
     uploadRecord(member_id, music_id, instrument, searchable, visible, file) {  // return comment id
         const obj = {
-            member_id:member_id,
-            music_id:music_id,
+            memberId:1,
+            musicId:music_id,
             instrument:instrument,
             searchable:searchable,
-            public:visible,
+            access:visible,
         };
-        const json = [JSON.stringify(obj)];
-
+        const json = JSON.stringify(obj);
+        const blob = new Blob([json], {
+            type: 'application/json'
+          });
+          
         const data = new FormData();
-        data.append('json', json);
         data.append('file', file);
+        data.append('json', blob);
 
-        return axios.post(API_URL + member_id + "/recording", data, {headers: {
-            'Content-Type': 'multipart/form-data'
-        }}
+        return axios.post(API_URL + member_id + "/recording", data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
         );
       }
 
