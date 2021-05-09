@@ -7,6 +7,11 @@
     margin: 0 auto 30px;
     margin-top: 160px;
 }
+.audio{
+    width:400px;
+    height:100px;
+}
+
 </style>
 
 <template>
@@ -15,17 +20,15 @@
             <div class="d-flex flex-column">
                 <div>
                     <div style="text-align: center;">
-                        <div style="position:relative; display: inline-block; ">
-                            <vue-audio-mixer 
-                            :config="config" 
-                            size="medium" 
-                            theme="dark"
-                            @loaded="loadedChange"
-                            @input="setConfig" 
-                            :showPan="true"
-                            :showTotalTime="true"
-                            />
+
+                      <input type="text" v-model="id"> 
+                      <button v-on:click="setInput">북마크의 이름 등록</button> 
+
+                        <div class="align" v-for="index in cart" :key="index">
+                            {{index.record.instrument}}
+                            <audio class="audio" controls :src="index.record.file_url"/>
                         </div>
+                       <button v-on:click="send()"/>
                     </div>
                 </div>
             </div>
@@ -34,52 +37,43 @@
 </template>
 
 <script>
-import VueAudioMixer from 'vue-audio-mixer';
-import 'vue-audio-mixer/dist/vue-audio-mixer.min.css'; 
+import UserService from '../services/user.service';
+
 
 export default {
     name: 'bucket',
     components: {
-    VueAudioMixer
-  },
-  computed:{
-    cart() {
-      return this.$store.state.records.cart;
+        
     },
-  },
-  data : function(){     
-    return {
-      is_loaded:false,
-      getArray:[],
-      newConfig:{},
-      config: {
-        "tracks":[
-           
-        ],
-        "master":{
-            "pan":0,
-            "gain":1,
-            "muted":false
-        }
-      }
-    }  
+    computed:{
+        cart() {
+            return this.$store.state.records.cart;
+        },
+        user() {
+            return JSON.parse(localStorage.getItem('user'));
+        },
+ 
+    },
+    data : function(){     
+        return {
+            is_loaded:false,
+            title:'dummy',
+            getArray:[],
+            getUser:[],
+            getUrl:[],
+        }  
   },
   mounted(){
       this.getArray=this.cart;
       console.log(this.getArray);
+
       for(let i=0; i<this.getArray.length; i++){
-          this.config.tracks.push({
-                "title":this.getArray[i].record.instrument,
-                "url":this.getArray[i].record.file_url,
-                "pan":-60,
-                "gain":0.6,
-                "muted":false,
-                "hidden":false
-                }
-         );
-
+          this.getUrl.push(this.getArray[i].record.file_url);
       }
-
+      for(let i=0; i<this.getArray.length; i++){
+          this.getUser.push(this.getArray[i].member.member_id);
+      }
+      console.log(this.getUrl);
       
 
 
@@ -94,19 +88,19 @@ export default {
   
   },
   methods:{
+    send(){
+            console.log('d');
 
-    loadedChange(loaded)
-    {
-      this.is_loaded = loaded;
-      
+      console.log(this.user);
+                  console.log('f');
+
+      console.log(this.cart);
+
+      UserService.uploadBookMark(this.user.username, this.cart[0].record.music_id, this.title, this.getUser, this.getUrl);
     },
-
-    setConfig(newVal)
-    {
-      this.newConfig = newVal;
-      console.log(this.getArray[0].member.member_id);
+    setInput(){
+          this.title=this.id;
     }
-
   }
 }
 </script>
