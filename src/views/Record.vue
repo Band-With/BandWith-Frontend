@@ -238,7 +238,7 @@ export default {
     this.music_id=this.$route.params.musicId;
     this.username=this.user.username;
 
-    const file = new File([this.selectedData.blob], 'file', { type: this.selectedData.blob.type });
+    const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
     UserService.uploadRecord(this.username, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
 
   },
