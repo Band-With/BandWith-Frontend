@@ -6,7 +6,7 @@
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleRegister">
+      <form name="form" @submit.prevent="sendEmail(user.email)">
         <div v-if="!successful">
           <div class="form-group">
             <label for="username">ID</label>
@@ -42,7 +42,7 @@
               ref="password"
               id="password"
             />
-                <span v-if="user.password.length<6" class="fs-8">여섯자 이상으로 해주세요.</span>
+                <span v-if="user.password.length<6 && user.password.length>0" class="fs-8">여섯자 이상으로 해주세요.</span>
                 <span v-if="score === 0" class="fs-8">보안에 취약한 비밀번호입니다.</span>
                 <span v-else-if="score === 2" class="fs-8">좋은 비밀번호입니다.</span>
                 <span v-else-if="score === 3" class="fs-8">완벽해요! 외울수 있죠?</span>
@@ -60,6 +60,16 @@
             <span v-if="passwordConfirm===user.password" class="fs-8">일치합니다!!</span>
             <span v-if="passwordConfirm===null" class="fs-8"></span>
             <span v-if="(passwordConfirm!==user.password)&&(passwordConfirm!==null)" class="fs-8">일치하지 않습니다.</span>
+          </div>
+          <div class="form-group">
+            <label for="email">이메일</label>
+            <input
+              v-model="user.email"
+              v-validate="'required'"
+              type="email"
+              class="form-control"
+              name="email"
+            />
           </div>
           <div class="form-group mt-5">
             <button class="btn btn-primary btn-block">Sign Up</button>
@@ -83,12 +93,13 @@
 <script>
 import User from '../models/user';
 import passwordMeter from "vue-simple-password-meter";
+import authService from "../services/auth.service";
 
 export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', ''),
+      user: new User('', '', '', ''),
       submitted: false,
       successful: false,
       message: '',
@@ -110,32 +121,32 @@ export default {
     }
   },
   methods: {
-    onScore({ score }) {
-      this.score = score;
-    },
-    handleRegister() {
+    sendEmail(email){
       this.message = '';
       this.submitted = true;
       this.$validator.validate().then(isValid => {
         if (isValid) {
-          this.$store.dispatch('auth/register', this.user).then(
-            data => {
-              this.message = data.message;
-              this.successful = true;
-              this.$router.push('login');
-            },
-            error => {  
-              this.message =
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
-              this.successful = false;
-            }
-          );
+          authService.sendEmail(email).then(
+                response => {
+                      console.log(response);
+                      this.$store.dispatch('signUp/saveUser', this.user);
+                      this.$router.push('/verification'); 
+                },
+                error => {
+                  console.log(error)
+                    // this.content =
+                    // (error.response && error.response.data) ||
+                    // error.message ||
+                    // error.toString();
+                }
+            );
         }
-      });
+      })
     }
-  }
+  },
+  onScore({ score }) {
+    this.score = score;
+  },
 };
 </script>
 
