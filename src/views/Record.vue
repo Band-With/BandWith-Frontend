@@ -358,9 +358,9 @@ setPublic(){
   fill: white !important;
   background-color: #171003 !important;
 
-  &.ar-player__play--active {
+  /* &.ar-player__play--active {
     background-color: #171003 !important;
-  }
+  } */
 }
 .noise{
   font-size: 25px;
@@ -370,9 +370,9 @@ setPublic(){
   background-color: #ff6b64 !important;
   cursor: inherit;
 
-  &.ar-player__play--active {
+  /* &.ar-player__play--active {
     background-color: #ff6b64 !important;
-  }
+  } */
 }
 .container {
   width: 100%;
@@ -471,12 +471,7 @@ setPublic(){
 	justify-content: left;
   width: 400px;
 }
-.record{
 
-}
-.submit{
-
-}
 .radio{
   font-size: 20px;
   margin-left: 5px;
@@ -488,17 +483,9 @@ setPublic(){
 .musicinfo{
   width:300px;
 }
-.options{
 
-}
-.mictest{
-
-}
-.visibility{
-
-}
 /* disalbed 처리 */
-::v-deep .ar-player {
+/* ::v-deep .ar-player {
 	order:-1;
   opacity: 0.5;
   cursor: default;
@@ -506,7 +493,7 @@ setPublic(){
     opacity: 1;
     cursor: pointer;
   }
-}
+} */
 
 ::v-deep .ar-player__time {
   width: 3.2rem;

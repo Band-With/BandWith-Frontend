@@ -79,7 +79,7 @@ export default {
 
         // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
         return this.$router.replace({
-          path: "",
+          name: "search-record",
           query: {
             filter: type,
           },

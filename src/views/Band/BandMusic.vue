@@ -11,12 +11,19 @@
           class="d-flex align-items-center"
           @submit="searchMusic"
         >
-          <input
+            <input
             id="search-input"
-            placeholder="검색어를 입력하세요."
-            v-model="query"
-          />
-          <button type="submit" id="search-button"></button>
+              class="flex-grow-1 p-3"
+              placeholder="검색어를 입력하세요"
+              v-model="query"
+            />
+            <button type="submit" id="search-button" class="flex-grow-1">
+              <img
+                class="icon"
+                src="@/assets/images/icon/search_white.png"
+                style="width: 20px; height: 20px;"
+              />
+            </button>
         </form>
       </div>
 
@@ -58,7 +65,7 @@
           <b>녹음이 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
-        <Musics v-else :musics="musics" />
+        <BandMusics v-else :musics="musics" />
       </div>
 
       <!-- row 3: pagination -->
@@ -68,12 +75,12 @@
 </template>
 
 <script>
-import Musics from "@/components/searchMusic/Musics.vue";
+import BandMusics from "@/components/bandMusic/BandMusics.vue";
 // import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
 
 export default {
-  name: "search-music",
+  name: "bandMusic",
   data() {
     return {
       loading: true,
@@ -88,7 +95,7 @@ export default {
     };
   },
   components: {
-    Musics,
+    BandMusics,
     // Paging,
   },
 
@@ -106,7 +113,6 @@ export default {
         this.changeQuery(type);
       }
     },
-
     // 검색 버튼 눌렀을 때
     searchMusic(e) {
       e.preventDefault();
@@ -143,14 +149,14 @@ export default {
     changeQuery(type) {
       if (this.query == null) {
         return this.$router.replace({
-          name: "search-music",
+          name: "bandMusic",
           query: {
             filter: type,
           },
         });
       } else {
         return this.$router.replace({
-          name: "search-music",
+          name: "bandMusic",
           query: {
             q: this.query,
             filter: type,
@@ -188,7 +194,7 @@ export default {
 .background {
   padding-top: 60px;
   min-height: 100vh;
-  background-color: #fafafa;
+  background-color: #ffffff;
 }
 /* row 1: search input */
 #search-music-row1,
@@ -198,25 +204,21 @@ export default {
 #search-input-wrapper {
   width: 450px;
   height: 50px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 4px #aaa;
+  border: #2080e0 solid 2px;
 }
 #search-input {
-  width: 80%;
+  width: 90%;
   height: 100%;
-  margin: 20px;
   border: none;
 }
 #search-input:focus {
   outline: none;
 }
 #search-button {
-  width: 25px;
-  height: 25px;
+  width: 12%;
+  height: 100%;
   border: none;
-  cursor: pointer;
-  background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
+  background: #2080e0;
 }
 /* row 2: search result */
 .nav-item {
