@@ -25,7 +25,7 @@
         </div>
         <div>
           <router-link
-            :to="{ name: 'recording', params: { musicId: music.music_id } }"
+            :to="{ name: 'recordsetting', params: { musicId: music.music_id } }"
             ><button class="btn btn-primary">녹음하기</button></router-link
           >
         </div>
