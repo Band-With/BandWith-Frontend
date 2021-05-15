@@ -240,6 +240,7 @@ export default {
 
     const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
     UserService.uploadRecord(this.username, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
+    this.$router.push('/musics');
 
   },
   pickPiano(){
