@@ -27,11 +27,19 @@
                 <div style="width: 80px; height: 80px; border: 4px solid #000; overflow:hidden" class="circle-shape d-flex justify-content-center align-items-center">
                     <img src="../assets/images/icon/bookmark.png" style="width: 50px; height: 50px"/>
                 </div>
-                <span class="pt-3 pb-1" style="font-size: 18px; font-weight: bold">북마크, 내가 좋아하는 조합</span>
-                <span class="pb-3" style="text-align: center; font-size: 16px; font-weight: lighter">
-                    다시 듣고 싶은 연주들의 조합을 나만의 북마크로 만들어 보세요. 
-                    북마크로 등록한 조합은 이곳에서 언제든지 다시 들어볼 수 있어요.
-                </span>
+                <div v-if="!condition" class="d-flex flex-column justify-content-center align-items-center">
+                    <span class="pt-3 pb-1" style="font-size: 18px; font-weight: bold">북마크가 없어요.</span>
+                    <span class="pb-3" style="text-align: center; font-size: 16px; font-weight: lighter">
+                        북마크로 등록된 연주가 없어요.
+                    </span>
+                </div>
+                <div v-else class="d-flex flex-column justify-content-center align-items-center">
+                    <span class="pt-3 pb-1" style="font-size: 18px; font-weight: bold">북마크, 내가 좋아하는 조합</span>
+                    <span class="pb-3" style="text-align: center; font-size: 16px; font-weight: lighter">
+                        다시 듣고 싶은 연주들의 조합을 나만의 북마크로 만들어 보세요. 
+                        북마크로 등록한 조합은 이곳에서 언제든지 다시 들어볼 수 있어요.
+                    </span>
+                </div>
             </div>
         </div>    
         <div v-else class="w-100">
