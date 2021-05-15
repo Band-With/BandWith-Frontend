@@ -28,10 +28,16 @@
          style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"></span>
         <div v-else-if="content === null" class="d-flex w-100">
             <img src="../assets/images/record.jpg" style="width:445px; height: 400px" />
-            <div class="d-flex flex-column justify-content-center align-items-center w-100">
+
+            <div v-if="condition" class="d-flex flex-column justify-content-center align-items-center w-100">
                 <span class="pb-3" style="font-size: 16px; font-weight: lighter">나만의 연주를 지금 바로 공유해 보세요.</span>
-                <router-link :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!' , filter: 'rel'}}"  >
-연주 녹음하기</router-link>
+                <router-link class="btn btn-primary" :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!' , filter: 'rel'}}">
+                    연주 녹음하기
+                </router-link>d
+            </div>
+
+            <div v-else class="d-flex flex-column justify-content-center align-items-center w-100">
+                <span class="pb-3" style="font-size: 16px; font-weight: lighter">연습한 연주가 없어요.</span>
             </div>
         </div>
         <div v-else class="justify-contents-center">

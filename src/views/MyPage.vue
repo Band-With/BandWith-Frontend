@@ -106,7 +106,7 @@ a:hover{
                         </div>
                     </div>
                     <div> <!-- mic -->
-                        <router-link :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
+                        <router-link v-if="condition" :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
                             <button class="btn">
                                 <img id="mic" src="../assets/images/icon/mic.png"/>     
                             </button>
@@ -175,6 +175,9 @@ export default {
         },
         userParam() {
             return this.$route.params.username;
+        },
+        condition() {
+            return this.userParam === this.user.username;
         }
     },
     methods: {
