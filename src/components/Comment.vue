@@ -1,5 +1,5 @@
 <style scoped>
-    #register-button{
+    #register-button {
         height: 80px;
         width: 80px;
         border: 1px solid #d1d1d1;
@@ -7,7 +7,7 @@
         background-color: #fafafa;
     }
 
-    #comment-area{
+    #comment-area {
         height: 80px;
         width: 85%;
         margin-right: 15px;
@@ -15,23 +15,24 @@
         background-color: #fff;
         border: 1px solid #f1f1f1;
     }
-    
-    .comment-write-box{
+
+    .comment-write-box {
         border: 1px solid #d1d1d1;
         background-color: #f5f5f5;
         height: 142px;
     }
 
-    .comment-input{
+    .comment-input {
         border: none;
         overflow-wrap: break-word;
         resize: none;
     }
-    .comment-input:focus{
+
+    .comment-input:focus {
         outline: none;
     }
 
-    .comment-item{
+    .comment-item {
         min-height: 120px;
         border-bottom: 1px solid #ddd;
     }
@@ -39,15 +40,19 @@
 
 <template>
     <div>
-        <div class="d-flex justify-content-between py-4 px-4 comment-write-box"> <!-- 댓글 작성 -->
-            <img v-if="user.profileImg === null" style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" src="../assets/images/profile.jpg"/>
-            <img v-else style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;" :src="imgPreUrl + user.profileImg"/>
+        <div class="d-flex justify-content-between py-4 px-4 comment-write-box">
+            <!-- 댓글 작성 -->
+            <img v-if="user.profileImg === null"
+                style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
+                src="../assets/images/profile.jpg" />
+            <img v-else style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
+                :src="imgPreUrl + user.profileImg" />
 
             <div id="comment-area">
-                <textarea class="comment-input w-100" placeholder="댓글을 입력하세요..."/>
+                <textarea v-model="comment" class="comment-input w-100" placeholder="댓글을 입력하세요..." />
             </div>
         
-            <button id="register-button">등록</button>
+            <button id="register-button" @click="submit">등록</button>
         </div>
         <div class="mt-4 mb-2" style="font-size: 14px">총 <span style="color: rgb(51, 139, 255)">{{count}}</span>개</div>
         <div style="border-top: 1px solid #bdbdbd; overflow:hidden"> <!-- 작성된 댓글 -->
@@ -72,48 +77,77 @@
 </template>
 
 <script>
+import CommentService from '../services/comment.service';
+
 export default {
-  name: 'comment',
-  data(){
-      return {
-          imgPreUrl: "data:image/jpeg;base64,",
-      }
-  },
-  props: {
-    content: Array,
-    count: Number,
-  },
-    computed: { 
-    user() {
-        return JSON.parse(localStorage.getItem('user'));
-    }
-  },
-  methods: {
-    toDate(timestamp){
-        const d = new Date(timestamp);
-        let month = '' + (d.getMonth() + 1);
-        let date = '' + d.getDate();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (date.length < 2)
-            date = '0' + date;
-
-        return [d.getFullYear(), month, date].join(".");
+    name: 'comment',
+    data(){
+        return {
+            content: Array,
+            comment: "",
+            imgPreUrl: "data:image/jpeg;base64,",
+        }
     },
-    toTime(timestamp){
-        const d = new Date(timestamp);
-        let hour = '' + d.getHours();
-        let min = '' + d.getMinutes();
+    props: {
+        count: Number,
+        recordId: { 
+            type: Number,
+            required: false,
+            default: -1
+        },
+        bandMusicId: {
+            type: Number,
+            required: false,
+            default: -1
+        }
+    },
+    computed: { 
+        user() {
+            return JSON.parse(localStorage.getItem('user'));
+        }
+    },
+    methods: {
+        getComments(recordId){
+            CommentService.getComments(this.userParam, recordId).then(
+                response => {
+                    this.content = response.data;
+                }
+            )
+        },
+        submit(){
+            CommentService.createComment(this.user.username, this.bandMusicId, this.recordId, this.comment).then(
+                response => {
+                    if(response)
+                        this.getComments(this.recordId)
+                }
+            );
+            this.comment = ""
+        },
+        toDate(timestamp){
+            const d = new Date(timestamp);
+            let month = '' + (d.getMonth() + 1);
+            let date = '' + d.getDate();
 
-        if (hour.length < 2)
-            hour = '0' + hour;
-        if (min.length < 2)
-            min = '0' + min;
+            if (month.length < 2)
+                month = '0' + month;
+            if (date.length < 2)
+                date = '0' + date;
 
-        return [hour, min].join(":");
+            return [d.getFullYear(), month, date].join(".");
+        },
+        toTime(timestamp){
+            const d = new Date(timestamp);
+            let hour = '' + d.getHours();
+            let min = '' + d.getMinutes();
+
+            if (hour.length < 2)
+                hour = '0' + hour;
+            if (min.length < 2)
+                min = '0' + min;
+
+            return [hour, min].join(":");
+        }
     }
-  }
 }
 </script>
 

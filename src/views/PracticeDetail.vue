@@ -123,7 +123,7 @@
 
                 <div class="mt-5">
                     <span style="font-size: 18px">댓글</span>
-                    <comment  class="mt-2" :content="comments" :count="record.count"></comment>
+                    <comment ref="comment" class="mt-2" :content="comments" :recordId="recordId" :count="record.count"></comment>
                 </div>
 
             </div>
@@ -133,7 +133,6 @@
 
 <script>
 import UserService from '../services/user.service';
-import CommentService from '../services/comment.service';
 import comment from '@/components/Comment.vue';
 
 export default {
@@ -157,6 +156,7 @@ export default {
             loading: true,
             imgPreUrl: "data:image/jpeg;base64,",
             comments: "",
+            recordId: 0,
         }
     },
     computed: {
@@ -198,6 +198,8 @@ export default {
             clickedButton.classList.add('button-clicked');
         },
         updateMusicPanel(record, index){
+            this.recordId = record.records.record_id
+
             this.record.fileUrl = record.records.file_url;
             this.record.index = index;
             this.record.id = record.records.record_id;  
@@ -209,11 +211,7 @@ export default {
             this.record.searchable = record.records.searchable;
         },
         getComments(record){
-            CommentService.getComments(this.userParam, record.records.record_id).then(
-                response => {
-                    this.comments = response.data;
-                }
-            )
+            this.$refs.comment.getComments(record.records.record_id);
         },
         accessOnChangeEventHandler(){
             if(confirm("공개여부를 변경하시겠습니까?")){
@@ -251,7 +249,9 @@ export default {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;
                     this.updateMusicPanel(response.data.records[0], 0)
-                    this.getComments(response.data.records[0])
+                    this.$nextTick(() => {
+                        this.getComments(response.data.records[0])
+                    })
                 }
                 console.log(response.data);
                 this.loading=false;
