@@ -72,7 +72,10 @@
             />
           </div>
           <div class="form-group mt-5">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <button class="btn btn-primary btn-block" :disabled="loading">
+              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+              Sign Up
+            </button>
           </div>
         </div>
       </form>
@@ -99,6 +102,7 @@ export default {
   name: 'Register',
   data() {
     return {
+      loading: false,
       user: new User('', '', '', ''),
       submitted: false,
       successful: false,
@@ -122,6 +126,7 @@ export default {
   },
   methods: {
     sendEmail(email){
+      this.loading = true;
       this.message = '';
       this.submitted = true;
       this.$validator.validate().then(isValid => {
@@ -129,6 +134,7 @@ export default {
           authService.sendEmail(email).then(
                 response => {
                       console.log(response);
+                      this.loading = false;
                       this.$store.dispatch('signUp/saveUser', this.user);
                       this.$router.push('/verification'); 
                 },
@@ -140,6 +146,9 @@ export default {
                     // error.toString();
                 }
             );
+        }
+        else{
+          this.loading=false;
         }
       })
     }

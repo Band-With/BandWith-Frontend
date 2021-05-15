@@ -58,7 +58,7 @@ class UserService {
 
     uploadRecord(username, music_id, instrument, searchable, visible, file) {  // return comment id
         const obj = {
-            memberId:username,
+            username:username,
             musicId:music_id,
             instrument:instrument,
             searchable:searchable,

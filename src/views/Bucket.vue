@@ -97,6 +97,8 @@ export default {
       console.log(this.cart);
 
       UserService.uploadBookMark(this.user.username, this.cart[0].record.music_id, this.title, this.getUser, this.getUrl);
+      this.$router.push('/' + this.user.username);
+
     },
     setInput(){
           this.title=this.id;
