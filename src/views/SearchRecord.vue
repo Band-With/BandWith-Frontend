@@ -124,7 +124,6 @@ export default {
     SearchService.getMusic(this.music_id).then(
         (res) => {
           if (Object.keys(res.data).length !== 0) {
-            console.log(res.data);
             this.music = res.data;
           }
           else {

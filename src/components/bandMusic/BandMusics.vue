@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import BandMusicService from "@/services/band-music.service";
+import BandService from "@/services/band.service";
 
 export default {
   props: {
@@ -61,9 +61,9 @@ export default {
 
   methods: {
     addBandMusic(music_id) {
-      BandMusicService.addBandMusic(this.bandname, music_id).then(
+      BandService.addBandMusic(this.bandname, music_id).then(
         (res) => {
-          if (Object.keys(res.data).length !== 0) {
+          if (res.status === 200) {
             alert("밴드의 진행 중인 곡에 추가되었습니다.");
             this.$router.push("/bands/" + this.bandname);
           }

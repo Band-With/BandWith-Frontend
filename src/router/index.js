@@ -57,7 +57,7 @@ const routes = [
     component: () => import('../views/SearchRecord.vue'),
   },
   {
-    path: '/bands/',
+    path: '/bands/new',
     name: 'newBand',
     component: () => import('../views/Band/NewBand.vue'), 
   },
