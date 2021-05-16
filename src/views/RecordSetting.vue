@@ -1,14 +1,14 @@
 <template>
   <div class="background justify-content-center">
     <div id="search-music" class="container">
-<div>
+      <div>
     <vue-good-wizard 
       :steps="steps"
       :onNext="nextClicked"
       :onBack="backClicked">
       <div slot="page1">
       <div  class="d-flex align-items-center justify-content-center" id="search-music-row2" style="min-height: 150px">
-       <Roller style="font-size:50px;" :wordWrap="20" class="roller" :text="selectedInstrunment" defaultChar="" :transition="2" :charList="['a', 'b', 'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']"></Roller>
+       <Roller style="font-size:50px;" :wordWrap="20" class="roller" :text="selectedInstrunment" defaultChar="" :transition="1" :charList="['a', 'b', 'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']"></Roller>
       </div>
       <div id="search-music-row1" class="d-flex align-items-center justify-content-center">
           <div class="instrument">
