@@ -154,7 +154,7 @@ export default {
                     modifingCommentCount ++
             
             if(modifingCommentCount > 1){
-                alert("댓글 수정은 한 번에 하나씩 할 수 있습니다. 현재 수정 중인 댓글을 등록한 후 시도해주세요.")
+                alert("댓글 수정은 한 번에 하나씩 할 수 있습니다. \n현재 수정 중인 댓글을 등록한 후 시도해주세요.")
                 return
             }
             

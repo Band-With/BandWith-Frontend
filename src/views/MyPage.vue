@@ -99,10 +99,13 @@ a:hover{
                         />
                     </div>
                     <div class="pt-2 px-5" style="flex-grow: 3; width: 550px"> <!-- 이름 팔로우 -->
-                        <div class="pb-2 h1"> {{ content.member.username }} </div>
+                        <div class="mb-2 d-flex flex-row align-items-end">
+                            <div style="font-size: 38px"> {{ content.member.username }} </div>
+                            <button v-if="!condition" class="mb-2 ml-4 px-3" style="height: 28px; border: none; border-radius: 4px; background-color: #0095F6; color: #fff; font-size: 14px;">팔로우</button>
+                        </div>
                         <div> 
                             <span class="mr-4">팔로우 {{ content.followingCount }}</span>
-                            <span>팔로워 {{ content.followerCount }}</span>
+                            <span class="ml-2">팔로워 {{ content.followerCount }}</span>
                         </div>
                     </div>
                     <div> <!-- mic -->
@@ -116,7 +119,7 @@ a:hover{
                 <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
                     <div id="band"> 
                         <span>소속 밴드</span>
-                        <router-link to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
+                        <router-link v-if="condition" to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
                         <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
                             <div v-for="band in content.bands" :key="band.band_id">
                                 <router-link :to="{ name: 'bandPage', params: { bandname: band.band_name }}" class="d-flex flex-column mr-4 pt-3 text-center">
