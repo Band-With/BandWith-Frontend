@@ -41,6 +41,11 @@ const routes = [
     component: () => import('../views/Record.vue')
   },
   {
+    path: '/musics/:musicId/recordsetting',
+    name: 'recordsetting',
+    component: () => import('../views/RecordSetting.vue')
+  },
+  {
     path: '/login-success',
     name: 'login-success',
     component: () => import('../components/LoginSuccess.vue')

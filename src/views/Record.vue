@@ -1,120 +1,63 @@
 <template>
   <div class="background justify-content-center">
-    <div id="search-music" class="container">
-      <!-- row 1: search input -->
-      <div
-        id="search-music-row1"
-        class="d-flex align-items-center justify-content-center"
-      >
+ <div id="search-record" class="container" style="float:left; width:30vw; height:100vh">
+      <!-- row 1: search info -->
+      <div id="search-record-row1" class="mt-5 mb-3">
+        <b>'{{ music.singer + " - " + music.title }}'</b> 에 대한 다른 사람들의 녹음입니다.
       </div>
-
-      <!-- row 2: search results -->
-      <div id="search-music-row2" style="min-height: 25vh;" >
-        <!-- nav filter -->
-        <div class="musicinfo" style="float:left;">
-          <img src="../assets/images/IU.jpg" alt style="border-radius: 50%; width:100px; heights:100px; float:left;">
-          <div style="float:left; margin-right:10px; font-size:20px; margin-left:15px; margin-top:10px">{{musicParam}}
-                            
+      <!-- row 2 -->
+      <div id="search-record-row2" class="row" style="width:800px;">
+        <!-- row 2: left -->
+        <div id="search-record-left" class="col-sm-8 pr-4">
+          <!-- nav filter -->
+          <div>
+            <ul class="nav nav-tabs">
+              <li
+                v-for="type in filter_list"
+                :key="type.ename"
+                class="nav-item"
+                :class="{ active: type.ename == sort_type }"
+              >
+                <a class="nav-link" @click="toggleFilter(type.ename)">{{
+                  type.kname
+                }}</a>
+              </li>
+            </ul>
           </div>
-          <img i src="../assets/images/icon/note.png" style="height:10%; width:10%; float:left;" />
-
-            
+          <!-- result records -->
+          <Records
+            :is_visible="this.is_comment_visible"
+            @update-visibility="updateVisibility"
+          />
         </div>
-        <!-- no result -->
-        <!-- search results -->
-
-<div style="margin-left:10px; width:400px; float:left; font-size:25px; text-align:center;">
-                       악기 선택
-           <div class="inst" style="width:400px" >
-             <div style="position:relative">
-               <img v-on:click="pickGuitar" src="../assets/images/icon/guitar.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="guitar" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickPiano" src="../assets/images/icon/piano.png" alt style="position:absolute; left:25%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="piano" src="../assets/images/icon/check.png" alt style="position:absolute;display:none; left:25%; top:0%;   border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickViolin" src="../assets/images/icon/violin.png" alt style="position:absolute; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="violin" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:50%; top:0%;  border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-             <div style="position:relative">
-                <img v-on:click="pickDrum" src="../assets/images/icon/drum.png" alt style="position:absolute;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-                <img id="drum" src="../assets/images/icon/check.png" alt style="position:absolute;display:none;  left:75%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-             </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-        <div style="margin-left:40px; width:210px; float:left;">
-           <div class="visibility">
-             <div class="noise">공개 범위</div><div style="margin-left:20px; margin-right:100px;">
-                <div style="float:left; height:50px;">
-                </div>
-             <div style="position:relative; margin-top:10px;" >
-               <div v-on:click="setPublic" style="position:absolute; left:-20%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">Public</div>
-                <img id="public" src="../assets/images/icon/check.png" alt style="position:absolute; display:inline; left:-15%; top:0%; border-radius: 50%; width:30px; heights:30px; float:left;">
-             </div>             
-             </div>
-             <div>
-              <div style="float:left; height:50px;">
-              </div>
-             <div style="position:relative">
-               <div v-on:click="setPrivate" style="position:absolute; left:40%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">Private</div>
-                <img id="private" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:45%; top:0%; border-radius: 50%; width:30px; heights:30px; float:left;">
-             </div>                </div>
-                </div>
-        </div>
-
-        <div style="margin-left:10px; width:210px; float:left;">
-           <div class="option">
-             <div class="noise">검색 가능</div><div style="margin-left:10px; margin-right:100px">
-                <div style="float:left; height:50px;">
-                </div>
-             <div style="position:relative; margin-top:10px;" >
-               <div v-on:click="setOption" style="position:absolute; left:-20%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">적용</div>
-                <img id="option" src="../assets/images/icon/check.png" alt style="position:absolute;  left:-15%; top:0%; border-radius: 50%; width:30px; heights:30px; float:left;">
-             </div>             </div>
-             <div>
-              <div style="float:left; height:50px;">
-              </div>
-             <div style="position:relative">
-               <div v-on:click="setNoOption" style="position:absolute; left:40%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">미적용</div>
-                <img id="no" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:45%; top:0% border-radius: 50%; width:30px; heights:30px; float:left;">
-             </div>                </div>
-                </div>
-        </div>
-        
-
-
-
+        <!-- row 2: right -->
+     
       </div>
+      <!-- row 3: pagination -->
+      <!-- <Paging /> -->
+    </div>
+ <div id="search-record" class="container" style="float:left; width:70vw; height:100vh">
+
 
       <!-- row 3: pagination -->
-      <div id="search-music-row3" style="width:1000px; margin-top:100px;">
-        <div style="margin-left:100px; float:left;">
+        <div style="margin-left:100px; float:left; margin-top:150px;">
            <MusicVisual id="bar1" style="float:left; margin-left:3px; animation-play-state:paused;"></MusicVisual>
            <MusicVisual id="bar2" style="float:left;margin-left:3px; animation-delay: 0.2s;animation-play-state:paused;"></MusicVisual>
            <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
         </div>
-        <div style="width:200px; height:100px; position:absolute; left:45%; top:47%;">
-        </div>
+
+
+        
+       <div id="search-music-row4" style="width:80vw; float:left">
+          <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
+      </div>
 
         <vue-confirmation-button  ref="confirmationButton"
-          style="width:250px; margin-left:700px;"
+          style="width:250px; float:left;"
           :messages="customMessages" v-on:confirmation-incremented="check()"
           v-on:confirmation-success="send()">
-        </vue-confirmation-button>  
-        <div id="search-music-row4" >
-          <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
-        </div>
-      </div>
-    </div>
+        </vue-confirmation-button> 
+ </div>
   </div>
 </template>
 
@@ -125,7 +68,8 @@ import AudioRecorder from 'vue-audio-recorder'
 import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
-
+import SearchService from "@/services/search.service";
+import Records from "@/components/searchRecord/Records.vue";
 
 Vue.use(AudioRecorder)
 export default {
@@ -133,19 +77,25 @@ export default {
   components: {
     MusicVisual,
     'vue-confirmation-button': vueConfirmationButton,
+        Records,
       },
  data: function() {
     return {
       visualization:"false",
-      selectedInstrunment:' v-on:click="pick"',
       selectedData:"",
-      option:true,
-      visible:true,
       instrunmentchecked:'0',
-      music_id:'',
+      musicID:'',
       username:'',
       recordchecked:'0',
       OnlyMyRecord:[],
+      music: {},
+      filter_list: [
+        { ename: "latest", kname: "최신순" },
+        { ename: "like", kname: "좋아요순" },
+        // { ename: "follow", kname: "팔로우순" },
+      ],
+      sort_type: "latest", // 검색 필터 초깃값 설정
+      is_comment_visible: false, // 댓글창 visibility
       customMessages: [
         '모두 선택하신 후에 클릭해주세요!',
       '모두 정상상적으로 선택되었나요?',
@@ -158,16 +108,92 @@ export default {
             return JSON.parse(localStorage.getItem('user'));
         },
  
-    musicParam() {
-            return this.$route.params.musicId;
+    music_id() {
+      return this.$route.params.music_id;
+    },
+    records() {
+      return this.$store.state.records.records;
+    },
+    instrument() {
+      return this.$route.params.selectedInstrunment;
+    },
+        option() {
+      return this.$route.params.selectedInstrunment;
+    },
+        visible() {
+      return this.$route.params.selectedInstrunment;
+    },
+    },
+
+  mounted() {
+      SearchService.getMusic(this.music_id).then(
+        (res) => {
+          if (Object.keys(res.data).length !== 0) {
+            console.log(res.data);
+            this.music = res.data;
+          }
+          else {
+            this.$router.push('/musics');
+          }
         },
+        (error) => {
+          error =
+            (error.res && error.res.data) || error.message || error.toString();
+          alert(error);
+          this.$router.push('/musics');
+        }
+      );
 
-    },
-   mounted() {
-     
+    const sort_type = this.$route.query.filter;
 
-    },
+    // query string = "like", "follow"
+    if (sort_type === "like"
+    //  || sort_type === "follow"
+     ) {
+      this.setFilter(sort_type);
+      this.getRecords(sort_type);
+    }
+    // query string = "latest", undefined, etc.
+    else {
+      this.getRecords("latest");
+    }
+  },
  methods:{
+     // 화면 필터 토글
+    toggleFilter(type) {
+      if (this.sort_type != type) {
+        this.setFilter(type); // 필터 설정
+        this.getRecords(type); // 데이터 가져오기
+
+        // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
+        return this.$router.replace({
+          path: "",
+          query: {
+            filter: type,
+          },
+        });
+      }
+    },
+
+    // 필터 설정
+    setFilter(type) {
+      if (this.sort_type != type) {
+        this.sort_type = type;
+      }
+    },
+
+    // 데이터 가져오기 (axios)
+    getRecords(sort_type) {
+      this.$store.dispatch("records/getRecords", {
+        music_id: this.music_id,
+        filter: sort_type,
+      });
+    },
+
+    // 댓글창 visibility 전환
+    updateVisibility() {
+      this.is_comment_visible = !this.is_comment_visible;
+    },
   setVisual(visualization){
     if(visualization){
     document.getElementById("bar1").style.animationPlayState='running';
@@ -225,6 +251,7 @@ export default {
              this.OnlyMyRecord.pop(currElem);
 
    }
+
   }
 
 }
@@ -235,96 +262,22 @@ export default {
     this.setVisual(false);
 	},
   send(){
-    this.music_id=this.$route.params.musicId;
+    this.musicID=this.$route.params.musicId;
     this.username=this.user.username;
 
     const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
-    UserService.uploadRecord(this.username, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
+    UserService.uploadRecord(this.username, this.musicID, this.instrument, this.visible, this.option, file);
     this.$router.push('/musics');
 
   },
-  pickPiano(){
-    this.selectedInstrunment='piano';
-    console.log(this.selectedInstrunment);
-    document.getElementById("piano").style.display='inline';
-    document.getElementById("guitar").style.display='none';
-    document.getElementById("drum").style.display='none ';
-    document.getElementById("violin").style.display='none ';
-    this.instrunmentchecked='1';
-  },
-  pickGuitar(){
-    this.selectedInstrunment='guitar';    console.log(this.selectedInstrunment);
-    document.getElementById("piano").style.display='none';
-    document.getElementById("guitar").style.display='inline';
-    document.getElementById("drum").style.display='none ';
-    document.getElementById("violin").style.display='none ';
-    this.instrunmentchecked='1';
-
-  },
-  pickViolin(){
-    this.selectedInstrunment='violin';    console.log(this.selectedInstrunment);
-    document.getElementById("piano").style.display='none';
-    document.getElementById("guitar").style.display='none';
-    document.getElementById("drum").style.display='none ';
-    document.getElementById("violin").style.display='inline ';
-    this.instrunmentchecked='1';
-
-  },
-  pickDrum(){
-    this.selectedInstrunment='drum';    console.log(this.selectedInstrunment);
-    document.getElementById("piano").style.display='none';
-    document.getElementById("guitar").style.display='none';
-    document.getElementById("drum").style.display='inline ';
-    document.getElementById("violin").style.display='none ';    
-    this.instrunmentchecked='1';
-
-  },
-
-  setOption(){
-    this.option=true;
-    document.getElementById("option").style.display='inline';
-    document.getElementById("no").style.display='none';
-  },
-
-  setNoOption(){
-    this.option=false;
-    document.getElementById("option").style.display='none';
-    document.getElementById("no").style.display='inline';
-  },
-
-setPublic(){
-    this.visible=true;
-    document.getElementById("public").style.display='inline';
-    document.getElementById("private").style.display='none';
-  },
-
-  setPrivate(){
-    this.visible=false;
-    document.getElementById("public").style.display='none';
-    document.getElementById("private").style.display='inline';
-
-
-
-
-  },
-
 
   check(){
-      console.log(this.instrunmentchecked)
+      if(this.recordchecked==='1'){
       console.log(this.recordchecked)
-
-      if(this.instrunmentchecked==='1'){
-        if(this.recordchecked==='1'){
-      console.log(this.recordchecked)
-        }
-        else{
-          console.log('2')
-          this.$refs.confirmationButton.reset();
-        }
       }
       else{
-          console.log('3')
-          this.$refs.confirmationButton.reset();
+        console.log('2')
+        this.$refs.confirmationButton.reset();
       }
   },
 
@@ -335,6 +288,59 @@ setPublic(){
 
 
 <style scoped>
+
+
+.background {
+  padding-top: 60px;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+}
+
+.img-wrapper {
+  width: 65px;
+  height: 65px;
+  border-radius: 70%;
+  overflow: hidden;
+}
+
+.img-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* row 1: record info */
+#search-record-row1 b {
+  color: #007bff;
+}
+
+/* row 2 left: filter */
+.nav-item {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  border: none !important;
+}
+
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  cursor: pointer;
+}
+
+.active {
+  opacity: 1 !important;
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid #2080e0 !important;
+}
+
+
 
 ::v-deep .ar-content{
 	width:1000px;
