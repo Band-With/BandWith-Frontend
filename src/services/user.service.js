@@ -36,8 +36,8 @@ class UserService {
         });
     }
 
-    getPracticeDetail(username, title, condition){
-        return axios.get(API_URL + username + '/records/' + title, {
+    getPracticeDetail(username, musicId, condition){
+        return axios.get(API_URL + username + '/records/' + musicId, {
             params: {
                 condition: condition
             }

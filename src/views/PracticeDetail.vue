@@ -71,7 +71,7 @@
 
             <div class="d-flex flex-column w-100">
                 <div class="user-info">
-                    <a :href="'/' + userParam + '/'"> {{ userParam }}/</a> {{ musicParam }}
+                    <a :href="'/' + userParam + '/'"> {{ userParam }}/</a> {{ content.music.title }}
                 </div>
 
                 <div class="d-flex">

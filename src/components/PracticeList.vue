@@ -49,7 +49,7 @@
                             <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.title }}</span>
                             <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.singer }} {{ item.composer }}</span>
                         </div>
-                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.title }}">
+                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music_id }}">
                             <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
                         </router-link>
                     </div>  
