@@ -33,7 +33,7 @@
                 <span class="pb-3" style="font-size: 16px; font-weight: lighter">나만의 연주를 지금 바로 공유해 보세요.</span>
                 <router-link class="btn btn-primary" :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!' , filter: 'rel'}}">
                     연주 녹음하기
-                </router-link>d
+                </router-link>
             </div>
 
             <div v-else class="d-flex flex-column justify-content-center align-items-center w-100">

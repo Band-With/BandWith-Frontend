@@ -17,14 +17,11 @@ class CommentService {
     }
 
     deleteComment(username, commentId){
-        return axios.delete(API_URL + username + "/comments", {
-            commentId: commentId
-        });
+        return axios.delete(API_URL + username + "/comments/" + commentId);
     }
 
     updateComment(username, commentId, content){
-        return axios.patch(API_URL + username + "/comments", {
-            commentId: commentId,
+        return axios.patch(API_URL + username + "/comments/" + commentId, {
             content: content
         });
     }

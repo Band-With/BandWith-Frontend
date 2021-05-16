@@ -211,7 +211,7 @@ export default {
             this.record.searchable = record.records.searchable;
         },
         getComments(record){
-            this.$refs.comment.getComments(record.records.record_id);
+            this.$refs.comment.loadComments(record.records.record_id);
         },
         accessOnChangeEventHandler(){
             if(confirm("공개여부를 변경하시겠습니까?")){
