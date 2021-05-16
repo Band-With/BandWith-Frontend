@@ -161,7 +161,7 @@ import UserService from '../services/user.service';
 
 
 export default {
-    name: 'MyPage',
+    name: 'myPage',
     data: function() {
         return {
             content: '',
