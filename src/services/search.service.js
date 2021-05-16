@@ -7,6 +7,26 @@ class SearchService {
     return axios.get(API_URL + "musics/" + music_id);
   }
 
+  
+  searchForInvite(member_id){
+    if (member_id == null)
+      member_id = '';
+    return axios.get(API_URL + "members", {
+      params: {
+        member_id: member_id
+      },
+    });
+}
+
+invite(member_id, band_id){
+  var params = new URLSearchParams();
+  params.append('band_id', band_id);
+  params.append('member_id', member_id);
+  axios.post(API_URL + "invitation"
+    ,params)
+
+}
+
   getMusics(query, filter) {
     if (query == null)
       query = '';

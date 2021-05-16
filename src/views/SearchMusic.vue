@@ -37,7 +37,6 @@
             </li>
           </ul>
         </div>
-
         <!-- loading -->
         <div v-if="loading" class="d-flex justify-content-center ">
           <span
@@ -77,6 +76,7 @@ export default {
   data() {
     return {
       loading: true,
+      content:'',
       query: "",
       filter_list: [
         { ename: "related", kname: "관련순" },
@@ -119,6 +119,8 @@ export default {
         this.sort_type = type;
       }
     },
+
+
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
       this.loading = true;
@@ -139,6 +141,18 @@ export default {
         }
       );
     },
+  
+
+  },
+
+
+
+
+
+
+  
+
+
     // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
     changeQuery(type) {
       if (this.query == null) {
@@ -157,7 +171,6 @@ export default {
           },
         });
       }
-    },
   },
   mounted() {
     this.query = this.$route.query.q;
