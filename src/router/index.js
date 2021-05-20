@@ -60,6 +60,20 @@ const routes = [
     path: '/bands/:bandname',
     name: 'bandPage',
     component: () => import('../views/BandPage.vue'), 
+    pathToRegexpOptions: { strict: true },
+    redirect: { name: 'complete' },
+    children: [
+      {
+        name: 'complete',
+        path: 'complete',
+        component: () => import('../components/bandMusic/BandComplete.vue') 
+      },
+      {
+        name: 'workon',
+        path: 'workon',
+        component: () => import('../components/bandMusic/BandWorkon.vue') 
+      }
+    ]
   },
   {
     path: '/:username',
