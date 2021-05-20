@@ -79,8 +79,22 @@ class UserService {
                 }
             }
         );
-      }
+    }
 
+    follow(user_name, followingId){
+        return axios
+            .post(API_URL + user_name+'/follows' ,{
+                followingId: followingId
+            })   
+    }
 
+    unfollow(user_name, followingId){
+        return axios
+            .delete(API_URL + user_name+'/follows' ,{
+                data:{
+                    followingId: followingId
+                }
+            })   
+    }
 }
 export default new UserService();

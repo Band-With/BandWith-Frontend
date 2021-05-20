@@ -77,6 +77,10 @@ a:hover{
     border: none;
 }
 
+.vm2_wrapper[data-v-11fe6c4e]{
+    z-index: 999;
+}
+
 </style>
 
 <template>
@@ -101,11 +105,60 @@ a:hover{
                     <div class="pt-2 px-5" style="flex-grow: 3; width: 550px"> <!-- 이름 팔로우 -->
                         <div class="mb-2 d-flex flex-row align-items-end">
                             <div style="font-size: 38px"> {{ content.member.username }} </div>
-                            <button v-if="!condition" class="mb-2 ml-4 px-3" style="height: 28px; border: none; border-radius: 4px; background-color: #0095F6; color: #fff; font-size: 14px;">팔로우</button>
+                            <button v-if="!condition && !following" class="mb-2 ml-4 px-3" @click="follow"
+                            style="height: 28px; border: none; border-radius: 4px; background-color: #0095F6; color: #fff; font-size: 14px;">팔로우</button>
+                            <button v-else-if="following" class="mb-2 ml-4 px-3" @click="unfollow"
+                            style="height: 28px; border: 1px solid #666; border-radius: 4px; background-color: #fff; color: #555; font-size: 14px;">언팔로우</button>
                         </div>
                         <div> 
-                            <span class="mr-4">팔로우 {{ content.followingCount }}</span>
-                            <span class="ml-2">팔로워 {{ content.followerCount }}</span>
+                            <button style="background-color: transparent; border:none" @click="openFollowing">팔로우 {{ content.followingCount }}</button>
+                            <vue-modal-2 name="modal-1" @on-close="closeFollowing">
+                                <template v-slot:header>
+                                    <div class="d-flex justify-content-center pt-2">
+                                        <span style="font-size: 15px; font-weight: bold">팔로우</span>
+                                    </div>
+                                </template>
+                                <template v-slot:footer>
+                                    <div class="d-flex justify-content-end pb-2 px-3">
+                                        <button style="background-color: #0095F6; color: #fff; border:none; border-radius: 3px; width: 80px; height: 40px" @click="closeFollowing">Close</button>
+                                    </div>
+                                </template>
+                                <div style="height: 250px" class="px-4">
+                                    <div v-for="following in content.followings" :key="following.member_id" class="d-flex flex-row align-items-center mb-4">
+                                        <a :href="'/' + following.username + '/'">
+                                            <img v-if="following.profile !== null" :src="imgPreUrl + following.profile" style="width: 55px; height: 55px; border-radius: 50%"/>
+                                            <img v-else src="../assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
+                                        </a>
+                                        <div class="ml-4">
+                                            <span>{{ following.username }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </vue-modal-2>
+                            <button class="ml-2" style="background-color: transparent; border:none" @click="openFollower">팔로워 {{ content.followerCount }}</button>
+                            <vue-modal-2 name="modal-2" @on-close="closeFollower">
+                                <template v-slot:header>
+                                    <div class="d-flex justify-content-center pt-2">
+                                        <span style="font-size: 15px; font-weight: bold">팔로워</span>
+                                    </div>
+                                </template>
+                                <template v-slot:footer>
+                                    <div class="d-flex justify-content-end pb-2 px-3">
+                                        <button style="background-color: #0095F6; color: #fff; border:none; border-radius: 3px; width: 80px; height: 40px" @click="closeFollower">Close</button>
+                                    </div>
+                                </template>
+                                <div style="height: 250px" class="px-4">
+                                    <div v-for="follower in content.followers" :key="follower.member_id" class="d-flex flex-row align-items-center mb-4">
+                                        <a :href="'/' + follower.username + '/'">
+                                            <img v-if="follower.profile !== null" :src="imgPreUrl + follower.profile" style="width: 55px; height: 55px; border-radius: 50%"/>
+                                            <img v-else src="../assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
+                                        </a>
+                                        <div class="ml-4">
+                                            <span>{{ follower.username }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </vue-modal-2>
                         </div>
                     </div>
                     <div> <!-- mic -->
@@ -159,15 +212,15 @@ a:hover{
 <script>
 import UserService from '../services/user.service';
 
-
 export default {
     name: 'MyPage',
     data: function() {
         return {
             content: '',
-            follow: 0,
-            follower: 0,
+            followCount: 0,
+            followerCount: 0,
             imgPreUrl: "data:image/jpg;base64,",
+            following: Boolean,
         }
     },
     components: {
@@ -184,12 +237,45 @@ export default {
         }
     },
     methods: {
+        openFollowing () {
+            this.$vm2.open('modal-1')
+        },
+        closeFollowing () {
+            this.$vm2.close('modal-1')
+        },        
+        openFollower () {
+            this.$vm2.open('modal-2')
+        },
+        closeFollower () {
+            this.$vm2.close('modal-2')
+        },
+        follow(){
+            UserService.follow(this.user.username, this.content.member.member_id);
+            this.content.followerCount++
+            this.following = true
+        },
+        unfollow(){
+            if(confirm("팔로우를 취소하시겠습니까?")){
+                UserService.unfollow(this.user.username, this.content.member.member_id);
+                this.content.followerCount--
+                this.following = false
+            }
+        },
+        init(){
+            for(const followers_ of this.content.followers)
+                if (followers_.username === this.user.username){
+                    this.following = true
+                    return
+                }
+            this.following = false;
+        }
     },
     mounted() {
         UserService.getMyPageContent(this.userParam).then(
             response => {
                 if(Object.keys(response.data).length !== 0){
                     this.content = response.data;
+                    this.init()
                 }
             },
             error => {

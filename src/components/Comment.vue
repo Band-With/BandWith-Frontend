@@ -139,6 +139,9 @@ export default {
     computed: { 
         user() {
             return JSON.parse(localStorage.getItem('user'));
+        },
+        userParam(){
+            return this.$route.params.username;
         }
     },
     methods: {
