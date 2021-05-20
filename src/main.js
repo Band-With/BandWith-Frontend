@@ -8,8 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import * as VeeValidate from "vee-validate"
 import ToggleButton from 'vue-js-toggle-button'
+import Modal from "@burhanahmeed/vue-modal-2";
 
 Vue.config.productionTip = false;
+Vue.use(Modal);
 Vue.use(ToggleButton)
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);

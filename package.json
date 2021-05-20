@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@burhanahmeed/vue-modal-2": "^1.1.11",
     "@codekraft-studio/vue-record": "0.0.3",
     "@trevoreyre/autocomplete-js": "^2.2.0",
     "@trevoreyre/autocomplete-vue": "^2.2.0",
