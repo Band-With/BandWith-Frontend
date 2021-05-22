@@ -172,7 +172,7 @@ a:hover{
                 <div class="d-flex pt-3 px-5 profile-box"> <!-- 악기 연주 정보 공간 -->
                     <div id="band"> 
                         <span>소속 밴드</span>
-                        <router-link v-if="condition" to="/newBand" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
+                        <router-link v-if="condition" to="/bands/new" class="pl-4" style="font-size: 11px">+ 새 밴드 만들기</router-link>
                         <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
                             <div v-for="band in content.bands" :key="band.band_id">
                                 <router-link :to="{ name: 'bandPage', params: { bandname: band.band_name }}" class="d-flex flex-column mr-4 pt-3 text-center">

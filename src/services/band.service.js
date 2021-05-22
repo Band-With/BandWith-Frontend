@@ -24,5 +24,10 @@ class BandService {
             musicId: music_id,
         })
     }
+
+    getBandInfo(band_id){
+        return axios.get(API_URL + band_id)
+    }
 }
+
 export default new BandService();
