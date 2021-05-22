@@ -109,7 +109,7 @@ a:hover{
         <div class="main d-flex" style="min-height: calc(100vh - 60px)">
             <div id="band-info" class="d-flex flex-column position-fixed align-items-center py-5" :class="{ 'band-info-1' : this.windowWidth < 1300}"> <!-- aside -->
                 <div class="d-flex flex-column mb-1">
-                    <span style="background-color: #EFEFEF; height: 265px; width: 265px; border-radius: 10px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
+                    <span style="background-color: #EFEFEF; height: 265px; width: 265px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
                         <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + band.img"/>
                         <img v-else id="band-profile-image" src="../assets/images/icon/default_band_profile2.jpg"/>
                     </span>
@@ -124,7 +124,7 @@ a:hover{
                     <div v-for="member in content.members" :key="member.member_id" class="d-flex justify-content-between mt-3">
                         <div>
                             <router-link :to="{ name: 'prac', params: { username: member.username}}">
-                                <img v-if="member.img !== null" :src="imgPreUrl + member.img" style="width: 32px; height: 32px; border-radius: 50%"/>
+                                <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <img v-else src="../assets/images/profile.jpg" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <span style="color: #444; font-size: 15px; margin-left: 10px">{{ member.username }}</span>
                             </router-link>
@@ -160,50 +160,6 @@ a:hover{
                         </li>
                     </ul>
                     <router-view></router-view>
-
-                    <!-- <vue-horizontal-list :items="content.band_musics" :options="options">
-                        <template v-slot:default="{ item }">
-                            <div class="d-flex flex-column align-items-center">
-                                <router-link to="/" class="item">
-                                    <section  class="px-2 p-1 text-area">
-                                        <span style="font-size: 13px; color: #444">{{ item.music.title }}</span>
-                                    </section>
-                                    <section class="position-relative" style="overflow: hidden; max-height: 230px">
-                                        <img style="border: 1px solid #cacaca; width: 250px; height: 250px" :src="imgPreUrl + item.music.img"/>                                
-                                    </section>
-                                    <section class="d-flex justify-content-end p-2">
-                                        <img class="mr-1" style="width: 20px; height: 20px" src="../assets/images/icon/like.png"/>
-                                        {{ item.likes }}
-                                        <img class="ml-3 mr-1" style="width: 20px; height: 20px" src="../assets/images/icon/comment.png"/>
-                                        {{ item.comments }}
-                                    </section>
-                                </router-link>
-                            </div>
-                        </template>
-                    </vue-horizontal-list>
-                </div>
-                <div>
-                    <span style="font-size: 24px; color: #666">진행 중인 곡</span>
-                    <vue-horizontal-list :items="content.band_musics" :options="options">
-                        <template v-slot:default="{ item }">
-                            <div class="d-flex flex-column align-items-center">
-                                <router-link :to="{name:'processing-music', params: { bandname: content.band.band_name, music:item.music.title}}" class="item">
-                                    <section  class="px-2 p-1 text-area">
-                                        <span style="font-size: 13px; color: #444">{{ item.music.title }}</span>
-                                    </section>
-                                    <section class="position-relative" style="overflow: hidden; max-height: 230px">
-                                        <img style="border: 1px solid #cacaca; width: 300px; height: 300px" :src="imgPreUrl + item.music.img"/>                                
-                                    </section>
-                                    <section class="d-flex justify-content-end p-2">
-                                        <img class="mr-1" style="width: 20px; height: 20px" src="../assets/images/icon/like.png"/>
-                                        {{ item.likes }}
-                                        <img class="ml-3 mr-1" style="width: 20px; height: 20px" src="../assets/images/icon/comment.png"/>
-                                        {{ item.comments }}
-                                    </section>
-                                </router-link>
-                            </div>
-                        </template>
-                    </vue-horizontal-list> -->
                 </div>
             </div>
         </div>
@@ -211,13 +167,8 @@ a:hover{
 </template>
 
 <script>
-// import VueHorizontalList from "vue-horizontal-list";
-
 export default {
     name: 'BandPage',
-    // components: {
-    //   VueHorizontalList
-    // },
     created() {
         window.addEventListener("resize", this.resize);
         this.resize()
@@ -238,32 +189,6 @@ export default {
             loading: true,
             imgPreUrl: "data:image/jpeg;base64,",
             comments: "",
-            dummy: {
-                "band": {
-                    "band_id": 0,
-                    "band_name": "말달리자",
-                    "created_at": 1577920210,
-                    "img": null
-                },
-                "members": [
-                    {
-                        "member_id": 0,
-                        "username": "member0",
-                        "img": null
-                    },
-                    {
-                        "member_id": 1,
-                        "username": "bongbong",
-                        "img": null
-                    },
-                    {
-                        "member_id": 2,
-                        "username": "member2",
-                        "img": null
-                    }
-                ],
-                "totalLikes": 50
-            },
         }
     },
     computed: {
@@ -272,6 +197,9 @@ export default {
         },
         complete() {
             return this.$route.name === 'complete'
+        },
+        bandnameParam() {
+            return this.$route.params.bandname;
         }
     },
     methods:{
@@ -297,7 +225,11 @@ export default {
         }
     },
     mounted() {
-        this.content = this.dummy
+        this.$store.dispatch('bandmusic/getBandInfo', this.bandnameParam).then(
+            response => {
+                this.content = response
+            }
+        );
         // UserService.getPracticeDetail(this.userParam, this.musicParam, this.condition).then(
         //     response => {
         //         if(Object.keys(response.data).length !== 0){
