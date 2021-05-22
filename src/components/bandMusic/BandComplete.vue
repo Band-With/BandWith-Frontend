@@ -26,7 +26,7 @@
 
 <template>
     <div class="d-flex flex-column py-4">
-        <div v-for="item in content" :key="item.band_music_id" class="item-container d-flex flex-row mb-4">
+        <div v-for="item in content" :key="item.band_music_id" class="item-container d-flex flex-row mb-4 mt-2">
             <img class="music-image" :src="imgPreUrl + item.music.img"/>
             <div class="d-flex flex-column position-relative pl-4 w-100">
                 <section class="d-flex flex-column mb-3">
@@ -83,11 +83,15 @@ export default {
     },
     computed: {
         content(){
-			return this.$store.state.bandmusic.bandmusics
+            let completeMusics = []
+            const bandMusics = this.$store.state.bandmusic.bandmusics
+
+            for(let item of bandMusics){
+                if(item.complete === true)
+                    completeMusics.push(item)
+            }
+			return completeMusics
 		}
-    },
-    mounted(){
-        console.log(this.content)
     }
 }
 </script>

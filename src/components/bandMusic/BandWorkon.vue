@@ -1,16 +1,41 @@
 <style scoped>
+.music-image{
+    height: 185px;
+    width: 185px;
+    border-radius: 5px;
+    transition: box-shadow 0.2s;
+}
 
+.music-item{
+    transition: color 0.2s, font-weight 0.2s;
+}
+
+.item-container{
+    cursor: pointer;
+}
+
+.item-container:hover > .music-image{
+    box-shadow: 0px 8px 15px 0px rgb(0 0 0 / 40%);
+}
+
+.item-container:hover  .music-item{
+    color: #136BF5;
+    font-weight: bold;
+}
 </style>
 
 <template>
-    <div class="d-flex flex-column py-4">
-        
+    <div class="d-flex justify-content-between flex-wrap py-4">
+        <div v-for="item in content" :key="item.band_music_id" class="item-container d-flex mb-4">
+            <img class="music-image" :src="imgPreUrl + item.music.img"/>
+        </div>
     </div>
 </template>
 
 <script>
+
 export default {
-    name: 'BandWorkon',
+    name: 'BandComplete',
     data(){
         return {
             imgPreUrl: "data:image/jpeg;base64,"
@@ -32,9 +57,16 @@ export default {
             return [d.getFullYear(), month, date].join("-");
         }
     },
-    computed:{
+    computed: {
         content(){
-			return this.$store.bandmusic.bandmusics
+            let workonMusics = []
+            const bandMusics = this.$store.state.bandmusic.bandmusics
+
+            for(let item of bandMusics){
+                if(item.complete === false)
+                    workonMusics.push(item)
+            }
+			return workonMusics
 		}
     }
 }

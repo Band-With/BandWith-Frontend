@@ -135,7 +135,7 @@ a:hover{
                     </div>
                 </div>
             </div>
-            <div class="d-flex py-5 px-4 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
+            <div class="d-flex py-5 pl-5 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
                 <div class="mb-5">
                     <section class="d-flex flex-column mb-4">
                         <span class="mb-3" style="font-size: 40px; color: #000; font-weight: bold">
