@@ -114,7 +114,7 @@ a:hover{
                         <img v-else id="band-profile-image" src="../assets/images/icon/default_band_profile2.jpg"/>
                     </span>
                     <span style="font-size: 24px; font-weight: bold" class="mt-4 mb-3">{{ content.band.band_name }}</span>
-                    <span style="font-size: 16px; color: #136BF5">좋아요 {{ content.totalLikes }}개</span>
+                    <span style="font-size: 16px; color: #0095F6">좋아요 {{ content.totalLikes }}개</span>
                 </div>
                 <div class="align-self-start mt-5 w-100" :class="{'display-none': this.windowWidth < 1300}">    <!-- member info -->
                     <div class="d-flex justify-content-between mb-4">
@@ -129,8 +129,8 @@ a:hover{
                                 <span style="color: #444; font-size: 15px; margin-left: 10px">{{ member.username }}</span>
                             </router-link>
                         </div>
-                        <button style="height: 28px; border: none; border-radius: 4px; background-color: #136BF5; color: #fff; font-size: 14px;">
-                            <span style="font-size: 13px; color: #fff; cursor: pointer" @click="follow(member.member_id)">방문하기</span>
+                        <button style="height: 28px; border: none; border-radius: 4px; background-color: #0095F6; color: #fff; font-size: 14px;">
+                            <span style="font-size: 13px; cursor: pointer" @click="follow(member.member_id)">방문하기</span>
                         </button>
                     </div>
                 </div>
