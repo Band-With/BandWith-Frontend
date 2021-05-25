@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import Records from "@/components/searchRecord/Records.vue";
-import Comments from "@/components/searchRecord/Comments.vue";
-import Cart from "@/components/searchRecord/Cart.vue";
+import Records from "@/components/search/Records.vue";
+import Comments from "@/components/search/Comments.vue";
+import Cart from "@/components/search/Cart.vue";
 // import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
 
@@ -61,6 +61,7 @@ export default {
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
       is_comment_visible: false, // 댓글창 visibility
+      record_id: -1, // 댓글창 선택된 레코드
     };
   },
   components: {
@@ -122,28 +123,28 @@ export default {
 
   mounted() {
     SearchService.getMusic(this.music_id).then(
-        (res) => {
-          if (Object.keys(res.data).length !== 0) {
-            this.music = res.data;
-          }
-          else {
-            this.$router.push('/musics');
-          }
-        },
-        (error) => {
-          error =
-            (error.res && error.res.data) || error.message || error.toString();
-          alert(error);
-          this.$router.push('/musics');
+      (res) => {
+        if (Object.keys(res.data).length !== 0) {
+          this.music = res.data;
+        } else {
+          this.$router.push("/musics");
         }
-      );
+      },
+      (error) => {
+        error =
+          (error.res && error.res.data) || error.message || error.toString();
+        alert(error);
+        this.$router.push("/musics");
+      }
+    );
 
     const sort_type = this.$route.query.filter;
 
     // query string = "like", "follow"
-    if (sort_type === "like"
-    //  || sort_type === "follow"
-     ) {
+    if (
+      sort_type === "like"
+      //  || sort_type === "follow"
+    ) {
       this.setFilter(sort_type);
       this.getRecords(sort_type);
     }
@@ -159,7 +160,7 @@ export default {
 .background {
   padding-top: 60px;
   min-height: 100vh;
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
 }
 
 .icon {
@@ -204,5 +205,26 @@ export default {
   color: black;
   font-weight: bold;
   border-bottom: 2px solid #2080e0 !important;
+}
+
+/* comments(child) css */
+::v-deep #comment {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  flex: 1 1 auto;
+  min-height: 1px;
+  font-size: 0.8rem;
+}
+
+::v-deep .comment-profile-image,
+::v-deep #comment-num {
+  display: none;
 }
 </style>

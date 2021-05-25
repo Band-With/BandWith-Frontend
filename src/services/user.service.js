@@ -3,8 +3,16 @@ import authHeader from './auth-header';
 
 const API_URL = 'http://localhost:8080/members/';
 
-//test
 class UserService {
+    getMembers(username, filter) {
+        return axios.get('http://localhost:8080/members', {
+            params: {
+                q: username,
+                filter: filter
+            }
+        })
+    }
+
     getMyPageContent(username) {
         return axios.get(API_URL + username);
     }

@@ -43,7 +43,6 @@
             </li>
           </ul>
         </div>
-
         <!-- loading -->
         <div v-if="loading" class="d-flex justify-content-center ">
           <span
@@ -53,7 +52,7 @@
         </div>
         <!-- no result -->
         <div
-          v-else-if="musics == null"
+          v-else-if="members == null"
           class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
         >
           <img
@@ -64,7 +63,7 @@
           <b>녹음이 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
-        <BandMusics v-else :musics="musics" />
+        <Members v-else :members="members" />
       </div>
 
       <!-- row 3: pagination -->
@@ -74,28 +73,38 @@
 </template>
 
 <script>
-import BandMusics from "@/components/bandMusic/BandMusics.vue";
+import Members from "@/components/search/Members.vue";
 // import Paging from "@/components/Paging.vue";
-import SearchService from "@/services/search.service";
+import UserService from "@/services/user.service";
 
 export default {
-  name: "bandMusic",
+  name: "bandInvitation",
   data() {
     return {
       loading: true,
       query: "",
       filter_list: [
         { ename: "related", kname: "관련순" },
-        { ename: "record", kname: "녹음순" },
-        { ename: "latest", kname: "최신순" },
+        { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "related", // 검색 필터 초깃값 설정
-      musics: [],
+      members: [
+        {
+          member:{
+            member_id: "1",
+            username: "pkm1015",
+            name: "박경민",
+            img: null
+          },
+          follower: 2,
+          following: 3
+        }
+      ]
     };
   },
   components: {
-    BandMusics,
-    // Paging,
+      Members
+      // Paging,
   },
 
   computed: {
@@ -108,14 +117,14 @@ export default {
     toggleFilter(type) {
       if (this.sort_type != type) {
         this.setFilter(type); // 필터 설정
-        this.getMusics(type); // 데이터 가져오기
+        this.getMembers(type); // 데이터 가져오기
         this.changeQuery(type);
       }
     },
     // 검색 버튼 눌렀을 때
     searchMusic(e) {
       e.preventDefault();
-      this.getMusics(this.sort_type);
+      this.getMembers(this.sort_type);
       this.changeQuery(this.sort_type);
     },
     // 필터 설정
@@ -125,14 +134,14 @@ export default {
       }
     },
     // 데이터 가져오기 (axios)
-    getMusics(sort_type) {
+    getMembers(sort_type) {
       this.loading = true;
-      SearchService.getMusics(this.query, sort_type).then(
+      UserService.getMembers(this.query, sort_type).then(
         (res) => {
           if (Object.keys(res.data).length !== 0) {
-            this.musics = res.data;
+            this.members = res.data;
           } else {
-            this.musics = null;
+            this.members = null;
           }
           this.loading = false;
         },
@@ -148,14 +157,14 @@ export default {
     changeQuery(type) {
       if (this.query == null) {
         return this.$router.replace({
-          name: "bandMusic",
+          name: "bandInvitation",
           query: {
             filter: type,
           },
         });
       } else {
         return this.$router.replace({
-          name: "bandMusic",
+          name: "bandInvitation",
           query: {
             q: this.query,
             filter: type,
@@ -164,19 +173,20 @@ export default {
       }
     },
   },
+
   mounted() {
     this.query = this.$route.query.q;
     const sort_type = this.$route.query.filter;
 
-    // query string = "record", "latest"
-    if (sort_type === "record" || sort_type === "latest") {
+    // query string = "follow"
+    if (sort_type === "follow") {
       this.setFilter(sort_type);
-      this.getMusics(sort_type);
+      this.getMembers(sort_type);
     }
     // query string = "related", undefined, etc.
     else {
-      this.getMusics("related");
-    }
+      this.getMembers("related");
+    }    
     document.getElementById("search-input").focus();
   },
 };
@@ -193,7 +203,7 @@ export default {
 .background {
   padding-top: 60px;
   min-height: 100vh;
-  background-color: #ffffff;
+  /* background-color: #fafafa; */
 }
 /* row 1: search input */
 #search-music-row1,

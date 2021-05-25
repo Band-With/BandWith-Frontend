@@ -69,7 +69,7 @@ import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
 import SearchService from "@/services/search.service";
-import Records from "@/components/searchRecord/Records.vue";
+import Records from "@/components/search/Records.vue";
 
 Vue.use(AudioRecorder)
 export default {
