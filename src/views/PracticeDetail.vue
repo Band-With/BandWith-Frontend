@@ -107,7 +107,7 @@
 
                         <div style="height: 210px; overflow: auto">
                             <button class="history-button position-relative d-flex justify-content-center align-items-center" v-for="(record, index) in content.records" :key="record.records.record_id"  
-                                :class="{'button-clicked': index===0}"  @click="[toggleClickedButton($event.currentTarget), updateMusicPanel(record, index), getComments(record)]">
+                                :class="{'button-clicked': index===0}"  @click="[toggleClickedButton($event.currentTarget), updateMusicPanel(record, index)]">
                                 <!-- <span> {{ record.records.searchable }} </span> -->
                                 <div v-if="condition" class="position-absolute" style="top: 0px; right: 5px">
                                     <img v-if="record.records.access === true" style="width: 16px; height: 16px" src="../assets/images/icon/public.png" />
@@ -123,7 +123,7 @@
 
                 <div class="mt-5">
                     <span style="font-size: 18px">댓글</span>
-                    <comment ref="comment" class="mt-2" :content="comments" :recordId="recordId" :count="record.count"></comment>
+                    <comment ref="comment" class="mt-2" :recordId="recordId"></comment>
                 </div>
 
             </div>
@@ -211,7 +211,7 @@ export default {
             this.record.searchable = record.records.searchable;
         },
         getComments(record){
-            this.$refs.comment.loadComments(record.records.record_id);
+            this.recordId = record.records.record_id;
         },
         accessOnChangeEventHandler(){
             if(confirm("공개여부를 변경하시겠습니까?")){

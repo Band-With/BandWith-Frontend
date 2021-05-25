@@ -1,7 +1,7 @@
 <style scoped>
 .music-image{
-    height: 200px;
-    width: 200px;
+    height: 180px;
+    width: 180px;
     border-radius: 15px;
     transition: box-shadow 0.2s;
 }
@@ -11,6 +11,8 @@
 }
 
 .item-container{
+    margin-bottom: 30px;
+    height: 180px;
     cursor: pointer;
 }
 
@@ -30,25 +32,25 @@ a {
 </style>
 
 <template>
-    <div class="d-flex flex-column py-4">
+    <div class="d-flex flex-column py-5">
         <div v-for="item in content" :key="item.band_music_id">
-            <router-link class="item-container d-flex flex-row mb-4 mt-2" :to="'/' + item.band_music_id">
+            <router-link class="item-container d-flex flex-row" :to="{ name: 'bandMusicDetail', params: { bandname: bandnameParam, musicid: item.band_music_id}}">
                 <img class="music-image" :src="imgPreUrl + item.music.img"/>
-                <div class="d-flex flex-column position-relative pl-4 w-100">
+                <div class="d-flex flex-column position-relative w-100" style="padding-left: 40px">
                     <section class="d-flex flex-column mb-3">
-                        <span class="mb-2" style="font-size: 14px; color: rgb(30, 136, 86); font-weight: bold">
+                        <span class="mb-2" style="font-size: 12px; color: rgb(30, 136, 86); font-weight: 300">
                             완성한 날짜 ㆍ <span style="font-weight: lighter; color: #666; font-size: 12px">{{toDate(item.complete_date)}}</span>
                         </span>
                         <div class="d-flex flex-column music-item">
                             <span class="mb-1" style="font-size: 26px; font-weight: bold;">{{item.music.title}}</span>
-                            <span style="font-size: 16px; color: #666">{{item.music.singer}}ㆍ{{item.music.composer}}</span>
+                            <span style="font-size: 14px; color: #666">{{item.music.singer}}ㆍ{{item.music.composer}}</span>
                         </div>
                     </section>
-                    <footer class="d-flex flex-row align-items-center px-1" style="background-color: transparent; height: 90px; border-radius: 5px; overflow:hidden">
+                    <footer class="d-flex flex-row align-items-center px-1" style="background-color: transparent; height: 80px; border-radius: 5px; overflow:hidden">
                         <div v-for="member in item.members" :key="member.member_id" class="d-flex flex-column align-items-center mr-2" style="min-width: 65px; width: 65px; text-overflow: ellipsis">
-                            <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 40px; height: 40px; border-radius: 50%"/>
-                            <img v-else src="@/assets/images/profile.jpg" style="width: 40px; height: 40px; border-radius: 50%;"/>
-                            <span style="color: #444; font-size: 12px; margin-top: 5px;">{{ member.username }}</span>
+                            <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 50px; height: 50px; border-radius: 50%"/>
+                            <img v-else src="@/assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                            <span style="color: #696969; font-size: 12px; margin-top: 3px;">{{ member.username }}</span>
                         </div>
                     </footer>
                     <div class="position-absolute" style="right: 10px; bottom: 10px">
@@ -69,7 +71,7 @@ export default {
     name: 'BandComplete',
     data(){
         return {
-            imgPreUrl: "data:image/jpeg;base64,"
+            imgPreUrl: "data:image/jpeg;base64,",
         }
     },
     methods:{
@@ -98,7 +100,10 @@ export default {
                     completeMusics.push(item)
             }
 			return completeMusics
-		}
+		},
+        bandnameParam() {
+            return this.$route.params.bandname;
+        }, 
     }
 }
 </script>

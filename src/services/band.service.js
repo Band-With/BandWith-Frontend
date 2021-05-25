@@ -25,8 +25,12 @@ class BandService {
         })
     }
 
-    getBandInfo(band_id){
-        return axios.get(API_URL + band_id)
+    getBandInfo(bandname){
+        return axios.get(API_URL + bandname)
+    }
+
+    getBandMusicInfo(bandname, bandMusicId){
+        return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId)
     }
 }
 

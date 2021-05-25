@@ -1,7 +1,7 @@
 <style scoped>
 .music-image{
-    height: 185px;
-    width: 185px;
+    height: 190px;
+    width: 190px;
     border-radius: 5px;
     transition: box-shadow 0.2s;
 }
@@ -13,6 +13,10 @@
 
 .item-container{
     cursor: pointer;
+}
+
+.margin-right{
+    margin-right: 40px;
 }
 
 .item-container:hover > .music-image{
@@ -30,17 +34,50 @@
     padding: 10px;
     font-size: 28px;
     color: transparent;
+    overflow: hidden;
+}
+
+.animated {
+  overflow: hidden;
+  width: 11rem;
+  white-space: nowrap;
+}
+
+.item-container:hover .animated > * {
+  display: inline-block;
+  position: relative;
+  animation: 3s linear 0s infinite alternate move;
+}
+
+.animated > * {
+  min-width: 100%;
+}
+
+@keyframes move {
+  0%,
+  25% {
+    transform: translateX(0%);
+    left: 0%;
+  }
+  75%,
+  100% {
+    transform: translateX(-100%);
+    left: 100%;
+  }
 }
 </style>
 
 <template>
-    <div class="d-flex justify-content-between flex-wrap py-4">
-        <div v-for="item in content" :key="item.band_music_id" class="item-container d-flex mb-4">
-            <div class="d-flex flex-column music-info position-absolute py-5" style="width: 185px; height: 185px">
-                <span>{{item.music.title}}</span>
+    <div class="d-flex flex-wrap py-5">
+        <div v-for="(item, index) in content" :key="item.band_music_id" class="item-container d-flex mb-4">
+            <div class="d-flex flex-column music-info position-absolute py-5" style="width: 190px; height: 190px">
+                <div class="animated">
+                    <span>{{item.music.title}}</span>
+                </div>
                 <span style="font-size: 16px; font-weight: lighter">{{item.music.singer}}</span>
             </div>
             <img class="music-image" :src="imgPreUrl + item.music.img"/>
+            <span class="margin-right" v-if="(index+1)%4 !== 0"/>
         </div>
     </div>
 </template>
@@ -68,6 +105,20 @@ export default {
                 date = '0' + date;
 
             return [d.getFullYear(), month, date].join("-");
+        },
+        init() {
+            const elements = this.$el.querySelectorAll('.music-title-init');
+            
+            for(let element of elements){
+                console.log(element)
+                console.log(element.offsetHeight + "//" + element.offsetWidth)
+                console.log(element.scrollHeight + "//" + element.scrollWidth)
+                
+                if (element.offsetHeight !== element.scrollHeight ||element.offsetWidth !== element.scrollWidth){
+                    element.classList.add('music-title')
+                    element.classList.remove('music-title-init')
+                }
+            }
         }
     },
     computed: {
@@ -81,6 +132,9 @@ export default {
             }
 			return workonMusics
 		}
+    },
+    mounted() {
+        this.init();
     }
 }
 </script>

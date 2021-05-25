@@ -3,14 +3,14 @@
     background-color: #fafafa;
 }
 #band-info{
-    width: 265px;
+    width: 290px;
 }
 
 .main{
-    max-width: 1300px;
+    max-width: 1320px;
     width: calc(100% - 40px);
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 0 auto;
     margin-top: 60px;
 }
@@ -23,7 +23,7 @@
 
 .music-info-1{
     margin-left: auto;
-    width: 950px!important;
+    width: 880px!important;
 }
 
 .band-info-1{
@@ -66,8 +66,8 @@ a.item{
 
 #band-profile-image{
     box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
-    width: 170px; 
-    height: 170px; 
+    width: 180px; 
+    height: 180px; 
     border: 1px solid #ddd; 
     border-radius: 45px;
 }
@@ -109,12 +109,12 @@ a:hover{
         <div class="main d-flex" style="min-height: calc(100vh - 60px)">
             <div id="band-info" class="d-flex flex-column position-fixed align-items-center py-5" :class="{ 'band-info-1' : this.windowWidth < 1300}"> <!-- aside -->
                 <div class="d-flex flex-column mb-1">
-                    <span style="background-color: #EFEFEF; height: 265px; width: 265px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
-                        <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + band.img"/>
+                    <span style="background-color: #EFEFEF; height: 290px; width: 290px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
+                        <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + content.band.img"/>
                         <img v-else id="band-profile-image" src="../assets/images/icon/default_band_profile2.jpg"/>
                     </span>
                     <span style="font-size: 24px; font-weight: bold" class="mt-4 mb-3">{{ content.band.band_name }}</span>
-                    <span style="font-size: 16px; color: #0095F6">좋아요 {{ content.totalLikes }}개</span>
+                    <span style="font-size: 18px; font-weight: 300; color: #0095F6">좋아요 {{ content.totalLikes }}개</span>
                 </div>
                 <div class="align-self-start mt-5 w-100" :class="{'display-none': this.windowWidth < 1300}">    <!-- member info -->
                     <div class="d-flex justify-content-between mb-4">
@@ -135,14 +135,14 @@ a:hover{
                     </div>
                 </div>
             </div>
-            <div class="d-flex py-5 pl-5 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
+            <div class="d-flex py-5 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
                 <div class="mb-5">
                     <section class="d-flex flex-column mb-4">
-                        <span class="mb-3" style="font-size: 40px; color: #000; font-weight: bold">
+                        <span class="mb-3" style="font-size: 48px; color: #000; font-weight: bold">
                             <span v-if="complete">{{ content.band.band_name }}가 완성한 곡</span>
                             <span v-else>{{ content.band.band_name }}가 진행 중인 곡</span>
                         </span>
-                        <span class="px-2" style="font-size: 18px; color: #888"> 
+                        <span class="px-2" style="font-size: 18px; font-weight: 300; color: #888"> 
                             <span v-if="complete">밴드가 완성한 곡을 감상해보세요</span>
                             <span v-else>밴드에서 진행하고 있는 곡을 구경해보세요</span>
                         </span>
@@ -150,12 +150,12 @@ a:hover{
                     <ul class="nav nav-tabs">
                         <li class="nav-item pr-2">
                             <router-link :to="{ name: 'complete' }" class="nav-link">
-                                <span style="font-size: 16px; font-weight: bold">완성한 곡</span>
+                                <span class="px-3" style="font-size: 18px; font-weight: bold;">완성한 곡</span>
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{ name: 'workon' }" class="nav-link">
-                                <span style="font-size: 16px; font-weight: bold">진행 중인 곡</span>
+                                <span style="font-size: 18px; font-weight: bold">진행 중인 곡</span>
                             </router-link>
                         </li>
                     </ul>

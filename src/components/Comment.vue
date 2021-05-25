@@ -135,8 +135,17 @@ export default {
             required: false,
             default: -1
         }
+    },      
+    watch: { 
+        recordId: {
+            immediate: true, 
+            handler (val) {
+                console.log(val)
+                this.loadComments(val)
+            }
+        }
     },
-    computed: { 
+    computed: {
         user() {
             return JSON.parse(localStorage.getItem('user'));
         },
