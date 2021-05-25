@@ -73,20 +73,30 @@
                     </router-link> {{ content.music.title }}
                 </div>
 
-                <div class="d-flex">
-                    <div class="d-flex align-items-center music-info w-100">
-                        <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
-                        <div class="position-relative d-flex flex-column justify-content-around h-100 w-100" style="padding-left: 40px">
-                            <span class="mb-1" style="font-size: 12px; font-weight: 300; color: #777">완성한 날짜: {{ toDate(content.createdAt) }}</span>
-                            <span class="d-flex flex-column">
-                                <span class="mb-2" style="font-size: 26px; font-weight: 700">{{ content.music.title }}</span>
-                                <span class="mb-3" style="font-size: 14px; font-weight: 100">{{ content.music.singer }} {{ content.music.composer }}</span>
-                            </span>
-                            <span class="mb-1" style="font-size: 14px; color: #666">연습 날짜: {{ toDate(content.createdAt) }}</span>
-                            <audio controls style="width: 600px">                            <!-- 오디오 컨트롤러 -->
-                                <source :src="content.fileUrl" type="audio/mpeg">
-                                Your browser does not support the audio tag.
-                            </audio>
+                <div class="d-flex align-items-center position-relative music-info w-100">
+                    <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
+                    <div class="position-relative d-flex flex-column h-100 w-100" style="padding-left: 40px">
+                        <span class="my-2" style="font-size: 12px; font-weight: 300; color: #777">완성한 날짜: {{ toDate(content.createdAt) }}</span>
+                        <span class="mt-1 mb-2" style="font-size: 36px; font-weight: 700">{{ content.music.title }}</span>
+                        <span class="mb-4" style="font-size: 14px; font-weight: 100">{{ content.music.singer }} {{ content.music.composer }}</span>
+
+                        <div class="d-flex flex-row mt-2 mb-4">
+                            <div v-for="member in content.members" :key="member.member_id" class="mr-3">
+                                <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 45px; height: 45px; border-radius: 50%"/>
+                                <img v-else src="@/assets/images/profile.jpg" style="width: 45px; height: 45px; border-radius: 50%;"/>
+                            </div>
+                        </div>
+
+                        <audio controls style="width: 600px">                            <!-- 오디오 컨트롤러 -->
+                            <source :src="content.fileUrl" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+
+                        <div class="position-absolute" style="bottom: 20px; right: 20px">
+                            <img class="mr-1" style="width: 20px; height: 20px" src="@/assets/images/icon/like_off.png"/>
+                            {{ content.likes }}
+                            <img class="ml-3 mr-1" style="width: 20px; height: 20px" src="@/assets/images/icon/comment.png"/>
+                            {{ content.comments }}
                         </div>
                     </div>
                 </div>
