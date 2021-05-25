@@ -128,12 +128,12 @@ export default {
         recordId: { 
             type: Number,
             required: false,
-            default: 0
+            default: null
         },
         bandMusicId: {
             type: Number,
             required: false,
-            default: 0
+            default: null
         }
     },      
     watch: { 

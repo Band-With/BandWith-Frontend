@@ -4,9 +4,9 @@ const API_URL = 'http://localhost:8080/';
 
 class CommentService {
     getComments(username, recordId, bandMusicId) {
-        if (recordId !== 0)
+        if (recordId !== null)
             return axios.get(API_URL + "members/" + username + "/records/" + recordId + "/comments");
-        else if (bandMusicId !== 0)
+        else if (bandMusicId !== null)
             return axios.get(API_URL + "bandmusics/" + bandMusicId + "/comments")
     }
 
