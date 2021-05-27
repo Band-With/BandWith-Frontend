@@ -1,7 +1,6 @@
 <style scoped>
     .content-area{
         border-radius: 7px;
-        overflow: hidden;
         min-height: 400px;
     }
     .playlist-item{
@@ -10,6 +9,11 @@
         min-height: 290px;
         border: 1px solid #ddd;
         border-radius: 20px;
+        transition: box-shadow 0.2s;
+    }
+
+    .playlist-item:hover{
+        box-shadow: 0px 8px 15px 0px rgb(0 0 0 / 40%);
     }
 
     .text-area{
