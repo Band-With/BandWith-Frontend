@@ -185,6 +185,28 @@ a:hover{
                     </div>
                     <div id="instrument">
                         <span>연주 악기</span>
+                        <div class="d-flex align-items-center py-4">
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/piano.png"/>
+                                <span class="pl-2 py-2">x{{content.piano}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/elec.png"/>
+                                <span class="pl-2 py-2">x{{content.elec}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/drum.png"/>
+                                <span class="pl-2 py-2">x{{content.drum}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/base.png"/>
+                                <span class="pl-2 py-2">x{{content.base}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/sing.png"/>
+                                <span class="pl-2 py-2">x{{content.sing}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

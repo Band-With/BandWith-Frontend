@@ -62,12 +62,12 @@
         <div v-else class="w-100">
             <div id="bookmark-title" class="d-flex align-items-center justify-content-between w-100" :class="{'fix-title': scrollY > 450}">
                 <span style="margin-left: 70px; text-align: center;width:110px"> 노래 정보 </span>
-                <span style="margin-left: 70px; text-align: center; width: 620px"> 북마크 이름 / 북마크 재생 </span>
+                <span style="text-align: center; width: 610px"> 북마크 이름 / 북마크 재생 </span>
                 <span style="margin-right: 70px; margin-left: 70px; text-align: center; width: 260px"> 참여한 아티스트 </span>
             </div>
             <div v-if="scrollY > 450" style="height: 92px"></div>
             <div v-for="item in content" :key="item.bookmark_id" class="d-flex bookmark-item">
-                <span style="height: 100%; width: 6px; background-color: #33C58B;"></span>
+                <span style="height: 100%; width: 6px; background-color: #74A3FF;"></span>
                 <div class="d-flex w-100 h-100 align-items-center">
 
                     <div class="d-flex flex-column" style="margin-left: 70px; width:110px">                    <!-- 노래 정보 -->
@@ -77,9 +77,9 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-column" style="margin-left: 70px; width: 620px">                                                                       <!-- 북마크 정보 -->
-                        <span style="font-weight: 400; color: #666; font-size: 24px; margin-bottom: 20px">{{ item.title }}</span> 
-                        <audio controls style="height: 35px; width: 500px">                            <!-- 오디오 컨트롤러 -->
+                    <div class="d-flex flex-column" style="margin-left: 70px; width: 610px">                                                                       <!-- 북마크 정보 -->
+                        <span style="font-weight: 300; color: #666; font-size: 24px; margin-bottom: 15px">{{ item.title }}</span> 
+                        <audio controls style="height: 35px; width: 540px">                            <!-- 오디오 컨트롤러 -->
                             <source :src="item.file_url" type="audio/mpeg">
                             Your browser does not support the audio tag.
                         </audio>
