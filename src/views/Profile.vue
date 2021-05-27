@@ -1,265 +1,9 @@
-<template>
-  <div id="home">
-    <div id="banner">
-      <!-- row 1: search input -->
-      <div
-        id="search-music-row1"
-        class="d-flex align-items-center justify-content-center"
-      >
-        <form id="search-input-wrapper" class="d-flex align-items-center">
-          <input
-            name="q"
-            id="search-input"
-            placeholder="검색어를 입력하세요."
-          />
-          <button @click="submit" id="search-button"></button>
-        </form>
-      </div>
-    </div>
-
-    <div class="">
-    <div
-      style="margin-top:10px;width:40%; position:relative; top:70%; left:15%;float:left;"
-    >
-      <div style="color: #2080e0; font-size: 1.2rem;"> 이달의 연주자</div>
-
-      <center >
-        <hooper
-          style="height: 250px; position:relative; left:-20%;"
-          :itemsToShow="3"
-          :centerMode="true"
-          :autoPlay="true"
-          :infiniteScroll="true"
-        >
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/dongju.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>김동주</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>수지</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/mingue.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>조민규</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>김동주</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>수지</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/band.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>벤드</a>
-            </div>
-          </slide>
-        </hooper>
-      </center>
-    </div>
-
-    <div
-      style="margin-top:10px;width:40%;width:40%; position:relative; top:70%; left:20%;float:left;"
-    >
-      <div style="color: #2080e0; font-size: 1.2rem;">이달의 밴드</div>
-
-      <center>
-        <hooper
-          style="height: 250px; position:relative; left:-20%;"
-          :itemsToShow="3"
-          :centerMode="true"
-          :autoPlay="true"
-          :infiniteScroll="true"
-        >
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/dongju.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>고무밴드</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>대일밴드</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/mingue.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>락밴드</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>문어밴드</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/suzy.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>봉봉밴드</a>
-            </div>
-          </slide>
-          <slide>
-            <div style="text-align: center; hegith:130xp">
-              <pre></pre>
-              <pre></pre>
-              <img
-                src="../assets/images/band.jpg"
-                alt
-                style="border-radius: 50%; width:100px; heights:100px;"
-              />
-              <a>경민밴드</a>
-            </div>
-          </slide>
-        </hooper>
-      </center>
-    </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import { Hooper, Slide } from "hooper";
-import "hooper/dist/hooper.css";
-
-export default {
-  name: "Profile",
-  props: {
-    msg: String,
-  },
-  data: function() {
-    return {
-      content: "",
-      searched: "",
-      hooperSettings: {
-        infiniteScroll: true,
-        centerMode: true,
-        autoPlay: true,
-        playSpeed: 2000,
-        breakpoints: {
-          2400: {
-            itemsToShow: 5,
-          },
-          1800: {
-            itemsToShow: 4,
-          },
-          1500: {
-            itemsToShow: 3,
-          },
-          1100: {
-            itemsToShow: 2.5,
-          },
-          0: {
-            itemsToShow: 1.5,
-          },
-        },
-      },
-    };
-  },
-  mounted() {},
-  methods: {
-    submit(e) {
-      e.preventDefault();
-      this.searched = document.getElementById("search-input").value;
-      this.$router.push({
-        name: "search-music",
-        query: { q: this.searched, filter: "rel" },
-      });
-    },
-  },
-  components: {
-    Hooper,
-    Slide,
-  },
-};
-</script>
 
 <style scoped>
 #search-input-wrapper {
-  width: 450px;
-  height: 50px;
-  border-radius: 10px;
+  width: 420px;
+  height: 40px;
+  border-radius: 25px;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px #aaa;
 }
@@ -286,23 +30,19 @@ export default {
   z-index: -1;
 }
 
-#search-music-row1 {
-  width: 30%;
-  position: relative;
-  left: 35%;
-  top: 20%;
-}
-#home {
-  width: 100%;
-  position: absolute;
-  top: 0;
+#main {
+  width: 1320px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
   z-index: -1;
 }
-#banner {
-  height: 70vh;
-  background-image: url("../assets/images/home-background.jpg");
 
-  color: white;
+#main-image-2{
+  height: 370px; 
+  width: 370px; 
+  border-radius: 5px;
+  box-shadow: 0px 8px 18px 8px rgb(0 0 0 / 50%);
 }
 
 .hooper-slide.is-current {
@@ -331,3 +71,87 @@ export default {
   color: #000000;
 }
 </style>
+
+
+<template>
+  <div class="d-flex position-relative" style="top:60px;">
+    <div class="d-flex position-absolute w-100" style="background-color: #81AE9D; height: 500px; z-index: -1">
+      <div class="d-flex align-items-center justify-content-center w-100" style="flex: auto">
+      </div>
+      <div style="margin-left: auto; background-color: #EA9F3E">
+        <img style="height: 500px; width: 500px;" src="@/assets/images/home/main_2.png"/>
+      </div>
+    </div>
+    
+    <div id="main">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column justify-content-center" style="height: 500px;">
+            <span style="color: #fff; font-size: 48px; font-weight: 900">Band With</span>
+            <span class="mb-2" style="color: #fff; font-size: 36px; font-weight: 500">가상 합주 플랫폼</span>
+            <span style="color: #fff; font-size: 18px; font-weight: 100">동해물과 백두산이 마르고 닳도록 하느님이</span>
+            <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">보우하사 우리나라 만세</span>
+            
+            <form id="search-input-wrapper" class="d-flex align-items-center">
+              <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
+              <button @click="submit" id="search-button"></button>
+            </form>
+        </div>
+        <img id="main-image-2" src="@/assets/images/home/main_1.png"/>
+      </div>
+
+      <hr width="620" style="margin-top: 100px">
+
+      <div class="d-flex flex-column justify-content-center" style="padding-left: 220px; padding-right: 220px; margin-top: 60px; margin-bottom: 100px">
+        <div class="d-flex flex-column" style="margin-bottom: 110px">
+          <span class="align-self-center" style="font-size: 36px; font-weight: 700; padding-bottom: 15px">이달의 연주자</span>
+          <span class="align-self-center" style="font-size: 14px; font-weight: 300; color: #A1A1A1; margin-bottom: 50px">이번달에 HOT했던 연주자를 구경해보세요</span>
+          <div class="d-flex justify-content-between">
+            <img src="../assets/images/band.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/dongju.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/suzy.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/IU.jpg" style="width:180px; height:180px;" />
+          </div>
+        </div>
+
+        <div class="d-flex flex-column">
+          <span class="align-self-center" style="font-size: 36px; font-weight: 700; padding-bottom: 15px">이달의 밴드</span>
+          <span class="align-self-center" style="font-size: 14px; font-weight: 300; color: #A1A1A1; margin-bottom: 50px">이번달에 HOT했던 밴드를 구경해보세요</span>
+          <div class="d-flex justify-content-between">
+            <img src="../assets/images/band.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/dongju.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/suzy.jpg" style="width:180px; height:180px;" />
+            <img src="../assets/images/IU.jpg" style="width:180px; height:180px;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Profile",
+  props: {
+    msg: String,
+  },
+  data: function() {
+    return {
+      content: "",
+      searched: "",
+    };
+  },
+  mounted() {},
+  methods: {
+    submit(e) {
+      e.preventDefault();
+      this.searched = document.getElementById("search-input").value;
+      this.$router.push({
+        name: "search-music",
+        query: { q: this.searched, filter: "rel" },
+      });
+    },
+  },
+  components: {
+  },
+};
+</script>
