@@ -2,12 +2,23 @@
     .content-area{
         min-height: 400px;
         border-radius: 7px;
-        background-color: #fff;
         overflow: hidden;
+    }
+
+    #bookmark-title{
+        background-color: #fff;
+        box-shadow: 0px 4px 8px -2px rgb(0 0 0 / 25%);
+        padding-left: 6px;
+        margin-bottom: 20px;
+        height: 72px; 
+        font-size: 14px;
+        font-weight: 500; 
+        color: #555
     }
     
     .bookmark-item{
-        border-bottom: 1px solid #ddd;
+        border: 1px solid #E9E9E9;
+        background-color: #fff;
         height: 160px;
     }
 
@@ -16,6 +27,12 @@
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+    .fix-title{
+        width: 1280px!important;
+        position: fixed;  
+        top: 60px;
+        z-index: 1;
+    }
 </style>
 
 <template>
@@ -43,32 +60,32 @@
             </div>
         </div>    
         <div v-else class="w-100">
-            <div class="d-flex align-items-center justify-content-between w-100" style="border-bottom: 1px solid #bbb; height: 35px; font-size: 14px; color: #555">
-                <span class="px-4" style="text-align: center; flex: 2"> 북마크 이름 </span>
-                <span class="px-4" style="text-align: center; flex: 2"> 노래 정보 </span>
-                <span class="px-4" style="text-align: center; flex: 4"> 북마크 재생 </span>
-                <span class="px-4" style="text-align: center; flex: 3"> 참여한 아티스트 </span>
+            <div id="bookmark-title" class="d-flex align-items-center justify-content-between w-100" :class="{'fix-title': scrollY > 450}">
+                <span style="margin-left: 70px; text-align: center;width:110px"> 노래 정보 </span>
+                <span style="margin-left: 70px; text-align: center; width: 620px"> 북마크 이름 / 북마크 재생 </span>
+                <span style="margin-right: 70px; margin-left: 70px; text-align: center; width: 260px"> 참여한 아티스트 </span>
             </div>
-            <div v-for="item in content" :key="item.bookmark_id" class="d-flex flex-column bookmark-item py-3">
+            <div v-if="scrollY > 450" style="height: 92px"></div>
+            <div v-for="item in content" :key="item.bookmark_id" class="d-flex bookmark-item">
+                <span style="height: 100%; width: 6px; background-color: #33C58B;"></span>
                 <div class="d-flex w-100 h-100 align-items-center">
-                    <span class="px-4" style="text-align: center; flex:2;font-size: 18px">{{ item.title }}</span>                
-                     <!-- <div>
-                        <span style="font-size: 18px"> {{ item.title }} </span>
-                        <span style="font-weight: lighter; font-size: 12px"> 추가 날짜: {{ toDate(item.created_at) }} </span>
-                    </div> -->
-                    <div class="d-flex flex-row px-4" style="flex:2">                <!-- 즐겨찾기 정보 + 노래 정보 -->
-                        <img :src="imgPreUrl + item.music.img" style="width: 70px; height: 70px; border-radius: 20%"/>
-                    
-                        <div class="d-flex flex-column ml-3 justify-content-center">
-                            <span style="font-size: 20px">{{ item.music.title }}</span>
-                            <span style="font-weight: lighter">{{ item.music.singer }}   {{ item.music.composer }}</span>
+
+                    <div class="d-flex flex-column" style="margin-left: 70px; width:110px">                    <!-- 노래 정보 -->
+                        <img :src="imgPreUrl + item.music.img" style="width: 110px; height: 110px; border-radius: 10%"/>
+                        <div class="d-flex flex-column">
+                            <span style="text-align: center; font-weight: 100; font-size: 14px; color: #999">{{ item.music.title }}</span>
                         </div>
                     </div>
-                    <audio controls class="px-4" style="flex:4">                            <!-- 오디오 컨트롤러 -->
-                        <source :src="item.file_url" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio>
-                    <div class="d-flex flex-row px-4" style="flex:3">               <!-- 북마크 구성 멤버 -->
+
+                    <div class="d-flex flex-column" style="margin-left: 70px; width: 620px">                                                                       <!-- 북마크 정보 -->
+                        <span style="font-weight: 400; color: #666; font-size: 24px; margin-bottom: 20px">{{ item.title }}</span> 
+                        <audio controls style="height: 35px; width: 500px">                            <!-- 오디오 컨트롤러 -->
+                            <source :src="item.file_url" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </div>
+
+                    <div class="d-flex flex-row" style="margin-right: 70px; margin-left: 70px; width: 260px">               <!-- 북마크 구성 멤버 -->
                         <div class="d-flex flex-column align-items-center mx-2" style="width: 55px; overflow: hidden" v-for="member in item.members" :key="member.member_id">
                             <img v-if="member.profile === null" src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%"/>
                             <img v-else :src="imgPreUrl + member.profile" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #bbb"/>
@@ -85,12 +102,19 @@
 import UserService from '../services/user.service';
 
 export default {
-    name: 'Bookmark',
+    name: 'Bookmark',    
+    created() {
+        window.addEventListener("scroll", this.scroll);
+    },    
+    destroyed() {
+        window.removeEventListener("scroll", this.scroll);
+    },
     data: function() {
       return {
           content: null,
           loading: true,
           imgPreUrl: "data:image/jpeg;base64,",
+          scrollY: Number,
       }
     },
     computed: {
@@ -116,6 +140,10 @@ export default {
                 date = '0' + date;
 
             return [d.getFullYear(), month, date].join("-");
+        },
+        scroll() {
+            console.log(window.scrollY)
+            return this.scrollY = window.scrollY;
         }
     },
     mounted() {

@@ -1,17 +1,17 @@
 <style scoped>
     .content-area{
         border-radius: 7px;
-        background-color: #fff;
         overflow: hidden;
         min-height: 400px;
     }
     .playlist-item{
         overflow: hidden;
-        min-width: 280px;
-        min-height: 280px;
+        min-width: 290px;
+        min-height: 290px;
         border: 1px solid #ddd;
         border-radius: 20px;
     }
+
     .text-area{
         height: 28%;
         bottom: 0;
@@ -41,18 +41,21 @@
             </div>
         </div>
         <div v-else class="justify-contents-center">
-            <div class="d-flex p-4 flex-wrap justify-content-between">
-                <div v-for="item in content" :key="item.music_id" class="position-relative d-flex playlist-item m-2">
-                    <img :src="imgPreUrl + item.img" class="w-100 h-100"/>
-                    <div class="position-absolute d-flex justify-content-between align-items-center px-4  w-100 text-area">
-                        <div class="d-flex flex-column">
-                            <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.title }}</span>
-                            <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.singer }} {{ item.composer }}</span>
+            <div class="d-flex py-2 flex-wrap">
+                <div v-for="(item, index) in content" :key="item.music_id" class="d-flex">
+                    <div class="position-relative d-flex playlist-item mt-4">
+                        <img :src="imgPreUrl + item.img" class="w-100 h-100"/>
+                        <div class="position-absolute d-flex justify-content-between align-items-center px-4  w-100 text-area">
+                            <div class="d-flex flex-column">
+                                <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.title }}</span>
+                                <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.singer }} {{ item.composer }}</span>
+                            </div>
+                            <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music_id }}">
+                                <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
+                            </router-link>
                         </div>
-                        <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music_id }}">
-                            <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
-                        </router-link>
-                    </div>  
+                    </div>
+                    <span style="margin-right: 40px" v-if="(index+1)%4 !== 0"/>
                 </div>
             </div>
         </div>

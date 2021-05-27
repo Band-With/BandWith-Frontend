@@ -27,17 +27,18 @@
     }
 
     .main{
-        max-width: 1300px;
+        max-width: 1320px;
         width: calc(100% - 40px);
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
         margin: 0 auto 30px;
         margin-top: 60px;
     }
 
     .music-info{
-        flex: 4;
-        height: 300px;
+        width: 970px;
+        height: 290px;
+        min-width: 950px;
         border: 1px solid #ddd;
         background-color: #fff;
     }
@@ -49,8 +50,9 @@
         color:cornflowerblue;
     }
     .version-info{
-        flex: 1;
-        height: 300px;
+        margin-left: 20px;
+        min-width: 290px;
+        height: 290px;
         background-color: #fff;
         border: 1px solid #ddd;
     }   
@@ -76,7 +78,7 @@
 
                 <div class="d-flex">
                     <div class="d-flex align-items-center music-info">
-                        <img style="border: 1px solid #ddd; width: 300px; height: 300px" :src="imgPreUrl + content.music.img"/>
+                        <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
                         <div class="position-relative d-flex flex-column p-4 w-100">
                             <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 35px; right: 30px">
                                 <div class="d-flex flex-row">
@@ -102,7 +104,7 @@
                             </audio>
                         </div>
                     </div>
-                    <div class="version-info ml-2 p-3">
+                    <div class="version-info p-3">
                         <span style="font-size: 23px" class="d-flex flex-column mb-4">History</span>
 
                         <div style="height: 210px; overflow: auto">
