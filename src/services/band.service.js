@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/bands/';
+// const API_URL = 'http://3.133.139.224:8080/bands/';
 
 class BandService {
     createBand(username, bandname, img) {
