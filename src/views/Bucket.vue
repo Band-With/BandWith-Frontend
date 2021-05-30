@@ -53,13 +53,7 @@ border: solid 2px #5882FA; border-radius: 2px;
                      <audio class="audio" controls :src="index.record.file_url"/>
 
 
-   <div class="container">
-      <h3 class="text-center mt-4">Metronome</h3>
-      <h1 class="text-center text-info mt-3 mb-3">60 BPM</h1>
-      <input class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
-      <audio id="sound" src="sound.wav"></audio>
-      <button class="btn btn-primary btn-block mt-4" id="startBtn">Start</button>
-   </div>
+
 
 
                     
@@ -91,20 +85,10 @@ export default {
     data : function(){     
         return {
             is_loaded:false,
+            title:'dummy',
             getArray:[],
             getUser:[],
             getUrl:[],
-
-startBtn : document.querySelector('#startBtn'),
- sound : document.querySelector('#sound'),
- bpm : document.querySelector('#bpm'),
- title : document.querySelector('h1'),
- timer : null,
- nowBpm : 60,
- isPlay : false,
-
-
-
         }  
   },
   mounted(){

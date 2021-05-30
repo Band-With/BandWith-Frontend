@@ -6,9 +6,9 @@ const API_URL = 'http://localhost:8080/bands';
 class BandService {
 
 
-    getBand(band_name){
+    getBand(band_id){
         return axios
-        .get(API_URL+'/'+band_name, {
+        .get(API_URL+'/'+band_id, {
             
         })
     }
