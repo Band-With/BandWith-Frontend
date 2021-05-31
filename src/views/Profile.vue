@@ -84,7 +84,7 @@
     </div>
     
     <div id="main" style="margin-bottom: 175px">
-      <div class="d-flex justify-content-between align-items-center" style="margin-left: 110px">
+      <div class="d-flex justify-content-between align-items-center" style="margin-left: 110px; margin-right: 110px">
         <div class="d-flex flex-column justify-content-center" style="height: 595px;">
             <span style="color: #fff; font-size: 48px; font-weight: 900">Band With</span>
             <span class="mb-2" style="color: #fff; font-size: 36px; font-weight: 500">가상 합주 플랫폼</span>
@@ -95,6 +95,9 @@
               <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
               <button @click="submit" id="search-button"></button>
             </form>
+        </div>
+        <div>
+          <img style="width: 330px; height: 250px" src="@/assets/images/home/main_panel.png"/>
         </div>
       </div>
 
@@ -196,7 +199,7 @@
           <span>Beyond<br> Your Dream</span>
         </div>
       </div>
-    </div>
+    </div> <!--main-->
 
 
 
@@ -272,21 +275,21 @@
     </div> <!--검은 배경-->
 
     <div class="d-flex flex-column align-items-center">
-      <div class="d-flex flex-column mb-5" style="width: 1320px">
+      <div class="d-flex flex-column mb-5" style="width: 1320px; padding-left: 130px; padding-right: 130px">
         <span class="text-center" style="font-size: 36px; padding-bottom: 96px; font-weight: 700">Band With 개발자</span>
         <span class="d-flex justify-content-between mb-5">
           <div class="d-flex flex-column">
-            <img style="height: 400px; width: 400px" src="@/assets/images/dongju.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/dongju.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">김동주</span>
             <span style="color: #656565; font-size: 14px; font-weight: 300">dongju@naver.com</span>
           </div>
           <div class="d-flex flex-column">
-            <img style="height: 400px; width: 400px" src="@/assets/images/suzy.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/suzy.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">박경민</span>
             <span style="color: #656565; font-size: 14px; font-weight: 300">kiio@naver.com</span>
           </div>          
           <div class="d-flex flex-column">
-            <img style="height: 400px; width: 400px" src="@/assets/images/jeongjae.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/jeongjae.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">이정재</span>
             <span style="color: #656565; font-size: 14px; font-weight: 300">2wjdwo97@gmail.com</span>
           </div>
