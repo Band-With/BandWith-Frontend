@@ -84,9 +84,6 @@
 <template>
      <div class="row-vh d-flex flex-column justify-content-center align-items-center"> 
 
-            <div style="width:58vw; height=100px;">
-            <button style="margin-top:100px; float:left" class="btn btn-primary">소음 제거 적용해보기</button>
-            </div>  
             <div class="row" style="width:100vw" >
                   <div class="col-md-2" style="border:2px solid #bcbcbc; text-align: center;">      
                     <button type="button" class="btn btn-light">리버브</button>
@@ -110,6 +107,7 @@
 
 
             <div style="width:58vw; height=100px;">
+               <button class="btn btn-primary" id="denoise" v-on:click="denoising">소음제거</button>
                <button class="btn btn-primary" style="position:relative; visibility:visible;" id="startBtn" v-on:click="startBtn">재생</button>
                <button class="btn btn-secondary" id="stopBtn" v-on:click="stopBtn" style="position:relative; visibility:hidden;">정지</button>
             </div>
@@ -119,6 +117,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
 <script>
 import Vue from 'vue'
+import NoiseService from '../services/noise.service';
 import RoundSlider from 'vue-round-slider'
 export default {
     name: '404',
@@ -133,7 +132,8 @@ export default {
       tremoloSpeed: 0,
       tremoloDepth: 0,
       tremoloMix: 0,
-      sound
+      sound,
+      denoised:''
       }
     },
   components: {
@@ -147,6 +147,18 @@ export default {
     mounted(){
     },
     methods:{
+      
+    denoising(){
+      console.log("????");
+NoiseService.denoise(this.selectedData).then(
+            response => {
+                                  this.denoised = response.data;
+
+            },
+            error => {
+              console.log(error)
+                        }
+        );    },
         startBtn(){
           document.getElementById("stopBtn").style.visibility='visible';
           document.getElementById("startBtn").style.visibility='hidden';
@@ -218,7 +230,7 @@ export default {
 
 
       },
-    }
+    },
 }
 
 </script>
