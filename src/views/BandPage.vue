@@ -152,7 +152,7 @@ a:hover{
                         <span id="leave-button" @click="leave" v-if="memberOfBand">탈퇴하기</span>
                     </div>
                     <span class="mb-4" style="font-size: 14px; font-weight: 300; color: #0095F6">좋아요 {{ content.totalLikes }}개</span>
-                    <router-link :to="{ name: 'somewhere'}">
+                    <router-link v-if="memberOfBand" :to="{ name: 'bandMusic', params: { bandname: bandnameParam }}">
                         <button id="create-button" class="w-100">음악 추가하기</button>
                     </router-link>
                 </div>
