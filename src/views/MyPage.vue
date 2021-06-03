@@ -28,10 +28,10 @@
 }
 
 .main{
-    max-width: 1300px;
+    max-width: 1320px;
     width: calc(100% - 40px);
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 0 auto 30px;
     margin-top: 60px;
 }
@@ -86,9 +86,9 @@ a:hover{
 <template>
     <div id="body" class="d-flex flex-column align-items-center">
         <div class="main">
-            <div class="pb-3 px-5">
+            <div class="mb-3" style="padding-left: 70px; padding-right: 70px">
                 <div class="d-flex pt-5 pb-3"> <!-- 프로필 공간 -->
-                    <div style="flex-grow: 1"> <!-- 프로필 사진 -->
+                    <div class="px-4"> <!-- 프로필 사진 -->
                         <img v-if="content.member.profile === null"
                             id="profile-img"
                             src="../assets/images/profile.jpg"
@@ -185,6 +185,28 @@ a:hover{
                     </div>
                     <div id="instrument">
                         <span>연주 악기</span>
+                        <div class="d-flex align-items-center py-4">
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/piano.png"/>
+                                <span class="pl-2 py-2">x{{content.piano}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/elec.png"/>
+                                <span class="pl-2 py-2">x{{content.elec}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/drum.png"/>
+                                <span class="pl-2 py-2">x{{content.drum}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/base.png"/>
+                                <span class="pl-2 py-2">x{{content.base}}</span>
+                            </div>
+                            <div class="d-flex flex-row" style="margin-right: 30px">
+                                <img style="height:50px; width:50px;" src="@/assets/images/icon/sing.png"/>
+                                <span class="pl-2 py-2">x{{content.sing}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

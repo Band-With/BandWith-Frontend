@@ -3,14 +3,14 @@
     background-color: #fafafa;
 }
 #band-info{
-    width: 265px;
+    width: 290px;
 }
 
 .main{
-    max-width: 1300px;
+    max-width: 1320px;
     width: calc(100% - 40px);
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 0 auto;
     margin-top: 60px;
 }
@@ -23,7 +23,7 @@
 
 .music-info-1{
     margin-left: auto;
-    width: 950px!important;
+    width: 880px!important;
 }
 
 .band-info-1{
@@ -66,8 +66,8 @@ a.item{
 
 #band-profile-image{
     box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
-    width: 170px; 
-    height: 170px; 
+    width: 180px; 
+    height: 180px; 
     border: 1px solid #ddd; 
     border-radius: 45px;
 }
@@ -97,7 +97,41 @@ li a.nav-link{
 a:hover{
     border: none;
 }
- 
+
+#leave-button{
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#leave-button:hover{
+    color: rgb(240, 86, 48);
+}
+
+#create-button{
+    height: 35px; 
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #2EA44F;
+    transition: background-color 0.1s;
+}
+#create-button:hover{
+    background-color: #259144;
+}
+
+#visit-button{
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0095F6;
+    color: #fff;
+    font-size: 14px;
+}
+#visit-button:hover{
+    background-color: #0072be;
+}
+
 ::v-deep div.vhl-item[data-v-8b923bbc]{
     width: 290px!important;
 }
@@ -109,40 +143,48 @@ a:hover{
         <div class="main d-flex" style="min-height: calc(100vh - 60px)">
             <div id="band-info" class="d-flex flex-column position-fixed align-items-center py-5" :class="{ 'band-info-1' : this.windowWidth < 1300}"> <!-- aside -->
                 <div class="d-flex flex-column mb-1">
-                    <span style="background-color: #EFEFEF; height: 265px; width: 265px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
-                        <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + band.img"/>
+                    <span style="background-color: #EFEFEF; height: 290px; width: 290px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
+                        <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + content.band.img"/>
                         <img v-else id="band-profile-image" src="../assets/images/icon/default_band_profile2.jpg"/>
                     </span>
-                    <span style="font-size: 24px; font-weight: bold" class="mt-4 mb-3">{{ content.band.band_name }}</span>
-                    <span style="font-size: 16px; color: #136BF5">좋아요 {{ content.totalLikes }}개</span>
+                    <div class="mt-4 mb-3 d-flex flex-row justify-content-between align-items-end">
+                        <span style="font-size: 24px; font-weight: bold">{{ content.band.band_name }}</span>
+                        <span id="leave-button" @click="leave" v-if="memberOfBand">탈퇴하기</span>
+                    </div>
+                    <span class="mb-4" style="font-size: 14px; font-weight: 300; color: #0095F6">좋아요 {{ content.totalLikes }}개</span>
+                    <router-link v-if="memberOfBand" :to="{ name: 'bandMusic', params: { bandname: bandnameParam }}">
+                        <button id="create-button" class="w-100">음악 추가하기</button>
+                    </router-link>
                 </div>
                 <div class="align-self-start mt-5 w-100" :class="{'display-none': this.windowWidth < 1300}">    <!-- member info -->
                     <div class="d-flex justify-content-between mb-4">
                         <span style="font-weight: bold; color: #666">구성 멤버</span>
-                        <span class="align-self-center" style="font-size: 13px">초대하기</span>
+                        <span v-if="memberOfBand" class="align-self-center" style="font-size: 14px">초대하기</span>
                     </div>
                     <div v-for="member in content.members" :key="member.member_id" class="d-flex justify-content-between mt-3">
                         <div>
                             <router-link :to="{ name: 'prac', params: { username: member.username}}">
                                 <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <img v-else src="../assets/images/profile.jpg" style="width: 32px; height: 32px; border-radius: 50%"/>
-                                <span style="color: #444; font-size: 15px; margin-left: 10px">{{ member.username }}</span>
+                                <span style="color: #444; font-size: 15px; margin-left: 15px">{{ member.username }}</span>
                             </router-link>
                         </div>
-                        <button style="height: 28px; border: none; border-radius: 4px; background-color: #136BF5; color: #fff; font-size: 14px;">
-                            <span style="font-size: 13px; color: #fff; cursor: pointer" @click="follow(member.member_id)">방문하기</span>
-                        </button>
+                        <router-link :to="{ name: 'prac', params: { username: member.username}}">
+                            <button id="visit-button">
+                                <span style="font-size: 13px; cursor: pointer">방문하기</span>
+                            </button>
+                        </router-link>
                     </div>
                 </div>
             </div>
-            <div class="d-flex py-5 px-4 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
+            <div class="d-flex py-5 flex-column w-100" :class="{ 'music-info-1' : this.windowWidth > 1300, 'margin-top': this.windowWidth < 1300}"> <!-- music info -->
                 <div class="mb-5">
                     <section class="d-flex flex-column mb-4">
-                        <span class="mb-3" style="font-size: 40px; color: #000; font-weight: bold">
+                        <span class="mb-3" style="font-size: 48px; color: #000; font-weight: bold">
                             <span v-if="complete">{{ content.band.band_name }}가 완성한 곡</span>
                             <span v-else>{{ content.band.band_name }}가 진행 중인 곡</span>
                         </span>
-                        <span class="px-2" style="font-size: 18px; color: #888"> 
+                        <span class="px-2" style="font-size: 18px; font-weight: 300; color: #888"> 
                             <span v-if="complete">밴드가 완성한 곡을 감상해보세요</span>
                             <span v-else>밴드에서 진행하고 있는 곡을 구경해보세요</span>
                         </span>
@@ -150,12 +192,12 @@ a:hover{
                     <ul class="nav nav-tabs">
                         <li class="nav-item pr-2">
                             <router-link :to="{ name: 'complete' }" class="nav-link">
-                                <span style="font-size: 16px; font-weight: bold">완성한 곡</span>
+                                <span class="px-3" style="font-size: 18px; font-weight: bold;">완성한 곡</span>
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{ name: 'workon' }" class="nav-link">
-                                <span style="font-size: 16px; font-weight: bold">진행 중인 곡</span>
+                                <span style="font-size: 18px; font-weight: bold">진행 중인 곡</span>
                             </router-link>
                         </li>
                     </ul>
@@ -167,6 +209,7 @@ a:hover{
 </template>
 
 <script>
+import BandService from "@/services/band.service"
 export default {
     name: 'BandPage',
     created() {
@@ -200,6 +243,13 @@ export default {
         },
         bandnameParam() {
             return this.$route.params.bandname;
+        },
+        memberOfBand(){
+            for(let user_ of this.content.members){
+                if(user_.username === this.user.username)
+                    return true
+            }
+            return false
         }
     },
     methods:{
@@ -217,11 +267,18 @@ export default {
 
             return [d.getFullYear(), month, date].join("-");
         },
-        follow(memberId){
-            console.log("follow~" + memberId);
-        },
         resize(){
             this.windowWidth = window.innerWidth
+        },
+        leave(){
+            if(confirm("'" + this.bandnameParam + "' 밴드에서 나가시겠습니까?"))
+            BandService.leaveBand(this.bandnameParam, this.user.username).then(
+                this.$store.dispatch('bandmusic/getBandInfo', this.bandnameParam).then(
+                    response => {
+                        this.content = response
+                    }
+                )
+            )
         }
     },
     mounted() {

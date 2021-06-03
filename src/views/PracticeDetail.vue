@@ -27,17 +27,18 @@
     }
 
     .main{
-        max-width: 1300px;
+        max-width: 1320px;
         width: calc(100% - 40px);
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
         margin: 0 auto 30px;
         margin-top: 60px;
     }
 
     .music-info{
-        flex: 4;
-        height: 300px;
+        width: 970px;
+        height: 290px;
+        min-width: 950px;
         border: 1px solid #ddd;
         background-color: #fff;
     }
@@ -49,8 +50,9 @@
         color:cornflowerblue;
     }
     .version-info{
-        flex: 1;
-        height: 300px;
+        margin-left: 20px;
+        min-width: 290px;
+        height: 290px;
         background-color: #fff;
         border: 1px solid #ddd;
     }   
@@ -76,7 +78,7 @@
 
                 <div class="d-flex">
                     <div class="d-flex align-items-center music-info">
-                        <img style="border: 1px solid #ddd; width: 300px; height: 300px" :src="imgPreUrl + content.music.img"/>
+                        <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
                         <div class="position-relative d-flex flex-column p-4 w-100">
                             <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 35px; right: 30px">
                                 <div class="d-flex flex-row">
@@ -96,18 +98,20 @@
                             <span class="mb-1" style="font-size: 14px; color: #666">연습 날짜: {{ toDate(record.createdAt) }}</span>
                             <span class="mb-1" style="font-size: 14px; color: #666">댓글 {{ record.count }}개</span>
                             <span class="mb-4" style="font-size: 14px; color: #666">좋아요 {{ record.likes }}개</span>
-                            <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
-                                <source :src="record.fileUrl" type="audio/mpeg">
-                                Your browser does not support the audio tag.
-                            </audio>
+                            <div id="audio">
+                                <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
+                                    <source :src="record.fileUrl" type="audio/mpeg">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </div>
                         </div>
                     </div>
-                    <div class="version-info ml-2 p-3">
+                    <div class="version-info p-3">
                         <span style="font-size: 23px" class="d-flex flex-column mb-4">History</span>
 
                         <div style="height: 210px; overflow: auto">
                             <button class="history-button position-relative d-flex justify-content-center align-items-center" v-for="(record, index) in content.records" :key="record.records.record_id"  
-                                :class="{'button-clicked': index===0}"  @click="[toggleClickedButton($event.currentTarget), updateMusicPanel(record, index), getComments(record)]">
+                                :class="{'button-clicked': index===0}"  @click="[toggleClickedButton($event.currentTarget), updateMusicPanel(record, index)]">
                                 <!-- <span> {{ record.records.searchable }} </span> -->
                                 <div v-if="condition" class="position-absolute" style="top: 0px; right: 5px">
                                     <img v-if="record.records.access === true" style="width: 16px; height: 16px" src="../assets/images/icon/public.png" />
@@ -123,7 +127,7 @@
 
                 <div class="mt-5">
                     <span style="font-size: 18px">댓글</span>
-                    <comment ref="comment" class="mt-2" :content="comments" :recordId="recordId" :count="record.count"></comment>
+                    <comment ref="comment" class="mt-2" :recordId="recordId"></comment>
                 </div>
 
             </div>
@@ -199,8 +203,7 @@ export default {
         },
         updateMusicPanel(record, index){
             this.recordId = record.records.record_id
-
-            this.record.fileUrl = record.records.file_url;
+            
             this.record.index = index;
             this.record.id = record.records.record_id;  
             this.record.createdAt = record.records.created_at;
@@ -209,9 +212,29 @@ export default {
 
             this.record.access = record.records.access;
             this.record.searchable = record.records.searchable;
+            this.updateAudioController(record.records.file_url);
+        },
+        updateAudioController(fileUrl){
+            this.record.fileUrl = fileUrl;
+            const audioDiv = document.querySelector("#audio");
+
+            const newSource = document.createElement("source");
+            newSource.src = fileUrl;
+            newSource.type = "audio/mpeg";
+
+            const newAudio = document.createElement("audio");
+            newAudio.className = "w-100"
+            newAudio.controls = "controls";
+
+            const oldAudio = document.querySelector("audio");
+
+            audioDiv.removeChild(oldAudio)
+            
+            newAudio.appendChild(newSource);
+            audioDiv.appendChild(newAudio);
         },
         getComments(record){
-            this.$refs.comment.loadComments(record.records.record_id);
+            this.recordId = record.records.record_id;
         },
         accessOnChangeEventHandler(){
             if(confirm("공개여부를 변경하시겠습니까?")){

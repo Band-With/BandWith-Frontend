@@ -91,6 +91,11 @@ const routes = [
     ]
   },
   {
+    path: '/bands/:bandname/:musicid',
+    name: 'bandMusicDetail',
+    component: () => import('../views/BandMusic.vue') 
+  },
+  {
     path: '/bands/:bandname/musics',
     name: 'bandMusic',
     component: () => import('../views/Band/BandMusic.vue'), 

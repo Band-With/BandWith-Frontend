@@ -139,15 +139,29 @@ export default {
         recordId: { 
             type: Number,
             required: false,
-            default: -1
+            default: null
         },
         bandMusicId: {
             type: Number,
             required: false,
-            default: -1
+            default: null
         }
+    },      
+    watch: { 
+        recordId: {
+            immediate: true, 
+            handler (val) {
+                this.loadComments(val, this.bandMusicId)
+            }
+        },
+        bandMusicId: {
+            immediate: true, 
+            handler (val) {
+                this.loadComments(this.recordId, val)
+            }
+        },
     },
-    computed: { 
+    computed: {
         user() {
             return JSON.parse(localStorage.getItem('user'));
         },
@@ -175,8 +189,8 @@ export default {
             this.modifyComment = modifyComment
             this.updating = updating_
         },
-        loadComments(recordId){
-            CommentService.getComments(this.userParam, recordId).then(
+        loadComments(recordId, bandMusicId){
+            CommentService.getComments(this.userParam, recordId, bandMusicId).then(
                 response => {
                     this.content = response.data;
                     let array_ = []
@@ -191,7 +205,7 @@ export default {
             CommentService.createComment(this.user.username, this.bandMusicId, this.recordId, this.comment).then(
                 response => {
                     if(response)
-                        this.loadComments(this.recordId)
+                        this.loadComments(this.recordId, this.bandMusicId)
                 }
             );
             this.comment = ""
@@ -202,7 +216,7 @@ export default {
                     response => {
                         if(response){
                             alert("댓글이 삭제되었습니다.");
-                            this.loadComments(this.recordId)
+                            this.loadComments(this.recordId, this.bandMusicId)
                         }
                     }
                 );
@@ -211,7 +225,7 @@ export default {
             CommentService.updateComment(this.user.username, commentId, this.modifyComment).then(
                 response => {
                     if(response){
-                        this.loadComments(this.recordId)
+                        this.loadComments(this.recordId, this.bandMusicId)
                     }
                 }
             );

@@ -12,7 +12,7 @@
       </div>
       <div id="search-music-row1" class="d-flex align-items-center justify-content-center">
           <div class="instrument">
-           <img v-on:click="pickGuitar" src="../assets/images/icon/guitar.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img v-on:click="pickGuitar" src="../assets/images/icon/elec.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
            <img id="guitar" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
           </div>
           <div class="instrument">
