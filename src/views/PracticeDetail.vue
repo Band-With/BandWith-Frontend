@@ -98,10 +98,12 @@
                             <span class="mb-1" style="font-size: 14px; color: #666">연습 날짜: {{ toDate(record.createdAt) }}</span>
                             <span class="mb-1" style="font-size: 14px; color: #666">댓글 {{ record.count }}개</span>
                             <span class="mb-4" style="font-size: 14px; color: #666">좋아요 {{ record.likes }}개</span>
-                            <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
-                                <source :src="record.fileUrl" type="audio/mpeg">
-                                Your browser does not support the audio tag.
-                            </audio>
+                            <div id="audio">
+                                <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
+                                    <source :src="record.fileUrl" type="audio/mpeg">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </div>
                         </div>
                     </div>
                     <div class="version-info p-3">
@@ -201,8 +203,7 @@ export default {
         },
         updateMusicPanel(record, index){
             this.recordId = record.records.record_id
-
-            this.record.fileUrl = record.records.file_url;
+            
             this.record.index = index;
             this.record.id = record.records.record_id;  
             this.record.createdAt = record.records.created_at;
@@ -211,6 +212,26 @@ export default {
 
             this.record.access = record.records.access;
             this.record.searchable = record.records.searchable;
+            this.updateAudioController(record.records.file_url);
+        },
+        updateAudioController(fileUrl){
+            this.record.fileUrl = fileUrl;
+            const audioDiv = document.querySelector("#audio");
+
+            const newSource = document.createElement("source");
+            newSource.src = fileUrl;
+            newSource.type = "audio/mpeg";
+
+            const newAudio = document.createElement("audio");
+            newAudio.className = "w-100"
+            newAudio.controls = "controls";
+
+            const oldAudio = document.querySelector("audio");
+
+            audioDiv.removeChild(oldAudio)
+            
+            newAudio.appendChild(newSource);
+            audioDiv.appendChild(newAudio);
         },
         getComments(record){
             this.recordId = record.records.record_id;
