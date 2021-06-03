@@ -83,13 +83,21 @@
 </template>
 
 <script>
-
+import {EventBus} from "@/event-bus"
 export default {
     name: 'BandComplete',
     data(){
         return {
-            imgPreUrl: "data:image/jpeg;base64,"
+            imgPreUrl: "data:image/jpeg;base64,",
+            memberOfBand: Boolean
         }
+    },
+    created(){        
+        EventBus.$on("response-member-auth", memberOfBand =>{
+            this.memberOfBand = memberOfBand
+            console.log(this.memberOfBand)
+        })
+        EventBus.$emit("request-member-auth")
     },
     methods:{
         toDate(timestamp){

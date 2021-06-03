@@ -69,7 +69,7 @@ const routes = [
   {
     path: '/bands/:bandname',
     name: 'bandPage',
-    component: () => import('../views/BandPage.vue'), 
+    component: () => import('../views/Band/BandPage.vue'), 
     pathToRegexpOptions: { strict: true },
     redirect: { name: 'complete' },
     children: [
@@ -88,7 +88,12 @@ const routes = [
   {
     path: '/bands/:bandname/:musicid',
     name: 'bandMusicDetail',
-    component: () => import('../views/BandMusic.vue') 
+    component: () => import('../views/Band/BandMusicDetail.vue') 
+  },
+  {
+    path: '/bands/:bandname/:musicid/mix',
+    name: 'bandMusicMix',
+    component: () => import('../views/Band/BandMixing.vue') 
   },
   {
     path: '/bands/:bandname/musics',

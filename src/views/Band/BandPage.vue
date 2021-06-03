@@ -145,7 +145,7 @@ a:hover{
                 <div class="d-flex flex-column mb-1">
                     <span style="background-color: #EFEFEF; height: 290px; width: 290px; border-radius: 15px" class="d-flex justify-content-center align-items-center">     <!-- band info -->
                         <img v-if="content.band.img !== null" id="band-profile-image" :src="imgPreUrl + content.band.img"/>
-                        <img v-else id="band-profile-image" src="../assets/images/icon/default_band_profile2.jpg"/>
+                        <img v-else id="band-profile-image" src="@/assets/images/icon/default_band_profile2.jpg"/>
                     </span>
                     <div class="mt-4 mb-3 d-flex flex-row justify-content-between align-items-end">
                         <span style="font-size: 24px; font-weight: bold">{{ content.band.band_name }}</span>
@@ -165,7 +165,7 @@ a:hover{
                         <div>
                             <router-link :to="{ name: 'prac', params: { username: member.username}}">
                                 <img v-if="member.profile !== null" :src="imgPreUrl + member.profile" style="width: 32px; height: 32px; border-radius: 50%"/>
-                                <img v-else src="../assets/images/profile.jpg" style="width: 32px; height: 32px; border-radius: 50%"/>
+                                <img v-else src="@/assets/images/profile.jpg" style="width: 32px; height: 32px; border-radius: 50%"/>
                                 <span style="color: #444; font-size: 15px; margin-left: 15px">{{ member.username }}</span>
                             </router-link>
                         </div>
@@ -210,6 +210,7 @@ a:hover{
 
 <script>
 import BandService from "@/services/band.service"
+import {EventBus} from "@/event-bus"
 export default {
     name: 'BandPage',
     created() {
@@ -287,6 +288,10 @@ export default {
                 this.content = response
             }
         );
+
+        EventBus.$on("request-member-auth", () =>{
+            EventBus.$emit("response-member-auth", this.memberOfBand)
+        })
         // UserService.getPracticeDetail(this.userParam, this.musicParam, this.condition).then(
         //     response => {
         //         if(Object.keys(response.data).length !== 0){

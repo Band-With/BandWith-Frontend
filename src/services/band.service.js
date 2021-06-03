@@ -34,6 +34,10 @@ class BandService {
         return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId)
     }
 
+    getBandMusicRecords(bandname, bandMusicId){
+        return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId + "/records")
+    }
+
     leaveBand(bandname, username){
         return axios.post(API_URL + bandname + "/members/" + username)
     }
