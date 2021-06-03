@@ -11,11 +11,7 @@
           class="d-flex align-items-center"
           @submit="searchMusic"
         >
-          <input
-            id="search-input"
-            class="flex-grow-1 p-3"
-            v-model="query"
-          />
+          <input id="search-input" class="flex-grow-1 p-3" v-model="query" />
           <button type="submit" id="search-button" class="flex-grow-1">
             <img
               class="icon"
@@ -63,7 +59,73 @@
           <b>녹음이 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
-        <Members v-else :members="members" />
+        <div class="d-flex justify-content-between flex-grow-1 pt-1 mb-3">
+          <form class="nav-search">
+            <input
+              type="text"
+              class="form-control"
+              name="query"
+              :value="member_query"
+              placeholder="멤버를 검색하세요 ..."
+            />
+          </form>
+          <div class="float-right">
+            <button class="btn btn-primary">
+              멤버 초대하기
+            </button>
+          </div>
+          {{ member_query }}
+        </div>
+
+        <div class="card">
+          <div class="card-header d-flex align-items-center p-0">
+            <div class="py-2 pl-4 pr-4">
+              <input type="checkbox" class="js-bulk-actions-toggle" />
+            </div>
+            <span>멤버</span>
+          </div>
+
+          <ul class="card-body p-0 search-result-ul">
+            <li
+              v-for="member in members"
+              :key="member.member.member_id"
+              id="member-result-li"
+              class="list-group d-flex flex-row align-items-center pl-0 pr-3 py-3"
+            >
+              <div class="pl-4 pr-4">
+                <input type="checkbox" class="js-bulk-actions-toggle" />
+              </div>
+
+              <div class="img-wrapper mr-4">
+                <img
+                  v-if="member.member.img === null"
+                  src="@/assets/images/profile.jpg"
+                  class="img-profile"
+                />
+                <img
+                  v-else
+                  :src="imgPreUrl + member.member.img"
+                  class="img-profile"
+                />
+              </div>
+
+              <div class="d-flex justify-content-between flex-grow-1">
+                <router-link :to="`/${member.member.username}`">
+                  <span class="mr-2">{{ member.member.username }}</span>
+                  <span style="color: #606060; font-size: 0.8rem;">{{
+                    member.member.name
+                  }}</span>
+                </router-link>
+                <div class="d-flex" style="font-size: 0.8rem;">
+                  <span class="mr-3">follower</span>
+                  <span class="mr-4">{{ member.follower }}</span>
+                  <span class="mr-3">following</span>
+                  <span>{{ member.following }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- row 3: pagination -->
@@ -90,21 +152,21 @@ export default {
       sort_type: "related", // 검색 필터 초깃값 설정
       members: [
         {
-          member:{
+          member: {
             member_id: "1",
             username: "pkm1015",
             name: "박경민",
-            img: null
+            img: null,
           },
           follower: 2,
-          following: 3
-        }
-      ]
+          following: 3,
+        },
+      ],
     };
   },
   components: {
-      Members
-      // Paging,
+    Members,
+    // Paging,
   },
 
   computed: {
@@ -186,7 +248,7 @@ export default {
     // query string = "related", undefined, etc.
     else {
       this.getMembers("related");
-    }    
+    }
     document.getElementById("search-input").focus();
   },
 };
@@ -246,5 +308,15 @@ export default {
   color: black;
   font-weight: bold;
   border-bottom: 2px solid #2080e0 !important;
+}
+
+.search-result-ul {
+  list-style: none;
+  font-size: 0.9rem;
+  padding-left: 0px;
+}
+#member-result-li {
+  background: #ffffff;
+  border-bottom: 1px solid #dfdfdf;
 }
 </style>

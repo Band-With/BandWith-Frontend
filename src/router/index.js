@@ -67,11 +67,6 @@ const routes = [
     component: () => import('../views/Band/NewBand.vue'), 
   },
   {
-    path: '/bands/:bandname/invitation',
-    name: 'bandInvitation',
-    component: () => import('../views/Band/BandInvitation.vue'), 
-  },
-  {
     path: '/bands/:bandname',
     name: 'bandPage',
     component: () => import('../views/BandPage.vue'), 
@@ -87,7 +82,7 @@ const routes = [
         name: 'workon',
         path: 'workon',
         component: () => import('../components/bandMusic/BandWorkon.vue') 
-      }
+      },
     ]
   },
   {

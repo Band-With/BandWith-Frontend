@@ -284,9 +284,9 @@
             <span style="color: #656565; font-size: 14px; font-weight: 300">dongju@naver.com</span>
           </div>
           <div class="d-flex flex-column">
-            <img style="height: 290px; width: 290px" src="@/assets/images/suzy.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/guitar.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">박경민</span>
-            <span style="color: #656565; font-size: 14px; font-weight: 300">kiio@naver.com</span>
+            <span style="color: #656565; font-size: 14px; font-weight: 300">kio1015@naver.com</span>
           </div>          
           <div class="d-flex flex-column">
             <img style="height: 290px; width: 290px" src="@/assets/images/jeongjae.jpg"/>

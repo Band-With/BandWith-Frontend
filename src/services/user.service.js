@@ -5,11 +5,10 @@ const API_URL = 'http://localhost:8080/members/';
 // const API_URL = 'http://3.133.139.224:8080/members/';
 
 class UserService {
-    getMembers(username, filter) {
+    getMembers(username) {
         return axios.get('http://localhost:8080/members', {
             params: {
-                q: username,
-                filter: filter
+                q: username
             }
         })
     }
