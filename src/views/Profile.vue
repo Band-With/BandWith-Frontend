@@ -88,8 +88,8 @@
         <div class="d-flex flex-column justify-content-center" style="height: 595px;">
             <span style="color: #fff; font-size: 48px; font-weight: 900">Band With</span>
             <span class="mb-2" style="color: #fff; font-size: 36px; font-weight: 500">가상 합주 플랫폼</span>
-            <span style="color: #fff; font-size: 18px; font-weight: 100">동해물과 백두산이 마르고 닳도록 하느님이</span>
-            <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">보우하사 우리나라 만세</span>
+            <span style="color: #fff; font-size: 18px; font-weight: 100">자신의 음악을 녹음하고</span>
+            <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">밴드를 만들어 즐깁니다</span>
             
             <form id="search-input-wrapper" class="d-flex align-items-center">
               <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
@@ -113,20 +113,20 @@
 
             <div class="d-flex justify-content-between align-items-end">
               <div class="d-flex flex-column">
-                <img src="../assets/images/band.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">동주 밴드</span>
+                <img :src="imgPreUrl + monthlyband[0].img"  style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyband[0].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
-                <img src="../assets/images/dongju.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">경민 밴드</span>
+                <img :src="imgPreUrl + monthlyband[1].img" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[1].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
-                <img src="../assets/images/suzy.jpg" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">정재 밴드</span>
+                <img :src="imgPreUrl + monthlyband[2].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[2].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
-                <img src="../assets/images/IU.jpg" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">민규 밴드</span>
+                <img :src="imgPreUrl + monthlyband[3].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyband[3].bandName}}</span>
               </div>
             </div>
 
@@ -146,24 +146,24 @@
 
           <div class="d-flex justify-content-between align-items-end">
             <div class="d-flex flex-column">
-              <img src="../assets/images/band.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-              <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">동주 밴드</span>
+              <img :src="imgPreUrl + monthlyMember[0].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyMember[0].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img src="../assets/images/dongju.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">경민 밴드</span>
+              <img :src="imgPreUrl + monthlyMember[1].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[1].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img src="../assets/images/suzy.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">정재 밴드</span>
+              <img :src="imgPreUrl + monthlyMember[2].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[2].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img src="../assets/images/IU.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">민규 밴드</span>
+              <img :src="imgPreUrl + monthlyMember[3].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[3].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img src="../assets/images/IU.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">민규 밴드</span>
+              <img :src="imgPreUrl + monthlyMember[4].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[4].username}}</span>
             </div>
           </div>
         </div>
@@ -180,7 +180,7 @@
           <span>대면활동이 힘든 요즘 같은 시기에 부담없이 합주를 즐겨보세요.</span>
           <span>지금 바로 연주를 녹음해보세요!</span>
         </span>
-        <span>연주 녹음하러 가기→</span>
+        <span><router-link :to="{ name: 'search-music', query: { q: '' , filter: 'rel'}}">연주 녹음하러 가기→</router-link></span>
       </div>
 
       <div class="position-relative" style="margin-bottom: 85px"></div>
@@ -303,6 +303,9 @@
 </template>
 
 <script>
+import MonthService from "@/services/monthly.service";
+
+
 export default {
   name: "Profile",
   props: {
@@ -312,9 +315,30 @@ export default {
     return {
       content: "",
       searched: "",
+      monthlyband:[],
+      monthlyMember:[],
+      imgPreUrl: "data:image/jpeg;base64,",
     };
   },
-  mounted() {},
+  mounted() {
+         MonthService.monthlyBand().then(
+                response => {
+                      this.monthlyband = response.data;
+                },
+                error => {
+                  console.log(error);
+                  
+                }
+            );
+         MonthService.monthlyMember().then(
+                response => {
+                      this.monthlyMember = response.data;
+                },
+                error => {
+                  console.log(error);
+                }
+            );
+ },
   methods: {
     submit(e) {
       e.preventDefault();

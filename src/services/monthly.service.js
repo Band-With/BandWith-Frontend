@@ -6,11 +6,18 @@ const API_URL = 'http://localhost:8080/';
 //test
 class MonthService {
    
-    monthlyMember(){
+    monthlyBand(){
         return axios
-        .get(API_URL+'monthly-member', {
+        .get(API_URL+'monthlyBand', {
         })
     }
+
+    monthlyMember(){
+        return axios
+        .get(API_URL+'monthlyMember', {
+        })
+    }
+
 
 
 
