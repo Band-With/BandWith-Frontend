@@ -80,7 +80,7 @@
                     <div class="d-flex flex-column" style="margin-left: 70px; width: 610px">                                                                       <!-- 북마크 정보 -->
                         <span style="font-weight: 300; color: #666; font-size: 24px; margin-bottom: 15px">{{ item.title }}</span> 
                         <audio controls style="height: 35px; width: 540px">                            <!-- 오디오 컨트롤러 -->
-                            <source :src="item.file_url" type="audio/mpeg">
+                            <source :src="item.file_url" type="audio/wav">
                             Your browser does not support the audio tag.
                         </audio>
                     </div>

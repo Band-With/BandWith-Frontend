@@ -56,7 +56,7 @@
             src="@/assets/images/icon/no_result.png"
             style="width: 40px; height: 40px;"
           />
-          <b>녹음이 존재하지 않습니다.</b>
+          <b>멤버가 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
         <div class="d-flex justify-content-between flex-grow-1 pt-1 mb-3">
@@ -273,14 +273,14 @@ export default {
   height: 110px;
 }
 #search-input-wrapper {
-  width: 450px;
-  height: 50px;
-  border: #2080e0 solid 2px;
+  width: 400px;
+  height: 45%;
+  border: none;
 }
 #search-input {
-  width: 90%;
+  width: 88%;
   height: 100%;
-  border: none;
+  border: #2080e0 solid 2px;
 }
 #search-input:focus {
   outline: none;
@@ -288,7 +288,7 @@ export default {
 #search-button {
   width: 12%;
   height: 100%;
-  border: none;
+  border: #2080e0 solid 2px;
   background: #2080e0;
 }
 /* row 2: search result */

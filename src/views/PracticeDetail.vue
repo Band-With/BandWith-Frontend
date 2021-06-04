@@ -100,7 +100,7 @@
                             <span class="mb-4" style="font-size: 14px; color: #666">좋아요 {{ record.likes }}개</span>
                             <div id="audio">
                                 <audio controls class="w-100">                            <!-- 오디오 컨트롤러 -->
-                                    <source :src="record.fileUrl" type="audio/mpeg">
+                                    <source :src="record.fileUrl" type="audio/wav">
                                     Your browser does not support the audio tag.
                                 </audio>
                             </div>
@@ -220,7 +220,7 @@ export default {
 
             const newSource = document.createElement("source");
             newSource.src = fileUrl;
-            newSource.type = "audio/mpeg";
+            newSource.type = "audio/wav";
 
             const newAudio = document.createElement("audio");
             newAudio.className = "w-100"

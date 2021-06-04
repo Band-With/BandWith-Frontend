@@ -21,7 +21,6 @@
           </button>
         </form>
       </div>
-      <div class="d-flex justify-content-between flex-grow-1 pt-1 mb-3"></div>
 
       <!-- nav filter -->
       <div>
@@ -70,10 +69,10 @@
             src="@/assets/images/icon/no_result.png"
             style="width: 40px; height: 40px;"
           />
-          <b>녹음이 존재하지 않습니다.</b>
+          <b>음악이 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
-        <BandMusics v-else ref="bandMusics" :musics="musics" />
+        <Musics v-else ref="musics" :musics="musics" />
       </div>
 
       <!-- row 3: pagination -->
@@ -83,7 +82,7 @@
 </template>
 
 <script>
-import BandMusics from "@/components/bandMusic/BandMusics.vue";
+import Musics from "@/components/bandMusic/Musics.vue";
 // import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
 
@@ -103,7 +102,7 @@ export default {
     };
   },
   components: {
-    BandMusics,
+    Musics,
     // Paging,
   },
 
@@ -115,7 +114,7 @@ export default {
   methods: {
     // 밴드 음악 추가
     addBandMusic() {
-      this.$refs.bandMusics.addBandMusic();
+      this.$refs.musics.addBandMusic();
     },
     // 화면 필터 토글
     toggleFilter(type) {
@@ -208,15 +207,16 @@ export default {
   min-height: 100vh;
   background-color: #ffffff;
 }
+/* row 1: search input */
 #search-input-wrapper {
-  width: 450px;
-  height: 50px;
-  border: #2080e0 solid 2px;
+  width: 400px;
+  height: 45%;
+  border: none;
 }
 #search-input {
-  width: 90%;
+  width: 88%;
   height: 100%;
-  border: none;
+  border: #2080e0 solid 2px;
 }
 #search-input:focus {
   outline: none;
@@ -224,7 +224,7 @@ export default {
 #search-button {
   width: 12%;
   height: 100%;
-  border: none;
+  border: #2080e0 solid 2px;
   background: #2080e0;
 }
 /* row 2: search result */

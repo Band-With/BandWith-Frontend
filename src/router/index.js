@@ -62,6 +62,11 @@ const routes = [
     component: () => import('../views/SearchRecord.vue'),
   },
   {
+    path: '/bandmusics/',
+    name: 'searchBandMusic',
+    component: () => import('../views/Band/SearchBandMusic.vue'),
+  },
+  {
     path: '/bands/new',
     name: 'newBand',
     component: () => import('../views/Band/NewBand.vue'), 
@@ -87,8 +92,8 @@ const routes = [
   },
   {
     path: '/bands/:bandname/musics',
-    name: 'bandMusicAdding',
-    component: () => import('../views/Band/BandMusicAdding.vue'), 
+    name: 'addBandMusic',
+    component: () => import('../views/Band/AddBandMusic.vue'), 
   },
   {
     path: '/bands/:bandname/:musicid',

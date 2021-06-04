@@ -235,7 +235,7 @@ a:hover {
           >
           <router-link
             v-if="memberOfBand"
-            :to="{ name: 'bandMusicAdding', params: { bandname: bandnameParam } }"
+            :to="{ name: 'addBandMusic', params: { bandname: bandnameParam } }"
           >
             <button id="create-button" class="w-100">음악 추가하기</button>
           </router-link>

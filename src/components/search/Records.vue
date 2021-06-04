@@ -81,7 +81,7 @@
               <!-- audio controller -->
               <source
                 :src="record.record.file_url"
-                type="audio/mpeg"
+                type="audio/wav"
               />
               Your browser does not support the audio tag.
             </audio>
