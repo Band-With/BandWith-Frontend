@@ -59,7 +59,7 @@
       <div class="card mb-5">
         <!-- card header -->
         <div class="card-header d-flex align-items-center py-2 px-4">
-          <span>다른 밴드의 연주를 들어보세요!</span>
+          <span>다른 밴드의 연주를 들어보고, 의견을 남겨보세요!</span>
         </div>
         <!-- card body -->
         <!-- loading -->
@@ -94,7 +94,7 @@
 <script>
 import BandMusics from "@/components/bandMusic/BandMusics.vue";
 // import Paging from "@/components/Paging.vue";
-// import SearchService from "@/services/search.service";
+import SearchService from "@/services/search.service";
 
 export default {
   name: "searchBandMusic",
@@ -193,16 +193,16 @@ export default {
     // 검색 대상 변경
     changeSubject(subject) {
       if (this.subject_type != subject.ename) {
-        this.setSubject(subject); // 필터 설정
-        // this.getBandMusics(subject, this.filter_type); // 데이터 가져오기
+        this.setSubject(subject);
+        this.getBandMusics(subject.ename, this.filter_type); // 데이터 가져오기
         this.changeQuery(subject.ename, this.filter_type);
       }
     },
     // 필터 변경
     changeFilter(filter) {
       if (this.filter_type != filter) {
-        this.setFilter(filter); // 필터 설정
-        // this.getBandMusics(this.subject_type, filter); // 데이터 가져오기
+        this.setFilter(filter);
+        this.getBandMusics(this.subject_type, filter); // 데이터 가져오기
         this.changeQuery(this.subject_type, filter);
       }
     },
@@ -227,25 +227,23 @@ export default {
     },
     // 데이터 가져오기 (axios)
     getBandMusics(subject_type, filter_type) {
-      this.loading = false;
-      subject_type;
-      filter_type;
-      //   SearchService.getBandMusics(this.query, filter_type).then(
-      //     (res) => {
-      //       if (Object.keys(res.data).length !== 0) {
-      //         this.musics = res.data;
-      //       } else {
-      //         this.musics = null;
-      //       }
-      //       this.loading = false;
-      //     },
-      //     (error) => {
-      //       error =
-      //         (error.res && error.res.data) || error.message || error.toString();
-      //       alert(error);
-      //       this.loading = false;
-      //     }
-      //   );
+      this.loading = true;
+        SearchService.getBandMusics(this.query, subject_type, filter_type).then(
+          (res) => {
+            if (Object.keys(res.data).length !== 0) {
+              this.musics = res.data;
+            } else {
+              this.musics = null;
+            }
+            this.loading = false;
+          },
+          (error) => {
+            error =
+              (error.res && error.res.data) || error.message || error.toString();
+            alert(error);
+            this.loading = false;
+          }
+        );
     },
     // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
     changeQuery(subject, filter) {
