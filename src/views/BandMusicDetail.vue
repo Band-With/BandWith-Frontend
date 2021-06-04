@@ -116,7 +116,7 @@ import BandService from '../services/band.service';
 import comment from '@/components/Comment.vue';
 
 export default {
-    name: 'BandMusic',
+    name: 'BandMusicDetail',
     components: {
         comment
     },

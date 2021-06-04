@@ -1,7 +1,20 @@
 <template>
-  <ul class="search-result-ul">
-    <li v-for="music in musics" :key="music.music_id" id="music-result-li">
-      <div class="card-body d-flex flex-row align-items-center">
+  <ul class="card-body p-0 search-result-ul">
+    <li
+      v-for="music in musics"
+      :key="music.music_id"
+      id="music-result-li"
+      class="d-flex flex-row align-items-center pl-4 pr-3 py-3"
+    >
+      <div class="pr-4">
+        <input
+          type="radio"
+          name="bandmusic"
+          v-model="selected"
+          :value="music.music_id"
+        />
+      </div>
+      <div class="card-body d-flex flex-row align-items-center p-0">
         <div class="img-wrapper ml-4 mr-5">
           <img
             v-if="music.img === null"
@@ -20,16 +33,6 @@
             <dt style="width: 10%">작곡가</dt>
             <dd style="width: 40%" class="mr-4">{{ music.composer }}</dd>
           </div>
-        </div>
-        <div>
-          <a
-            ><button
-              class="btn btn-primary"
-              @click="addBandMusic(music.music_id)"
-            >
-              밴드 합주 생성
-            </button></a
-          >
         </div>
       </div>
     </li>
@@ -50,6 +53,7 @@ export default {
   data() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",
+      selected: null,
     };
   },
 
@@ -60,20 +64,25 @@ export default {
   },
 
   methods: {
-    addBandMusic(music_id) {
-      BandService.addBandMusic(this.bandname, music_id).then(
-        (res) => {
-          if (res.status === 200) {
-            alert("밴드의 진행 중인 곡에 추가되었습니다.");
-            this.$router.push("/bands/" + this.bandname);
+    addBandMusic() {
+      if (this.selected != null) {
+        BandService.addBandMusic(this.bandname, this.selected).then(
+          (res) => {
+            if (res.status === 200) {
+              alert("밴드의 진행 중인 곡에 추가되었습니다.");
+              this.$router.push("/bands/" + this.bandname);
+            }
+          },
+          (error) => {
+            error =
+              (error.res && error.res.data) ||
+              error.message ||
+              error.toString();
+            alert(error);
           }
-        },
-        (error) => {
-          error =
-            (error.res && error.res.data) || error.message || error.toString();
-          alert(error);
-        }
-      );
+        );
+        this.selected = null;
+      }
     },
   },
 };
