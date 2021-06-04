@@ -92,7 +92,7 @@
             <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">보우하사 우리나라 만세</span>
             
             <form id="search-input-wrapper" class="d-flex align-items-center">
-              <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
+              <input name="q" id="search-input" placeholder="녹음하고 싶은 음악을 검색해보세요!" />
               <button @click="submit" id="search-button"></button>
             </form>
         </div>

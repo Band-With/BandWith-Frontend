@@ -30,7 +30,7 @@
     >
       <img
         v-if="item.band.img === null"
-        src="@/assets/images/icon/default_music.png"
+        src="@/assets/images/icon/default_band_profile.png"
         class="music-image"
       />
       <img v-else :src="imgPreUrl + item.music.img" class="music-image" />
