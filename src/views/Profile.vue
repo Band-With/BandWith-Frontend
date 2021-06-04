@@ -92,7 +92,7 @@
             <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">밴드를 만들어 즐깁니다</span>
             
             <form id="search-input-wrapper" class="d-flex align-items-center">
-              <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
+              <input name="q" id="search-input" placeholder="녹음하고 싶은 음악을 검색해보세요!" />
               <button @click="submit" id="search-button"></button>
             </form>
         </div>
@@ -284,9 +284,9 @@
             <span style="color: #656565; font-size: 14px; font-weight: 300">dongju@naver.com</span>
           </div>
           <div class="d-flex flex-column">
-            <img style="height: 290px; width: 290px" src="@/assets/images/suzy.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/guitar.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">박경민</span>
-            <span style="color: #656565; font-size: 14px; font-weight: 300">kiio@naver.com</span>
+            <span style="color: #656565; font-size: 14px; font-weight: 300">kio1015@naver.com</span>
           </div>          
           <div class="d-flex flex-column">
             <img style="height: 290px; width: 290px" src="@/assets/images/jeongjae.jpg"/>

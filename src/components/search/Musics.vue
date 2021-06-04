@@ -57,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+a:hover {
+  text-decoration: none;
+}
+
 .img-wrapper {
   width: 65px;
   height: 65px;

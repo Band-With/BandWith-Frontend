@@ -54,13 +54,15 @@
 </style>
 
 <template>
-    <div>
+    <div id="comment">
         <div class="d-flex justify-content-between py-4 px-4 comment-write-box">
             <!-- 댓글 작성 -->
             <img v-if="user.profileImg === null"
+                class="comment-profile-image"
                 style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
                 src="../assets/images/profile.jpg" />
             <img v-else style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
+                class="comment-profile-image"
                 :src="imgPreUrl + user.profileImg" />
 
             <div id="comment-area">
@@ -69,9 +71,18 @@
         
             <button id="register-button" @click="submit">등록</button>
         </div>
-        <div class="mt-4 mb-2" style="font-size: 14px">총 <span style="color: rgb(51, 139, 255)">{{count}}</span>개</div>
-        <div style="border-top: 1px solid #bdbdbd; overflow:hidden"> <!-- 작성된 댓글 -->
-            <div class="d-flex comment-item px-4 py-3" v-for="(item, index) in content" :key="item.comment.comment_id"> 
+        <div id="comment-num" class="mt-4 mb-2" style="font-size: 14px">총 <span style="color: rgb(51, 139, 255)">{{count}}</span>개</div>
+        <!-- 작성된 댓글 -->
+        <div style="border-top: 1px solid #bdbdbd; overflow:hidden">
+            <!-- 댓글 0개 -->
+            <div
+            v-if="content.length === 0"
+            class="no-result d-flex flex-column align-items-center justify-content-center w-100 p-5"
+            >
+            <b style="font-size: 0.8rem">댓글이 없습니다.</b>
+            </div>
+            <!-- 댓글 1개 이상 -->
+            <div v-else class="d-flex comment-item px-4 py-3" v-for="(item, index) in content" :key="item.comment.comment_id"> 
                 <router-link style="flex: 2; min-width: 190px" class="d-flex" :to="{ name: 'prac', params: { username: item.member.username }}"> <!-- 작성자 정보 -->
                     <img v-if="item.member.profile !== null" :src="imgPreUrl + item.member.profile" style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 50%"/>
                     <img v-else src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>

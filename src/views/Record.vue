@@ -69,7 +69,7 @@ import MusicVisual from '../components/MusicVisual'
 import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
 import SearchService from "@/services/search.service";
-import Records from "@/components/searchRecord/Records.vue";
+import Records from "@/components/search/Records.vue";
 
 Vue.use(AudioRecorder)
 export default {
@@ -392,42 +392,6 @@ export default {
   padding-top: 60px;
   min-height: 100vh;
   background-color: #fafafa;
-}
-
-/* row 1: search input */
-#search-music-row1,#search-music-row2
-#search-music-row3 {
-  height: 110px;
-}
-#search-music-row2{
-  width:1200px;
-}
-
-#search-input-wrapper {
-  width: 450px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 4px #aaa;
-}
-
-#search-input {
-  width: 80%;
-  height: 100%;
-  margin: 20px;
-  border: none;
-}
-
-#search-input:focus {
-  outline: none;
-}
-
-#search-button {
-  width: 25px;
-  height: 25px;
-  border: none;
-  cursor: pointer;
-  background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
 }
 
 /* row 2: search result */

@@ -88,7 +88,7 @@
                         </div>
 
                         <audio controls style="width: 600px">                            <!-- 오디오 컨트롤러 -->
-                            <source :src="content.fileUrl" type="audio/mpeg">
+                            <source :src="content.fileUrl" type="audio/wav">
                             Your browser does not support the audio tag.
                         </audio>
 
@@ -116,7 +116,7 @@ import BandService from '../services/band.service';
 import comment from '@/components/Comment.vue';
 
 export default {
-    name: 'BandMusic',
+    name: 'BandMusicDetail',
     components: {
         comment
     },

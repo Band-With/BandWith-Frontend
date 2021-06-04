@@ -62,6 +62,11 @@ const routes = [
     component: () => import('../views/SearchRecord.vue'),
   },
   {
+    path: '/bandmusics/',
+    name: 'searchBandMusic',
+    component: () => import('../views/Band/SearchBandMusic.vue'),
+  },
+  {
     path: '/bands/new',
     name: 'newBand',
     component: () => import('../views/Band/NewBand.vue'), 
@@ -82,18 +87,18 @@ const routes = [
         name: 'workon',
         path: 'workon',
         component: () => import('../components/bandMusic/BandWorkon.vue') 
-      }
+      },
     ]
+  },
+  {
+    path: '/bands/:bandname/musics',
+    name: 'addBandMusic',
+    component: () => import('../views/Band/AddBandMusic.vue'), 
   },
   {
     path: '/bands/:bandname/:musicid',
     name: 'bandMusicDetail',
-    component: () => import('../views/BandMusic.vue') 
-  },
-  {
-    path: '/bands/:bandname/musics',
-    name: 'bandMusic',
-    component: () => import('../views/Band/BandMusic.vue'), 
+    component: () => import('../views/BandMusicDetail.vue') 
   },
   {
     path: '/:username',

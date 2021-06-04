@@ -1,21 +1,17 @@
 <template>
   <div class="background justify-content-center">
     <div id="search-music" class="container">
-      <!-- row 1: search input -->
+      <!-- search input -->
       <div
-        id="search-music-row1"
         class="d-flex align-items-center justify-content-center"
+        style="height: 100px;"
       >
         <form
           id="search-input-wrapper"
           class="d-flex align-items-center"
           @submit="searchMusic"
         >
-          <input
-            id="search-input"
-            class="flex-grow-1 p-3"
-            v-model="query"
-          />
+          <input id="search-input" class="flex-grow-1 p-3" v-model="query" />
           <button type="submit" id="search-button" class="flex-grow-1">
             <img
               class="icon"
@@ -26,23 +22,36 @@
         </form>
       </div>
 
-      <!-- row 2: search results -->
-      <div id="search-music-row2" style="min-height: 60vh">
-        <!-- nav filter -->
-        <div>
-          <ul class="nav nav-tabs">
-            <li
-              v-for="type in filter_list"
-              :key="type.ename"
-              class="nav-item"
-              :class="{ active: type.ename == sort_type }"
-            >
-              <a class="nav-link" @click="toggleFilter(type.ename)">{{
-                type.kname
-              }}</a>
-            </li>
-          </ul>
+      <!-- nav filter -->
+      <div>
+        <ul class="nav nav-tabs">
+          <li
+            v-for="type in filter_list"
+            :key="type.ename"
+            class="nav-item"
+            :class="{ active: type.ename == sort_type }"
+          >
+            <a class="nav-link" @click="toggleFilter(type.ename)">{{
+              type.kname
+            }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- card -->
+      <div class="card mb-5">
+        <!-- card header -->
+        <div
+          class="card-header d-flex align-items-center  justify-content-between py-2 px-4"
+        >
+          <span>밴드에서 합주해보고 싶은 음악을 선택하고, 추가해보세요!</span>
+          <div class="float-right">
+            <button class="btn btn-primary" @click="addBandMusic">
+              밴드 연습곡에 추가
+            </button>
+          </div>
         </div>
+        <!-- card body -->
         <!-- loading -->
         <div v-if="loading" class="d-flex justify-content-center ">
           <span
@@ -63,7 +72,7 @@
           <b>음악이 존재하지 않습니다.</b>
         </div>
         <!-- search results -->
-        <Musics v-else :musics="musics" />
+        <Musics v-else ref="musics" :musics="musics" />
       </div>
 
       <!-- row 3: pagination -->
@@ -73,16 +82,15 @@
 </template>
 
 <script>
-import Musics from "@/components/search/Musics.vue";
+import Musics from "@/components/bandMusic/Musics.vue";
 // import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
 
 export default {
-  name: "search-music",
+  name: "bandMusicAdding",
   data() {
     return {
       loading: true,
-      content: "",
       query: "",
       filter_list: [
         { ename: "related", kname: "관련순" },
@@ -104,6 +112,10 @@ export default {
     },
   },
   methods: {
+    // 밴드 음악 추가
+    addBandMusic() {
+      this.$refs.musics.addBandMusic();
+    },
     // 화면 필터 토글
     toggleFilter(type) {
       if (this.sort_type != type) {
@@ -148,14 +160,14 @@ export default {
     changeQuery(type) {
       if (this.query == null) {
         return this.$router.replace({
-          name: "search-music",
+          name: "bandMusicAdding",
           query: {
             filter: type,
           },
         });
       } else {
         return this.$router.replace({
-          name: "search-music",
+          name: "bandMusicAdding",
           query: {
             q: this.query,
             filter: type,
@@ -164,7 +176,6 @@ export default {
       }
     },
   },
-
   mounted() {
     this.query = this.$route.query.q;
     const sort_type = this.$route.query.filter;
@@ -177,7 +188,7 @@ export default {
     // query string = "related", undefined, etc.
     else {
       this.getMusics("related");
-    }    
+    }
     document.getElementById("search-input").focus();
   },
 };
@@ -194,13 +205,9 @@ export default {
 .background {
   padding-top: 60px;
   min-height: 100vh;
-  /* background-color: #fafafa; */
+  background-color: #ffffff;
 }
 /* row 1: search input */
-#search-music-row1,
-#search-music-row3 {
-  height: 110px;
-}
 #search-input-wrapper {
   width: 400px;
   height: 45%;
