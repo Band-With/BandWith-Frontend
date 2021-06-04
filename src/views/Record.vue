@@ -241,7 +241,11 @@ startBtn(){
 changeBPM(){
    if (this.isPlay) {
       clearInterval(this.timer);
-      this.timer = setInterval(function(){  let sound=document.getElementById("sound");sound.currentTime = 0;sound.play();}, (60 * 1000) / this.bpm);
+      this.timer = setInterval(function(){  
+        let sound=document.getElementById("sound");
+        sound.currentTime = 0;sound.play();
+      }, 
+      (60 * 1000) / this.bpm);
    }
 },
 
@@ -344,7 +348,7 @@ changeBPM(){
 
   move(){
     
-    this.$router.push({name: 'edit', params: {file:this.selectedData}});
+    this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
 },
 
 

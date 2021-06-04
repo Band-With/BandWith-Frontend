@@ -1,13 +1,22 @@
 <style scoped>
 .main{
-    max-width: 1300px;
+    max-width: 100vw;
     width: 100vw;
     padding-left: 30px;
     padding-right: 30px;
     margin: 0 auto 30px;
     margin-top: 160px;
 }
-
+.textInput{
+background-color:#0B173B;
+color:#FFFFFF; 
+display: flex; 
+align-items:center;
+text-align : right;
+width:50px;
+margin:5px;
+font-size:12px;
+}
 .container {
   width: 100%;
   padding-right: 5%;
@@ -79,39 +88,96 @@
   font-weight: bold;
   border-bottom: 2px solid #2080e0 !important;
 }
+#body{
+    background-color: #fafafa;
+}
+.main{
+    max-width: 100vw;
+    width: calc(100% - 40px);
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0 auto 30px;
+    margin-top: 60px;
+}
+.col-md-1{
+  background-color: #fafafa;
+}
 </style>
    
 <template>
-     <div class="row-vh d-flex flex-column justify-content-center align-items-center"> 
+    <div id="body" class="d-flex flex-column align-items-center">
+        <div class="main">
+        <div class="row" style="margin-top:20px;"> 
+            <div class="col-md-1" style="height:30vh;">
+                
+            </div>
+            <div class="col-md-5" style="height:30vh;">
+                  <div style="position:absolute; width:250px; height:250px; z-index:10; left:5%;">
+                    <img style="border-radius:20px;" :src="imgPreUrl + musicInfo.img" class="w-100 h-100"/>
+                    <span style="color: #000; font-size: 25px; font-weight: bold; z-index:11;">{{ musicInfo.title }}</span>
+                    <span style="color: #000; font-size: 18px; font-weight: lighter; z-index:11;">   {{ musicInfo.singer }} {{ musicInfo.composer }}</span>
+              </div>
+            </div>
+            <div class="col-md-1" style="height:30vh;">
 
-            <div class="row" style="width:100vw" >
-                  <div class="col-md-2" style="border:2px solid #bcbcbc; text-align: center;">      
-                    <button type="button" class="btn btn-light">리버브</button>
-                    <round-slider radius="80" v-model="reverbTime" rangeColor="#81F781" @input="changeval()"/> Time  
-                    <round-slider radius="80" v-model="reverbDecay" rangeColor="#F3F781" @input="changeval()"/> decay
-                    <round-slider radius="80" v-model="reberbMix" rangeColor="#BE81F7" @input="changeval()"/> Mix
-                  </div>
-                  <div class="col-md-2" style="border:2px solid #bcbcbc; text-align: center;">      
-                    <button type="button" class="btn btn-light">딜레이</button>
-                    <round-slider radius="80" v-model="delayTime" rangeColor="#FE642E" @input="changeval()"/> Time  
-                    <round-slider radius="80" v-model="feeback" rangeColor="#BE81F7" @input="changeval()"/> Feedback
-                    <round-slider radius="80" v-model="delayMix" rangeColor="#D0FA58" @input="changeval()"/> Mix
-                  </div>
-                  <div class="col-md-2" style="border:2px solid #bcbcbc; text-align: center;">      
-                    <button type="button" class="btn btn-light">트레몰로</button>
-                    <round-slider radius="80" v-model="tremoloSpeed" rangeColor="#FE2EF7" @input="changeval()"/> Speed  
-                    <round-slider radius="80" v-model="tremoloDepth" rangeColor="#F781D8" @input="changeval()"/> Depth
-                    <round-slider radius="80" v-model="tremoloMix" rangeColor="#81F7D8" @input="changeval()"/> Mix
-                  </div>
+            </div>            
+            <div class="col-md-5" style="height:30vh;">
+
             </div>
 
-
-            <div style="width:58vw; height=100px;">
-               <button class="btn btn-primary" id="denoise" v-on:click="denoising">소음제거</button>
-               <button class="btn btn-primary" style="position:relative; visibility:visible;" id="startBtn" v-on:click="startBtn">재생</button>
-               <button class="btn btn-secondary" id="stopBtn" v-on:click="stopBtn" style="position:relative; visibility:hidden;">정지</button>
+            <div class="col-md-1" style="height:30vh;">
+                
             </div>
+             <div class="col-md-5" style="  background-color:#0B173B; margin-top:2px;">
+                <div class="row" style="border-bottom:2px solid #bcbcbc; text-align:center; padding:20px; justify-content:center; background-color:#fafafa;">      
+                <button class="btn btn-secondary" id="stopBtn" v-on:click="stopBtn" style="position:relative; visibility:hidden; height:100px; margin:10px;">정지</button>                
+
+              </div>
+              <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
+                <div class="textInput" style="height:110px;">볼륨 </div>
+                <slider style="width:80%" min="0"  max="100" raising v-model="volume"></slider>
+              </div>            
+              <div class="row" style="border:2px solid #bcbcbc; text-align:center; padding:20px; justify-content:center;">      
+                <button class="btn btn-success" id="apply" v-on:click="denoising" style="height:100px; margin:10px;">소음 제거 적용</button>
+                <button class="btn btn-secondary" id="non" v-on:click="nondenoise" style="height:100px; margin:10px;">소음 제거 미적용</button>
+              </div>
+
+        </div>        
+            <div class="col-md-5" style="background-color:#0B173B;">
+                  <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
+                    <div class="textInput">리버브</div>
+                    <round-slider radius="60" width="30" v-model="reverbTime" rangeColor="#81F781" @input="changeval()"/>
+                    <div class="textInput">Time</div>
+                    <round-slider radius="60" width="30" v-model="reverbDecay" rangeColor="#F3F781" @input="changeval()"/>
+                    <div class="textInput">Decay</div>
+                    <round-slider radius="60" width="30"  v-model="reberbMix" rangeColor="#BE81F7" @input="changeval()"/>
+                    <div class="textInput">Mix</div>
+                  </div>
+                  <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
+                    <div class="textInput">딜레이</div>
+                    <round-slider radius="60" width="30"  v-model="delayTime" rangeColor="#FE642E" @input="changeval()"/>
+                    <div class="textInput">Time</div>
+                    <round-slider radius="60" width="30"  v-model="feeback" rangeColor="#BE81F7" @input="changeval()"/>
+                    <div class="textInput">Feedback</div>
+                    <round-slider radius="60" width="30"  v-model="delayMix" rangeColor="#D0FA58" @input="changeval()"/>
+
+                    <div class="textInput">Mix</div>
+                  </div>
+                  <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
+                    <div class="textInput">트레몰로</div>
+                    <round-slider radius="60" width="30"  v-model="tremoloSpeed" rangeColor="#FE2EF7" @input="changeval()"/>  
+                    <div class="textInput">Speed</div>
+                    <round-slider radius="60" width="30"  v-model="tremoloDepth" rangeColor="#F781D8" @input="changeval()"/>                    
+                    <div class="textInput">Depth</div>
+                    <round-slider radius="60" width="30"  v-model="tremoloMix" rangeColor="#81F7D8" @input="changeval()"/>
+                    <div class="textInput">Mix</div>
+                  </div>
+            </div>
+           
+      </div>
+
     </div>
+  </div>
     
 </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
@@ -119,10 +185,18 @@
 import Vue from 'vue'
 import NoiseService from '../services/noise.service';
 import RoundSlider from 'vue-round-slider'
+import Slider from "vue-custom-range-slider";
+import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
+import SearchService from '../services/search.service';
+
+
+
 export default {
     name: '404',
    data: function() {
     return {
+      imgPreUrl: "data:image/jpeg;base64,",
+      musicInfo:'',
       reverbTime:0,
       reverbDecay: 0,
       reberbMix:0,
@@ -133,30 +207,56 @@ export default {
       tremoloDepth: 0,
       tremoloMix: 0,
       sound,
-      denoised:''
+      denoised:'',
+      volume:50,
+      none: [
+          {
+            label: "Not at all",
+            value: "0"
+          }
+      ]
       }
     },
   components: {
-    RoundSlider,
+    RoundSlider,Slider
   },
   computed: {
     selectedData() {
       return this.$route.params.file;
+    },
+    music_id() {
+      return this.$route.params.music_id;
     }
     },
     mounted(){
-    },
-    methods:{
-      
-    denoising(){
-      console.log("????");
-NoiseService.denoise(this.selectedData).then(
+      SearchService.getMusic(this.$route.params.music_id).then(
             response => {
-                                  this.denoised = response.data;
-
+                if(Object.keys(response.data).length !== 0){
+                    this.musicInfo = response.data;
+                }
             },
             error => {
-              console.log(error)
+                if(error.response.status === 404)
+                console.log("wow");
+            }
+        );
+    },
+    methods:{
+    nondenoise(){
+      document.getElementById("non").style.background = "#5cb85c";
+      document.getElementById("apply").style.background = "#292b2c";
+    },
+      
+    denoising(){
+      document.getElementById("apply").style.background = "#5cb85c";
+      document.getElementById("non").style.background = "#292b2c";
+
+      NoiseService.denoise(this.selectedData).then(
+            response => {
+              this.denoised = response.data;
+            },
+            error => {  
+              console.log
                         }
         );    },
         startBtn(){
@@ -185,6 +285,7 @@ NoiseService.denoise(this.selectedData).then(
           self.sound.addEffect(tremolo);
           self.sound.addEffect(reverb);
           self.sound.addEffect(delay);
+          self.sound.volume = self.volume;
           self.sound.play();
         });
 
@@ -224,6 +325,7 @@ NoiseService.denoise(this.selectedData).then(
           self.sound.addEffect(tremolo);
           self.sound.addEffect(reverb);
           self.sound.addEffect(delay);
+          console.log(self.volume);
           self.sound.play();
         });
         }

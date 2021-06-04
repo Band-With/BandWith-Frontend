@@ -17,7 +17,6 @@ class MusicService {
     searchRecord(music_id){
         return axios
         .get(API_URL+'/'+music_id+'/records', {
-            
         })
     }
 
