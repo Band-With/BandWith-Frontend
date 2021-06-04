@@ -5,7 +5,8 @@
       <div
         id="search-music-row1"
         class="d-flex align-items-center justify-content-center"
-      >
+      >        
+
         <form
           id="search-input-wrapper"
           class="d-flex align-items-center"
@@ -25,7 +26,6 @@
           </button>
         </form>
       </div>
-
       <!-- row 2: search results -->
       <div id="search-music-row2" style="min-height: 60vh">
         <!-- nav filter -->
@@ -104,6 +104,8 @@ export default {
     },
   },
   methods: {
+
+
     // 화면 필터 토글
     toggleFilter(type) {
       if (this.sort_type != type) {
@@ -124,6 +126,8 @@ export default {
         this.sort_type = type;
       }
     },
+
+  
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
       this.loading = true;

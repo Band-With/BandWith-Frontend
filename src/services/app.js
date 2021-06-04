@@ -1,10 +1,3 @@
-const startBtn = document.querySelector('#startBtn');
-const sound = document.querySelector('#sound');
-const bpm = document.querySelector('#bpm');
-const title = document.querySelector('h1');
-let timer = null;
-let nowBpm = 60;
-let isPlay = false;
 
 bpm.addEventListener('change', (e) => {
    title.innerHTML = e.target.value + ' BPM';

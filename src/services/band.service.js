@@ -12,9 +12,6 @@ class BandService {
     });
   }
 
-  getBand(band_name) {
-    return axios.get(API_URL + "/" + band_name, {});
-  }
 
   addBandMusic(band_name, music_id) {
     return axios.post(API_URL + band_name + "/bandmusics", {
@@ -22,6 +19,12 @@ class BandService {
       musicId: music_id,
     });
   }
+    getBand(band_id){
+        return axios
+        .get(API_URL+'/'+band_id, {
+            
+        })
+    }
 
   getBandInfo(band_id) {
     return axios.get(API_URL + band_id);

@@ -38,12 +38,21 @@
     </div>
  <div id="search-record" class="container" style="float:left; width:70vw; height:100vh">
 
-
       <!-- row 3: pagination -->
-        <div style="margin-left:100px; float:left; margin-top:150px;">
-           <MusicVisual id="bar1" style="float:left; margin-left:3px; animation-play-state:paused;"></MusicVisual>
-           <MusicVisual id="bar2" style="float:left;margin-left:3px; animation-delay: 0.2s;animation-play-state:paused;"></MusicVisual>
-           <MusicVisual id="bar3" style="float:left;margin-left:3px;animation-delay: 0.4s;animation-play-state:paused;"></MusicVisual>
+        <div style="margin-left:100px; float:left; margin-top:25px;">
+
+           <MusicVisual id="bar1" style="float:left; margin-left:40px; animation-play-state:paused; margin-top:200px;"></MusicVisual>
+           <MusicVisual id="bar2" style="float:left; margin-left:5px; animation-delay: 0.2s;animation-play-state:paused; margin-top:200px;"></MusicVisual>
+           <MusicVisual id="bar3" style="float:left; margin-left:5px;animation-delay: 0.4s;animation-play-state:paused; margin-top:200px;"></MusicVisual>
+
+   <div class="container" style="float:left; width:400px; height:300px; margin-top:50px;">
+      <h3 class="text-center mt-4">Metronome</h3>
+      <h1 class="text-center text-info mt-3 mb-3">{{this.bpm}} BPM</h1>
+      <input v-model="bpm" @input="changeBPM()" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
+      <audio id="sound" src="../assets/sound.wav"></audio>
+      <button class="btn btn-primary btn-block mt-4" id="startBtn" v-on:click="startBtn">Start</button>
+   </div>
+
         </div>
 
 
@@ -51,14 +60,25 @@
        <div id="search-music-row4" style="width:80vw; float:left">
           <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
       </div>
+      
 
+         <button style="width:100px; height:50px;float:right; margin-top:20px;"
+                  id="add-to-cart"
+                  class="btn btn-primary"
+                  @click="move()"
+                >
+                  편집하기
+                </button> 
         <vue-confirmation-button  ref="confirmationButton"
-          style="width:250px; float:left;"
+          style="width:250px; float:right; margin-right:15px; margin-top:20px;  " class="btn btn-primary"
           :messages="customMessages" v-on:confirmation-incremented="check()"
           v-on:confirmation-success="send()">
-        </vue-confirmation-button> 
- </div>
-  </div>
+        </vue-confirmation-button>
+
+
+
+   </div>
+</div>
 </template>
 
 
@@ -70,7 +90,7 @@ import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
 import SearchService from "@/services/search.service";
 import Records from "@/components/search/Records.vue";
-
+//https://evan-moon.github.io/2019/08/21/javascript-audio-effectors-practice/
 Vue.use(AudioRecorder)
 export default {
   name:'recording',
@@ -89,6 +109,9 @@ export default {
       recordchecked:'0',
       OnlyMyRecord:[],
       music: {},
+      bpm:60,
+      timer:'',
+      isPlay:false,
       filter_list: [
         { ename: "latest", kname: "최신순" },
         { ename: "like", kname: "좋아요순" },
@@ -97,8 +120,8 @@ export default {
       sort_type: "latest", // 검색 필터 초깃값 설정
       is_comment_visible: false, // 댓글창 visibility
       customMessages: [
-        '모두 선택하신 후에 클릭해주세요!',
-      '모두 정상상적으로 선택되었나요?',
+        '곡을 선택해주세요',
+      '이대로 업로드하시겠습니까?',
       '성공! 목록으로 돌아갑니다.'
     ],
     }
@@ -174,6 +197,59 @@ export default {
         });
       }
     },
+
+
+
+
+//메트로눔
+
+ 
+
+startBtn(){
+  let startBtn=document.getElementById("startBtn");
+  let sound=document.getElementById("sound");
+
+  if (this.isPlay) {
+      clearInterval(this.timer);
+       if(startBtn.innerHTML === 'Start') {
+         startBtn.innerHTML = 'Stop';
+         startBtn.classList.remove('btn-primary');
+         startBtn.classList.add('btn-danger');
+         } else {
+         startBtn.innerHTML = 'Start';
+         startBtn.classList.remove('btn-danger');
+        startBtn.classList.add('btn-primary');         
+         } } else {
+           if(startBtn.innerHTML === 'Start') {
+      startBtn.innerHTML = 'Stop';
+      startBtn.classList.remove('btn-primary');
+      startBtn.classList.add('btn-danger');
+   } else {
+      startBtn.innerHTML = 'Start';
+      startBtn.classList.remove('btn-danger');
+      startBtn.classList.add('btn-primary');         
+   }
+
+
+
+   sound.currentTime = 0;
+   sound.play();
+         this.timer = setInterval(function(){  let sound=document.getElementById("sound");sound.currentTime = 0;sound.play();}, (60 * 1000) / this.bpm);            
+   }
+   this.isPlay = !this.isPlay;
+},
+changeBPM(){
+   if (this.isPlay) {
+      clearInterval(this.timer);
+      this.timer = setInterval(function(){  
+        let sound=document.getElementById("sound");
+        sound.currentTime = 0;sound.play();
+      }, 
+      (60 * 1000) / this.bpm);
+   }
+},
+
+
 
     // 필터 설정
     setFilter(type) {
@@ -268,8 +344,14 @@ export default {
     const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
     UserService.uploadRecord(this.username, this.musicID, this.instrument, this.visible, this.option, file);
     this.$router.push('/musics');
-
   },
+
+  move(){
+    
+    this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
+},
+
+
 
   check(){
       if(this.recordchecked==='1'){
@@ -429,7 +511,7 @@ export default {
 }
 
 ::v-deep div.ar {
-  margin-top:100px;
+  margin-top:80px;
   width: 1000px;
   box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
   background-color: #fff;
@@ -513,12 +595,40 @@ export default {
 
 ::v-deep .confirmation__button{
   width:200px;
+      color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 
 ::v-deep .confirmation__button.confirmation__button--complete{
   width:200px;
+      color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size:f 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
-::v-deep #data-v-4917ee8b{
+::v-deep #data-v-4917ee08b{
   width:200px;
 }
 .inner d-flex {
