@@ -60,7 +60,7 @@
             <img v-if="user.profileImg === null"
                 class="comment-profile-image"
                 style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
-                src="../assets/images/profile.jpg" />
+                src="@/assets/images/profile.jpg" />
             <img v-else style="min-width: 57px; width: 57px; height: 57px; border-radius: 50%; border: 1px solid #ddd;"
                 class="comment-profile-image"
                 :src="imgPreUrl + user.profileImg" />
@@ -85,7 +85,7 @@
             <div v-else class="d-flex comment-item px-4 py-3" v-for="(item, index) in content" :key="item.comment.comment_id"> 
                 <router-link style="flex: 2; min-width: 190px" class="d-flex" :to="{ name: 'prac', params: { username: item.member.username }}"> <!-- 작성자 정보 -->
                     <img v-if="item.member.profile !== null" :src="imgPreUrl + item.member.profile" style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 50%"/>
-                    <img v-else src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>
+                    <img v-else src="@/assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>
                     <div class="ml-4" style="color: #616161; font-size: 14px">
                         {{ item.member.username }}
                     </div>

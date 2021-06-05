@@ -82,13 +82,13 @@
                         <div class="position-relative d-flex flex-column p-4 w-100">
                             <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 35px; right: 30px">
                                 <div class="d-flex flex-row">
-                                    <img v-if="record.access === true" class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/public.png" />
-                                    <img v-else class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/private.png" />
+                                    <img v-if="record.access === true" class="mr-2" style="width: 20px; height: 20px" src="@/assets/images/icon/public.png" />
+                                    <img v-else class="mr-2" style="width: 20px; height: 20px" src="@/assets/images/icon/private.png" />
                                     <toggle-button :sync="true" :value="Boolean(record.access)" :width="40" @change="accessOnChangeEventHandler"/>
                                 </div>
                                 <div class="d-flex flex-row">
-                                    <img v-if="record.searchable === true" class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/searchable.png" />
-                                    <img v-else class="mr-2" style="width: 20px; height: 20px" src="../assets/images/icon/not-searchable.png" />
+                                    <img v-if="record.searchable === true" class="mr-2" style="width: 20px; height: 20px" src="@/assets/images/icon/searchable.png" />
+                                    <img v-else class="mr-2" style="width: 20px; height: 20px" src="@/assets/images/icon/not-searchable.png" />
                                     <toggle-button :sync="true" :value="Boolean(record.searchable)" :width="40" @change="searchableOnChangeEventHandler"/>
                                 </div>
                             </div>
@@ -114,10 +114,10 @@
                                 :class="{'button-clicked': index===0}"  @click="[toggleClickedButton($event.currentTarget), updateMusicPanel(record, index)]">
                                 <!-- <span> {{ record.records.searchable }} </span> -->
                                 <div v-if="condition" class="position-absolute" style="top: 0px; right: 5px">
-                                    <img v-if="record.records.access === true" style="width: 16px; height: 16px" src="../assets/images/icon/public.png" />
-                                    <img v-else style="width: 16px; height: 16px" src="../assets/images/icon/private.png" />
-                                    <img v-if="record.records.searchable === true" class="ml-1" style="width: 16px; height: 16px" src="../assets/images/icon/searchable.png" />
-                                    <img v-else class="ml-1" style="width: 16px; height: 16px" src="../assets/images/icon/not-searchable.png" />
+                                    <img v-if="record.records.access === true" style="width: 16px; height: 16px" src="@/assets/images/icon/public.png" />
+                                    <img v-else style="width: 16px; height: 16px" src=" @/assets/images/icon/private.png" />
+                                    <img v-if="record.records.searchable === true" class="ml-1" style="width: 16px; height: 16px" src="@/assets/images/icon/searchable.png" />
+                                    <img v-else class="ml-1" style="width: 16px; height: 16px" src="@/assets/images/icon/not-searchable.png" />
                                 </div>
                                 <span> {{ toDate(record.records.created_at) }} </span>
                             </button>

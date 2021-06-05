@@ -49,7 +49,7 @@
       <h3 class="text-center mt-4">Metronome</h3>
       <h1 class="text-center text-info mt-3 mb-3">{{this.bpm}} BPM</h1>
       <input v-model="bpm" @input="changeBPM()" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
-      <audio id="sound" src="../assets/sound.wav"></audio>
+      <audio id="sound" src="@/assets/sound.wav"></audio>
       <button class="btn btn-primary btn-block mt-4" id="startBtn" v-on:click="startBtn">Start</button>
    </div>
 

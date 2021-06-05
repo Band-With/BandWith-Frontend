@@ -69,7 +69,7 @@
 
 <template>
     <div class="d-flex flex-wrap py-5">
-        <div v-for="(item, index) in content" :key="item.band_music_id" class="item-container d-flex mb-4">
+        <div @click="workOnItemClicked(item.music.music_id, item.band_music_id)" v-for="(item, index) in content" :key="item.band_music_id" class="item-container d-flex mb-4">
             <div class="d-flex flex-column music-info position-absolute py-5" style="width: 190px; height: 190px">
                 <div class="animated">
                     <span>{{item.music.title}}</span>
@@ -83,13 +83,21 @@
 </template>
 
 <script>
-
+import {EventBus} from "@/event-bus"
 export default {
     name: 'BandComplete',
     data(){
         return {
-            imgPreUrl: "data:image/jpeg;base64,"
+            imgPreUrl: "data:image/jpeg;base64,",
+            memberOfBand: Boolean
         }
+    },
+    created(){        
+        EventBus.$on("response-member-auth", memberOfBand =>{
+            this.memberOfBand = memberOfBand
+            console.log(this.memberOfBand)
+        })
+        EventBus.$emit("request-member-auth")
     },
     methods:{
         toDate(timestamp){
@@ -105,6 +113,15 @@ export default {
                 date = '0' + date;
 
             return [d.getFullYear(), month, date].join("-");
+        },
+        workOnItemClicked(musicId, bandMusicId){
+            if(this.memberOfBand){
+                const bandnameParam = this.$route.params.bandname
+                console.log(bandMusicId)
+                this.$router.push({ name: 'bandMusicMix', params: {bandname: bandnameParam, musicid: musicId, bandmusicid: bandMusicId} })
+            }
+            else
+                alert("열람 권한이 없습니다.")
         },
         init() {
             const elements = this.$el.querySelectorAll('.music-title-init');

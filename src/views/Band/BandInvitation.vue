@@ -31,8 +31,7 @@
               v-for="type in filter_list"
               :key="type.ename"
               class="nav-item"
-              :class="{ active: type.ename == sort_type }"
-            >
+              :class="{ active: type.ename == sort_type }">
               <a class="nav-link" @click="toggleFilter(type.ename)">{{
                 type.kname
               }}</a>

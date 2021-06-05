@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import BandService from '../services/band.service';
+import BandService from '@/services/band.service';
 import comment from '@/components/Comment.vue';
 
 export default {

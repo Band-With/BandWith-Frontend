@@ -92,7 +92,7 @@
             <span class="mb-4" style="color: #fff; font-size: 18px; font-weight: 100">밴드를 만들어 즐깁니다</span>
             
             <form id="search-input-wrapper" class="d-flex align-items-center">
-              <input name="q" id="search-input" placeholder="녹음하고 싶은 음악을 검색해보세요!" />
+              <input name="q" id="search-input" placeholder="검색어를 입력하세요." />
               <button @click="submit" id="search-button"></button>
             </form>
         </div>
@@ -112,21 +112,21 @@
             </div> 
 
             <div class="d-flex justify-content-between align-items-end">
-              <div class="d-flex flex-column">
+              <div class="d-flex flex-column"> 
                 <img :src="imgPreUrl + monthlyband[0].img"  style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyband[0].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{monthlyband[0].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[1].img" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[1].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{monthlyband[1].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[2].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[2].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{monthlyband[2].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[3].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyband[3].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{monthlyband[3].bandName}}</span>
               </div>
             </div>
 
@@ -134,7 +134,7 @@
         </div>
 
         <span class="position-relative" style="margin-bottom: 160px"></span>
-        <hr class="position-absolute w-100" style="border-top: 1px solid #D1D1D1">
+        <hr class="position-absolute" style="border-top: 1px solid #D1D1D1; width: 70%; right: 0px">
         <hr class="position-absolute" style="border-top: 3px solid #000; width: 220px">
 
         <div class="d-flex flex-column">
@@ -284,9 +284,9 @@
             <span style="color: #656565; font-size: 14px; font-weight: 300">dongju@naver.com</span>
           </div>
           <div class="d-flex flex-column">
-            <img style="height: 290px; width: 290px" src="@/assets/images/guitar.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/suzy.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">박경민</span>
-            <span style="color: #656565; font-size: 14px; font-weight: 300">kio1015@naver.com</span>
+            <span style="color: #656565; font-size: 14px; font-weight: 300">kiio@naver.com</span>
           </div>          
           <div class="d-flex flex-column">
             <img style="height: 290px; width: 290px" src="@/assets/images/jeongjae.jpg"/>
@@ -323,7 +323,8 @@ export default {
   mounted() {
          MonthService.monthlyBand().then(
                 response => {
-                      this.monthlyband = response.data;
+                      this.monthlyband=response.data;
+                      console.log(this.monthlyband)
                 },
                 error => {
                   console.log(error);

@@ -3,7 +3,7 @@
     <div class="position-relative header d-flex align-items-center justify-content-between h-100">
       <!-- 로고 이미지 -->
       <router-link :to="{ name: 'Home' }">
-        <img src="../assets/images/logo/logo.png" width="50" height="50" />
+        <img src="@/assets/images/logo/logo.png" width="50" height="50" />
       </router-link>
 
       <!-- 홈 화면 헤더 -->
