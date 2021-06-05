@@ -111,18 +111,23 @@ font-size:12px;
             <div class="col-md-1" style="height:30vh;">
                 
             </div>
-            <div class="col-md-5" style="height:30vh;">
+            <div class="col-md-2" style="height:30vh;">
                   <div style="position:absolute; width:250px; height:250px; z-index:10; left:5%;">
                     <img style="border-radius:20px;" :src="imgPreUrl + musicInfo.img" class="w-100 h-100"/>
-                    <span style="color: #000; font-size: 25px; font-weight: bold; z-index:11;">{{ musicInfo.title }}</span>
-                    <span style="color: #000; font-size: 18px; font-weight: lighter; z-index:11;">   {{ musicInfo.singer }} {{ musicInfo.composer }}</span>
-              </div>
+                  </div>
             </div>
-            <div class="col-md-1" style="height:30vh;">
+            <div class="col-md-3" style="height:30vh;">
+              <span style="color: #000; font-size: 25px; font-weight: bold; z-index:11;">{{ musicInfo.title }}</span>
+              <span style="color: #000; font-size: 18px; font-weight: lighter; z-index:11;">   {{ musicInfo.singer }}<br></span>
+              <span style="color: #000; font-size: 18px; font-weight: lighter; z-index:11;">   {{ musicInfo.composer }}</span>
+            </div>
+         
+            <div class="col-md-3" style="height:30vh;">
+              <JJAudio :src="this.selectedData.url" style="margin-top:30px;"
+              />
 
             </div>            
-            <div class="col-md-5" style="height:30vh;">
-
+            <div class="col-md-3" style="height:30vh;">
             </div>
 
             <div class="col-md-1" style="height:30vh;">
@@ -188,6 +193,7 @@ import RoundSlider from 'vue-round-slider'
 import Slider from "vue-custom-range-slider";
 import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
 import SearchService from '../services/search.service';
+import JJAudio from '../components/JJAudio.vue';
 
 
 
@@ -218,7 +224,7 @@ export default {
       }
     },
   components: {
-    RoundSlider,Slider
+    RoundSlider,Slider,JJAudio
   },
   computed: {
     selectedData() {

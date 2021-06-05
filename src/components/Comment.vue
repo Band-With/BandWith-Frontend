@@ -7,6 +7,10 @@
         background-color: #fafafa;
     }
 
+    #comment-title {
+        display: none;
+    }
+
     #comment-area {
         height: 80px;
         width: 85%;
@@ -55,6 +59,7 @@
 
 <template>
     <div id="comment">
+        <h6 id="comment-title" class="px-4 pt-4">댓글</h6>
         <div class="d-flex justify-content-between py-4 px-4 comment-write-box">
             <!-- 댓글 작성 -->
             <img v-if="user.profileImg === null"
@@ -73,7 +78,7 @@
         </div>
         <div id="comment-num" class="mt-4 mb-2" style="font-size: 14px">총 <span style="color: rgb(51, 139, 255)">{{count}}</span>개</div>
         <!-- 작성된 댓글 -->
-        <div style="border-top: 1px solid #bdbdbd; overflow:hidden">
+        <div id="comment-contents" style="border-top: 1px solid #bdbdbd; overflow:hidden">
             <!-- 댓글 0개 -->
             <div
             v-if="content.length === 0"
@@ -82,17 +87,16 @@
             <b style="font-size: 0.8rem">댓글이 없습니다.</b>
             </div>
             <!-- 댓글 1개 이상 -->
-            <div v-else class="d-flex comment-item px-4 py-3" v-for="(item, index) in content" :key="item.comment.comment_id"> 
-                <router-link style="flex: 2; min-width: 190px" class="d-flex" :to="{ name: 'prac', params: { username: item.member.username }}"> <!-- 작성자 정보 -->
-                    <img v-if="item.member.profile !== null" :src="imgPreUrl + item.member.profile" style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 50%"/>
-                    <img v-else src="@/assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>
-                    <div class="ml-4" style="color: #616161; font-size: 14px">
+            <div v-else class="d-flex comment-item px-4 py-3" v-for="(item, index) in content" :key="item.comment.comment_id">
+                <router-link id="comment-user-link" style="flex: 2; min-width: 190px" class="d-flex" :to="{ name: 'prac', params: { username: item.member.username }}"> <!-- 작성자 정보 -->
+                    <img v-if="item.member.profile !== null" :src="imgPreUrl + item.member.profile" class="comment-user-profile" style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 50%"/>
+                    <img v-else src="../assets/images/profile.jpg" class="comment-user-profile" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #ddd;"/>
+                    <div id="comment-username" class="ml-4" style="color: #616161; font-size: 14px">
                         {{ item.member.username }}
                     </div>
                 </router-link>
-
                 <div :class="{'display-none': updating[index]}" style="flex: 9" class="position-relative d-flex flex-column"> <!-- 댓글 정보 -->
-                    <span class="mb-3" style="font-size: 15px; color:#444">{{ item.comment.content }}</span>
+                    <span id="comment-content" class="mb-3" style="font-size: 15px; color:#444">{{ item.comment.content }}</span>
                     <div class="d-flex flex-row" style="font-size: 13px; color: #8f8f8f">
                         <span class="mr-2">{{ toDate(item.comment.created_at) }}</span>
                         <span>
@@ -102,7 +106,7 @@
                             </span>
                         </span>
                     </div>
-                    <div v-if="item.member.username === user.username" class="position-absolute" style="right: 15px; bottom: 0px">
+                    <div v-if="item.member.username === user.username" id="comment-update" class="position-absolute" style="right: 15px; bottom: 0px">
                         <button class="comment-button" @click="[toggleCommentState(index, item.comment.content)]">수정</button>
                         <button class="comment-button" @click="deleteComment(item.comment.comment_id)">삭제</button>
                     </div>
