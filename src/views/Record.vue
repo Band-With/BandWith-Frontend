@@ -268,13 +268,13 @@ changeBPM(){
 		$player.classList.remove('abled');
     },
     setPlayerAbled() {
-        const $player = this.$refs.recorder.$el.querySelector('.ar-player');
-        $player.classList.add('abled');
+      const $player = this.$refs.recorder.$el.querySelector('.ar-player');
+      $player.classList.add('abled');
     },
     hideStopBtn() {
         const $stopBtn = this.$refs.recorder.$el.querySelector('.ar-recorder__stop');
         $stopBtn.style.display = 'none';
-    },
+  },
 	showStopBtn() {
         const $stopBtn = this.$refs.recorder.$el.querySelector('.ar-recorder__stop');
         $stopBtn.style.display = 'block';
@@ -295,7 +295,7 @@ changeBPM(){
 		this.showStopBtn();
     this.setVisual(true);
     },
-	selectedRecord() {
+	selectedRecord() {        
     const recorder = this.$refs.recorder;
     this.selectedData=recorder.selected;
     this.OnlyMyRecord.push(this.selectedData);
