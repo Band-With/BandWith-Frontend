@@ -8,8 +8,8 @@ const records = {
     loading_cmt: true,
     records: [],
     cart: [],
-    comment_rcd_id: -1, // 댓글 보기로 선택된 녹음의 ID
-    comments: [],
+    // comment_rcd_id: -1, // 댓글 보기로 선택된 녹음의 ID
+    // comments: [],
   },
 
   mutations: {
@@ -21,12 +21,6 @@ const records = {
     },
     SET_RECORDS(state, payload) {
       state.records = payload;
-    },
-    SET_COMMENT_RCD_ID(state, payload) {
-      state.comment_rcd_id = payload;
-    },
-    SET_COMMENTS(state, payload) {
-      state.comments = payload;
     },
     ADD_TO_CART(state, payload) {
       if (state.cart.length < 5) {
@@ -47,9 +41,6 @@ const records = {
         return record.record_id === id;
       });
       state.cart.splice(index, 1);
-    },
-    ADD_COMMENT(state, payload) {
-      state.comments.push(payload);
     },
   },
 
@@ -74,55 +65,6 @@ const records = {
           commit("SET_LOADING_RCD", false);
         }
       );
-    },
-
-    getComments({ commit }, record_id) {
-      commit("SET_LOADING_CMT", true);
-
-      SearchService.getComments(record_id).then(
-        (res) => {
-          if (Object.keys(res.data).length !== 0) {
-            commit("SET_COMMENTS", res.data);
-          } else {
-            commit("SET_COMMENTS", null);
-          }
-          commit("SET_LOADING_CMT", false);
-        },
-        (error) => {
-          error =
-            (error.res && error.res.data) || error.message || error.toString();
-          if (error.response.status === 404) this.$router.push({ name: "404" });
-          else alert(error);
-          commit("SET_LOADING_CMT", false);
-        }
-      );
-    },
-
-    addComment({ commit, state }, { username, text }) {
-      SearchService.addComment(state.comment_rcd_id, username, text).then(
-        (res) => {
-          if (Object.keys(res.data).length !== 0) {
-            commit("ADD_COMMENT", {
-              id: res.data,
-              username: username,
-              text: text,
-            });
-          }
-        },
-        (error) => {
-          error =
-            (error.res && error.res.data) || error.message || error.toString();
-          alert(error);
-        }
-      );
-
-      // ------ test ------ //
-      commit("ADD_COMMENT", {
-        id: Math.floor(Math.random() * 100) + 1,
-        username: username,
-        text: text,
-      });
-      // ------------------ //
     },
   },
 };

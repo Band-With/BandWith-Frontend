@@ -4,14 +4,8 @@
       <!-- row 1: search input -->
       <div
         id="search-music-row1"
-<<<<<<< HEAD
-        class="d-flex align-items-center justify-content-center"
-      >        
-
-=======
         class="d-flex flex-column align-items-center justify-content-center"
       >
->>>>>>> feature/band
         <form
           id="search-input-wrapper"
           class="d-flex align-items-center my-2"
@@ -112,8 +106,6 @@ export default {
     },
   },
   methods: {
-
-
     // 화면 필터 토글
     toggleFilter(type) {
       if (this.sort_type != type) {
@@ -134,8 +126,6 @@ export default {
         this.sort_type = type;
       }
     },
-
-  
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
       this.loading = true;

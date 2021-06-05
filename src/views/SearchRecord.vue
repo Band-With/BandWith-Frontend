@@ -26,15 +26,21 @@
           </div>
           <!-- result records -->
           <Records
-            :is_visible="this.is_comment_visible"
-            @update-visibility="updateVisibility"
+            :is_comment_visible="this.is_comment_visible"
+            :comment_rcd_id="this.comment_rcd_id"
+            @setCommentRcdId="setCommentRcdId"
+            @setCommentVisible="setCommentVisible"
           />
         </div>
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
           <Cart :music_title="music.title" />
           <!-- <Comments :is_visible="this.is_comment_visible" /> -->
-          <Comment :recordId="temp" :class="{ invisible: !is_comment_visible }" class="mb-5" />
+          <Comment
+            :recordId="comment_rcd_id"
+            :class="{ invisible: !is_comment_visible }"
+            class="mb-5"
+          />
         </div>
       </div>
       <!-- row 3: pagination -->
@@ -54,7 +60,6 @@ export default {
   name: "search-record",
   data() {
     return {
-      temp: 1,
       music: {},
       filter_list: [
         { ename: "latest", kname: "최신순" },
@@ -62,8 +67,9 @@ export default {
         // { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
-      is_comment_visible: true, // 댓글창 visibility
-      record_id: -1, // 댓글창 선택된 레코드
+
+      is_comment_visible: false,
+      comment_rcd_id: -1, // 댓글 보기 선택된 녹음
     };
   },
   components: {
@@ -97,16 +103,19 @@ export default {
     },
     // 데이터 가져오기 (axios)
     getRecords(sort_type) {
-      sort_type;
       this.$store.dispatch("records/getRecords", {
         music_id: this.music_id,
         filter: sort_type,
       });
     },
-    // 댓글창 visibility 전환
-    updateVisibility() {
-      this.is_comment_visible = !this.is_comment_visible;
+    // 댓글 관련 변수 setter
+    setCommentRcdId(record_id) {
+      this.comment_rcd_id = record_id;
     },
+    setCommentVisible(is_visible) {
+      console.log(is_visible);
+      this.is_comment_visible = is_visible;
+    }
   },
 
   computed: {
@@ -264,7 +273,7 @@ export default {
   /* overflow:initial !important; */
 }
 ::v-deep .comment-item {
-  display: block!important;
+  display: block !important;
   width: 100%;
   min-height: 5rem;
   font-size: 0.8rem;
@@ -272,8 +281,8 @@ export default {
 }
 ::v-deep #comment-user-link {
   align-items: center;
-  min-width: 1rem!important;
-  width:fit-content;
+  min-width: 1rem !important;
+  width: fit-content;
   padding-bottom: 5px;
 }
 ::v-deep .comment-user-profile {
@@ -289,11 +298,11 @@ export default {
   font-size: 0.8rem !important;
   color: black !important;
 }
-::v-deep #comment-content{
-  margin-bottom: 5px!important;
+::v-deep #comment-content {
+  margin-bottom: 5px !important;
   font-size: 0.9rem !important;
 }
-::v-deep #comment-update{
-  right: 0px!important;
+::v-deep #comment-update {
+  right: 0px !important;
 }
 </style>

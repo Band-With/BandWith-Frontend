@@ -16,24 +16,29 @@
             :key="record.record.record_id"
             class="list-group-item d-flex"
           >
-            <div class="img-wrapper">
+            <div class="d-flex">
+              <div>
+                <div class="img-wrapper">
+                  <img
+                    v-if="record.member.profile == null"
+                    src="@/assets/images/profile.jpg"
+                    class="img-profile"
+                  />
+                  <img
+                    v-else
+                    :src="imgPreUrl + record.member.profile"
+                    class="img-profile"
+                  />
+                </div>
+                <div class="text-center">{{ record.member.username }}</div>
+              </div>
               <img
-                v-if="record.member.profile == null"
-                src="@/assets/images/profile.jpg"
-                class="img-profile"
-              />
-              <img
-                v-else
-                :src="imgPreUrl + record.member.profile"
-                class="img-profile"
+                class="icon"
+                src="@/assets/images/icon/close_light.png"
+                @click="delete_from_cart(record.record.record_id)"
+                style="cursor: pointer"
               />
             </div>
-            <img
-              class="icon"
-              src="@/assets/images/icon/close_light.png"
-              @click="delete_from_cart(record.record.record_id)"
-              style="cursor: pointer"
-            />
           </li>
         </ul>
       </div>
@@ -67,6 +72,7 @@ export default {
 
   computed: {
     cart() {
+      console.log(this.$store.state.records.cart);
       return this.$store.state.records.cart;
     },
     user() {
