@@ -4,14 +4,8 @@
       <!-- row 1: search input -->
       <div
         id="search-music-row1"
-<<<<<<< HEAD
-        class="d-flex align-items-center justify-content-center"
-      >        
-
-=======
         class="d-flex flex-column align-items-center justify-content-center"
       >
->>>>>>> feature/band
         <form
           id="search-input-wrapper"
           class="d-flex align-items-center my-2"
