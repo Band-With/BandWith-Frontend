@@ -138,16 +138,15 @@ export default {
       return this.$store.state.records.records;
     },
     instrument() {
-      return this.$route.params.selectedInstrunment;
+      return this.$route.params.instrument;
     },
-        option() {
-      return this.$route.params.selectedInstrunment;
+    option() {
+      return this.$route.params.searchable;
     },
         visible() {
-      return this.$route.params.selectedInstrunment;
+      return this.$route.params.visible;
     },
     },
-
   mounted() {
       SearchService.getMusic(this.music_id).then(
         (res) => {
@@ -166,9 +165,7 @@ export default {
           this.$router.push('/musics');
         }
       );
-
     const sort_type = this.$route.query.filter;
-
     // query string = "like", "follow"
     if (sort_type === "like"
     //  || sort_type === "follow"
@@ -187,7 +184,6 @@ export default {
       if (this.sort_type != type) {
         this.setFilter(type); // 필터 설정
         this.getRecords(type); // 데이터 가져오기
-
         // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
         return this.$router.replace({
           path: "",
@@ -197,18 +193,11 @@ export default {
         });
       }
     },
-
-
-
-
 //메트로눔
-
  
-
 startBtn(){
   let startBtn=document.getElementById("startBtn");
   let sound=document.getElementById("sound");
-
   if (this.isPlay) {
       clearInterval(this.timer);
        if(startBtn.innerHTML === 'Start') {
@@ -229,9 +218,6 @@ startBtn(){
       startBtn.classList.remove('btn-danger');
       startBtn.classList.add('btn-primary');         
    }
-
-
-
    sound.currentTime = 0;
    sound.play();
          this.timer = setInterval(function(){  let sound=document.getElementById("sound");sound.currentTime = 0;sound.play();}, (60 * 1000) / this.bpm);            
@@ -248,16 +234,12 @@ changeBPM(){
       (60 * 1000) / this.bpm);
    }
 },
-
-
-
     // 필터 설정
     setFilter(type) {
       if (this.sort_type != type) {
         this.sort_type = type;
       }
     },
-
     // 데이터 가져오기 (axios)
     getRecords(sort_type) {
       this.$store.dispatch("records/getRecords", {
@@ -265,7 +247,6 @@ changeBPM(){
         filter: sort_type,
       });
     },
-
     // 댓글창 visibility 전환
     updateVisibility() {
       this.is_comment_visible = !this.is_comment_visible;
@@ -319,19 +300,14 @@ changeBPM(){
     this.selectedData=recorder.selected;
     this.OnlyMyRecord.push(this.selectedData);
     this.recordchecked='1';
-
     for(let i = 0; i < this.OnlyMyRecord.length; i++) {
         const currElem = this.OnlyMyRecord[i];
          for(let j = i+1; j < this.OnlyMyRecord.length; j++) {
            if(currElem === this.OnlyMyRecord[j]) {
              this.OnlyMyRecord.pop(currElem);
-
    }
-
   }
-
 }
-
     console.log(this.OnlyMyRecord);
   },
   visual() {
@@ -340,19 +316,14 @@ changeBPM(){
   send(){
     this.musicID=this.$route.params.musicId;
     this.username=this.user.username;
-
     const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
-    UserService.uploadRecord(this.username, this.musicID, this.instrument, this.visible, this.option, file);
+    UserService.uploadRecord(this.username, this.$route.params.musicId, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
     this.$router.push('/musics');
   },
-
   move(){
     
     this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
 },
-
-
-
   check(){
       if(this.recordchecked==='1'){
       console.log(this.recordchecked)
@@ -362,68 +333,54 @@ changeBPM(){
         this.$refs.confirmationButton.reset();
       }
   },
-
-
  }
 }
 </script>
 
 
 <style scoped>
-
-
 .background {
   padding-top: 60px;
   min-height: 100vh;
   background-color: #fafafa;
 }
-
 .icon {
   width: 15px;
   height: 15px;
 }
-
 .img-wrapper {
   width: 65px;
   height: 65px;
   border-radius: 70%;
   overflow: hidden;
 }
-
 .img-profile {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 /* row 1: record info */
 #search-record-row1 b {
   color: #007bff;
 }
-
 /* row 2 left: filter */
 .nav-item {
   opacity: 0.5;
   font-size: 0.8rem;
   border: none !important;
 }
-
 .nav-item a {
   color: black;
 }
 .nav-item a:hover {
   cursor: pointer;
 }
-
 .active {
   opacity: 1 !important;
   color: black;
   font-weight: bold;
   border-bottom: 2px solid #2080e0 !important;
 }
-
-
-
 ::v-deep .ar-content{
 	width:1000px;
 	height:200px;
@@ -436,7 +393,6 @@ changeBPM(){
   fill: white !important;
   background-color: #171003 !important;
 }
-
 ::v-deep .ar-player__play {
   fill: white !important;
   background-color: #ff6b64 !important;
@@ -445,10 +401,9 @@ changeBPM(){
 ::v-deep .ar-player__play {
   fill: white !important;
   background-color: #171003 !important;
-
-  /* &.ar-player__play--active {
+  &.ar-player__play--active {
     background-color: #171003 !important;
-  } */
+  }
 }
 .noise{
   font-size: 25px;
@@ -457,10 +412,9 @@ changeBPM(){
   fill: white !important;
   background-color: #ff6b64 !important;
   cursor: inherit;
-
-  /* &.ar-player__play--active {
+  &.ar-player__play--active {
     background-color: #ff6b64 !important;
-  } */
+  }
 }
 .container {
   width: 100%;
@@ -469,27 +423,54 @@ changeBPM(){
   margin-right: auto;
   margin-left: auto;
 }
-
 .background {
   padding-top: 60px;
   min-height: 100vh;
   background-color: #fafafa;
 }
-
+/* row 1: search input */
+#search-music-row1,#search-music-row2
+#search-music-row3 {
+  height: 110px;
+}
+#search-music-row2{
+  width:1200px;
+}
+#search-input-wrapper {
+  width: 450px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px #aaa;
+}
+#search-input {
+  width: 80%;
+  height: 100%;
+  margin: 20px;
+  border: none;
+}
+#search-input:focus {
+  outline: none;
+}
+#search-button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
+}
 /* row 2: search result */
 .nav-item {
   opacity: 0.5;
   font-size: 0.8rem;
   border: none !important;
 }
-
 .nav-item a {
   color: black;
 }
 .nav-item a:hover {
   cursor: pointer;
 }
-
 .active {
   opacity: 1 !important;
   color: black;
@@ -500,16 +481,13 @@ changeBPM(){
   border: none;
   box-shadow: 0 2px 5px 1px rgba(158, 158, 158, 0.5);
 }
-
 ::v-deep .ar-icon__lg {
   width: 38px;
   height: 38px;
 }
-
 ::v-deep svg {
   vertical-align: baseline;
 }
-
 ::v-deep div.ar {
   margin-top:80px;
   width: 1000px;
@@ -518,12 +496,14 @@ changeBPM(){
   border: 1px solid #eff2f7;
   border-radius: 0.375rem;
 }
-
 ::v-deep .ar-player {
 	justify-content: left;
   width: 400px;
 }
-
+.record{
+}
+.submit{
+}
 .radio{
   font-size: 20px;
   margin-left: 5px;
@@ -535,9 +515,14 @@ changeBPM(){
 .musicinfo{
   width:300px;
 }
-
+.options{
+}
+.mictest{
+}
+.visibility{
+}
 /* disalbed 처리 */
-/* ::v-deep .ar-player {
+::v-deep .ar-player {
 	order:-1;
   opacity: 0.5;
   cursor: default;
@@ -545,19 +530,16 @@ changeBPM(){
     opacity: 1;
     cursor: pointer;
   }
-} */
-
+}
 ::v-deep .ar-player__time {
   width: 3.2rem;
   margin: 0 0.4rem;
 }
-
 ::v-deep .ar-records {
 	height: 150px;
 	margin-left: 20px;
 	order:100;
 }
-
 ::v-deep .ar-records__record {
   min-width: 250px;
 }
@@ -569,18 +551,14 @@ changeBPM(){
   margin-left: 60px;
   order:2;
 }
-
 ::v-deep .ar-player-actions {
   width: 50px;
   justify-content: center;
 }
-
 ::v-deep .ar-player > .ar-player-bar > .ar-player__progress {
   max-width: 110px;
 }
-
 /* 중지 버튼 레코딩 버튼과 겹치기 */
-
 ::v-deep .ar-recorder__stop {
 	order:1;
   fill: white !important;
@@ -591,8 +569,6 @@ changeBPM(){
   height: 38px;
   display: none;
 }
-
-
 ::v-deep .confirmation__button{
   width:200px;
       color: #fff;
@@ -610,7 +586,6 @@ changeBPM(){
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
-
 ::v-deep .confirmation__button.confirmation__button--complete{
   width:200px;
       color: #fff;
@@ -641,5 +616,4 @@ changeBPM(){
 ::v-deep .ar-records__record--selected{
   background-color:#F5F6CE;
 }
-
 </style>

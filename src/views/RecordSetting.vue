@@ -137,7 +137,6 @@
 </style>
 
 <script>
-import UserService from '../services/user.service';
 import Roller from "vue-roller";
 
 import Vue from 'vue';
@@ -202,13 +201,6 @@ export default {
       console.log('back clicked', currentPage);
       return true; //return false if you want to prevent moving to previous page
     },
-  send(){
-    this.music_id=this.$route.params.musicId;
-    this.username=this.user.username;
-    const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
-    UserService.uploadRecord(this.username, this.music_id, this.selectedInstrunment, this.option, this.visible, file);
-      this.$router.push('/musics');
-  },
   pickPiano(){
     this.selectedInstrunment='piano';
     console.log(this.selectedInstrunment);
