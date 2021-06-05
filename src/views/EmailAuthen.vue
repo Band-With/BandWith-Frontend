@@ -2,7 +2,7 @@
     <div id="body" class="d-flex">
         <div class="main d-flex">
             <div class="d-flex flex-column h-100 w-100 align-items-center">
-                <img style="width: 160px; height: 160px" src="../assets/images/icon/email.png"/>
+                <img style="width: 160px; height: 160px" src="@/assets/images/icon/email.png"/>
                 <span class="mt-4" style="font-size: 32px; color: #555">인증 메일이 발송되었습니다.</span>
                 <span class="mt-3" style="color: #555">메일함에서( <span style="color: rgb(50, 98, 255)">{{user.email}}</span> ) 인증 메일을 확인바랍니다.</span>
                 <span class="mt-2" style="color: #555">이메일 인증 버튼을 누르면 회원가입이 완료됩니다.</span>

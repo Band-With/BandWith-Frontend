@@ -12,7 +12,7 @@
     ></autocomplete>
     <br />
     <img
-      src="../assets/images/e.png"
+      src="@/assets/images/e.png"
       style="width:60%; height:40%; position:absolute; left:20%; top:20%;"
     />
     <div
@@ -23,21 +23,21 @@
         <div style="margin-bottom:10px;font-size:20px">이달의 연주자</div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/suzy.jpg"
+            src="@/assets/images/suzy.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>수지</div>
         </div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/mingue.jpg"
+            src="@/assets/images/mingue.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>민규</div>
         </div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/dongju.jpg"
+            src="@/assets/images/dongju.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>동주</div>
@@ -47,21 +47,21 @@
         <div style="margin-bottom:10px;font-size:20px">이달의 밴드</div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/band.jpg"
+            src="@/assets/images/band.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>진원밴드</div>
         </div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/band.jpg"
+            src="@/assets/images/band.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>진원밴드</div>
         </div>
         <div style="padding=3px;width:33%; float:left;">
           <img
-            src="../assets/images/band.jpg"
+            src="@/assets/images/band.jpg"
             style="border-radius: 50%; width:40%;object-fit: cover;"
           />
           <div>진원밴드</div>

@@ -214,7 +214,7 @@ export default {
             selectedIndex: 0,
             playing: false,
             audioList: [],
-            createdAt: Number
+            createdAt: ""
         }
     },
     computed: {

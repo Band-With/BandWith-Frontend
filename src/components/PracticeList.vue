@@ -31,7 +31,7 @@
         <span v-if="loading" class="align-self-center m-auto spinner-border spinner-border-sm"
          style="width: 3rem; height: 3rem; border-width: .35em; color: #ccc"></span>
         <div v-else-if="content === null" class="d-flex w-100">
-            <img src="../assets/images/record.jpg" style="width:445px; height: 400px" />
+            <img src="@/assets/images/record.jpg" style="width:445px; height: 400px" />
 
             <div v-if="condition" class="d-flex flex-column justify-content-center align-items-center w-100">
                 <span class="pb-3" style="font-size: 16px; font-weight: lighter">나만의 연주를 지금 바로 공유해 보세요.</span>
@@ -55,7 +55,7 @@
                                 <span style="color: #fff; font-size: 12px; font-weight: lighter">{{ item.singer }} {{ item.composer }}</span>
                             </div>
                             <router-link :to="{ name: 'prac-detail', params: { username: userParam, music: item.music_id }}">
-                                <img src="../assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
+                                <img src="@/assets/images/play.png" style="height: 35px; width: 35px align-self-end"/>
                             </router-link>
                         </div>
                     </div>
