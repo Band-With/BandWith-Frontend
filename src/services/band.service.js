@@ -19,12 +19,21 @@ class BandService {
       musicId: music_id,
     });
   }
-    getBand(band_id){
-        return axios
-        .get(API_URL+'/'+band_id, {
-            
-        })
-    }
+  
+  completeBandMusic(bandName, bandMusicId){
+    return axios.post(API_URL + bandName + "/bandmusics/" + bandMusicId)
+  }
+  
+  getBandMusicInfo(bandname, bandMusicId){
+    return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId)
+  }
+
+  getBand(band_id){
+      return axios
+      .get(API_URL+'/'+band_id, {
+          
+      })
+  }
 
   getBandInfo(band_id) {
     return axios.get(API_URL + band_id);
@@ -41,13 +50,19 @@ class BandService {
     });
   }
 
-    getBandMusicRecords(bandname, bandMusicId){
-        return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId + "/records")
-    }
+  getBandMusicRecords(bandname, bandMusicId){
+    return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId + "/records")
+  }
 
-    leaveBand(bandname, username){
-        return axios.post(API_URL + bandname + "/members/" + username)
-    }
+  leaveBand(bandname, username){
+    return axios.post(API_URL + bandname + "/members/" + username)
+  }
+
+  addRecord(bandMusicId, recordId, bandname){
+    return axios.post(API_URL + bandname + "/bandmusics/" + bandMusicId + "/records", {
+      recordId: recordId
+    })
+  }
 }
 
 export default new BandService();
