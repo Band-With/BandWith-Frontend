@@ -34,7 +34,7 @@
             <div class="img-wrapper ml-2 mr-4">
               <img
                 v-if="record.member.profile === null"
-                src="@/assets/images/icon/default_user.png"
+                src="@/assets/images/profile.jpg"
                 class="img-profile"
               />
               <img

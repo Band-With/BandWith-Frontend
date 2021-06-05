@@ -19,7 +19,7 @@
             <div class="img-wrapper">
               <img
                 v-if="record.member.profile == null"
-                src="@/assets/images/icon/default_user.png"
+                src="@/assets/images/profile.jpg"
                 class="img-profile"
               />
               <img
