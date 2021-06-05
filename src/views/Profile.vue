@@ -114,19 +114,19 @@
             <div class="d-flex justify-content-between align-items-end">
               <div class="d-flex flex-column"> 
                 <img :src="imgPreUrl + monthlyband[0].img"  style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyband[0].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{monthlyband[0].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[1].img" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[1].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{monthlyband[1].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[2].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyband[2].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{monthlyband[2].bandName}}</span>
               </div>
               <div class="d-flex flex-column">
                 <img :src="imgPreUrl + monthlyband[3].img" style="width:290px; height:290px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
-                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyband[3].bandName}}</span>
+                <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{monthlyband[3].bandName}}</span>
               </div>
             </div>
 
@@ -321,10 +321,10 @@ export default {
     };
   },
   mounted() {
-    console.log(this.monthlyband[0]+"dddd");
          MonthService.monthlyBand().then(
                 response => {
                       this.monthlyband=response.data;
+                      console.log(this.monthlyband)
                 },
                 error => {
                   console.log(error);
