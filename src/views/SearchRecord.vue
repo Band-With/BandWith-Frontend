@@ -33,7 +33,8 @@
         <!-- row 2: right -->
         <div id="search-record-right" class="col-sm-4">
           <Cart :music_title="music.title" />
-          <Comments :is_visible="this.is_comment_visible" />
+          <!-- <Comments :is_visible="this.is_comment_visible" /> -->
+          <Comment :recordId="temp" :class="{ invisible: !is_comment_visible }" class="mb-5" />
         </div>
       </div>
       <!-- row 3: pagination -->
@@ -44,7 +45,7 @@
 
 <script>
 import Records from "@/components/search/Records.vue";
-import Comments from "@/components/search/Comments.vue";
+import Comment from "@/components/Comment.vue";
 import Cart from "@/components/search/Cart.vue";
 // import Paging from "@/components/Paging.vue";
 import SearchService from "@/services/search.service";
@@ -53,6 +54,7 @@ export default {
   name: "search-record",
   data() {
     return {
+      temp: 1,
       music: {},
       filter_list: [
         { ename: "latest", kname: "최신순" },
@@ -60,13 +62,13 @@ export default {
         // { ename: "follow", kname: "팔로우순" },
       ],
       sort_type: "latest", // 검색 필터 초깃값 설정
-      is_comment_visible: false, // 댓글창 visibility
+      is_comment_visible: true, // 댓글창 visibility
       record_id: -1, // 댓글창 선택된 레코드
     };
   },
   components: {
     Records,
-    Comments,
+    Comment,
     Cart,
     // Paging,
   },
@@ -87,22 +89,20 @@ export default {
         });
       }
     },
-
     // 필터 설정
     setFilter(type) {
       if (this.sort_type != type) {
         this.sort_type = type;
       }
     },
-
     // 데이터 가져오기 (axios)
     getRecords(sort_type) {
+      sort_type;
       this.$store.dispatch("records/getRecords", {
         music_id: this.music_id,
         filter: sort_type,
       });
     },
-
     // 댓글창 visibility 전환
     updateVisibility() {
       this.is_comment_visible = !this.is_comment_visible;
@@ -127,14 +127,14 @@ export default {
         if (Object.keys(res.data).length !== 0) {
           this.music = res.data;
         } else {
-          this.$router.push("/musics");
+          // this.$router.push("/musics");
         }
       },
       (error) => {
         error =
           (error.res && error.res.data) || error.message || error.toString();
         alert(error);
-        this.$router.push("/musics");
+        // this.$router.push("/musics");
       }
     );
 
@@ -207,7 +207,7 @@ export default {
   border-bottom: 2px solid #2080e0 !important;
 }
 
-/* comments(child) css */
+/* ################## comment ################## */
 ::v-deep #comment {
   position: relative;
   display: flex;
@@ -222,9 +222,78 @@ export default {
   min-height: 1px;
   font-size: 0.8rem;
 }
-
+::v-deep #comment-title {
+  display: initial !important;
+}
+::v-deep .comment-write-box {
+  background-color: #fff;
+  border: none;
+}
 ::v-deep .comment-profile-image,
 ::v-deep #comment-num {
   display: none;
+}
+::v-deep #comment-area {
+  height: auto;
+  width: 100%;
+  margin: 0 15px 0 0;
+  border: none;
+}
+::v-deep .comment-input {
+  height: 100%;
+  padding: 0.375rem 0.75rem;
+  color: #495057;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+::v-deep .comment-write-box {
+  height: 100%;
+  padding: 13px 18px !important;
+}
+::v-deep #register-button {
+  width: 25%;
+  height: auto;
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+::v-deep #comment-contents {
+  border-top: none !important;
+  /* overflow:initial !important; */
+}
+::v-deep .comment-item {
+  display: block!important;
+  width: 100%;
+  min-height: 5rem;
+  font-size: 0.8rem;
+  border: none;
+}
+::v-deep #comment-user-link {
+  align-items: center;
+  min-width: 1rem!important;
+  width:fit-content;
+  padding-bottom: 5px;
+}
+::v-deep .comment-user-profile {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+::v-deep #comment-username:hover {
+  color: #007bff !important;
+  text-decoration: none !important;
+}
+::v-deep #comment-username {
+  margin: 0 12px !important;
+  font-size: 0.8rem !important;
+  color: black !important;
+}
+::v-deep #comment-content{
+  margin-bottom: 5px!important;
+  font-size: 0.9rem !important;
+}
+::v-deep #comment-update{
+  right: 0px!important;
 }
 </style>
