@@ -72,7 +72,6 @@ export default {
 
   computed: {
     cart() {
-      console.log(this.$store.state.records.cart);
       return this.$store.state.records.cart;
     },
     user() {

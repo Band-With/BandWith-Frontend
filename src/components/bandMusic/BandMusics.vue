@@ -1,4 +1,9 @@
 <style scoped>
+.icon {
+  width: 15px;
+  height: 15px;
+}
+
 .music-image {
   height: 130px;
   width: 130px;
@@ -23,7 +28,7 @@
 <template>
   <div class="d-flex flex-column">
     <div
-      v-for="item in content"
+      v-for="(item, idx) in content"
       :key="item.band_music_id"
       class="item-container d-flex p-4"
       style="border-bottom: 1px solid #DFDFDF;"
@@ -88,19 +93,29 @@
               }}</span>
             </div>
           </div>
-          <div>
-            <img
-              class="mr-1"
-              style="width: 20px; height: 20px"
-              src="@/assets/images/icon/like_off.png"
-            />
-            <span> {{ item.likes }}</span>
-            <img
-              class="ml-3 mr-1"
-              style="width: 20px; height: 20px"
-              src="@/assets/images/icon/comment.png"
-            />
-            <span>{{ item.comments }}</span>
+          <div class="d-flex">
+            <!-- like -->
+            <button
+              class="btn d-flex align-items-center"
+              @click="likeToggle(idx)"
+            >
+              <img
+                v-if="isLikeList[idx]"
+                class="icon"
+                src="@/assets/images/icon/like_on.png"
+              />
+              <img
+                v-if="!isLikeList[idx]"
+                class="icon"
+                src="@/assets/images/icon/like_off.png"
+              />
+              <span class="ml-2">{{ item.likes }}</span>
+            </button>
+            <!-- comment -->
+            <button class="btn d-flex align-items-center ml-3">
+              <img class="icon" src="@/assets/images/icon/comment.png" />
+              <span class="ml-2">{{ item.comments }}</span>
+            </button>
           </div>
         </footer>
       </div>
@@ -120,9 +135,15 @@ export default {
   data() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",
+      isLikeList: [],
     };
   },
   methods: {
+    likeToggle(index) {
+      if (this.isLikeList[index]) this.content[index].likes--;
+      else this.content[index].likes++;
+      this.isLikeList[index] = !this.isLikeList[index];
+    },
     toDate(timestamp) {
       if (timestamp === null) return " ";
       const d = new Date(timestamp);
@@ -139,6 +160,9 @@ export default {
     bandname() {
       return this.$route.params.bandname;
     },
+  },
+  mounted() {
+    this.isLikeList = Array.from({ length: this.content.length }, () => false);
   },
 };
 </script>

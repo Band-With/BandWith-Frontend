@@ -56,7 +56,8 @@
               <div class="d-flex flex-row align-items-center">
                 <!-- like -->
                 <button class="btn d-flex align-items-center" @click="likeToggle(idx)">
-                  <img class="icon" src="@/assets/images/icon/like_off.png" />
+                  <img v-if="isLikeList[idx]" class="icon" src="@/assets/images/icon/like_on.png" />
+                  <img v-if="!isLikeList[idx]" class="icon" src="@/assets/images/icon/like_off.png" />
                   <span class="ml-2">{{ record.likeNum }}</span>
                 </button>
                 <!-- comment -->
@@ -113,7 +114,7 @@ export default {
   data() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",
-      likeToggleList: [],
+      isLikeList: [],
     };
   },
 
@@ -128,7 +129,11 @@ export default {
 
   methods: {
     likeToggle(index){
-      index;
+      if (this.isLikeList[index])
+        this.records[index].likeNum--;
+      else
+        this.records[index].likeNum++;
+      this.isLikeList[index] = !this.isLikeList[index];
     },
     addToCart(record) {
       this.$store.commit("records/ADD_TO_CART", {
@@ -160,6 +165,9 @@ export default {
 
       return [d.getFullYear(), month, date].join("-");
     },
+  },
+  mounted() {
+    this.isLikeList = Array.from({length: this.records.length}, () => false);
   },
 };
 </script>
