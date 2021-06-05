@@ -113,6 +113,7 @@ li {
             <button id="recordButton" @click="startRecording">Record</button>
             <button id="pauseButton" @click="pauseRecording">Pause</button>
             <button id="stopButton" @click="stopRecording">Stop</button>
+            <button id="submit" @click="submitRecording">Submit</button>
         </div>
         <div id="formats">Format: start recording to see sample rate</div>
         <p><strong>Recordings:</strong></p>
@@ -134,7 +135,8 @@ export default{
             audioContext: null,
             recordButton: null,
             stopButton: null,
-            pauseButton: null
+            pauseButton: null,
+            blob: null
         }
     },
     methods:{
@@ -236,6 +238,7 @@ export default{
             this.rec.exportWAV(this.createDownloadLink);
         },
         createDownloadLink(blob) {
+            this.blob = blob
             const url = this.URL.createObjectURL(blob);
             const au = document.createElement('audio');
             const li = document.createElement('li');
@@ -283,6 +286,9 @@ export default{
 
             //add the li element to the ol
             recordingsList.appendChild(li);
+        },
+        submitRecording(){
+            this.$emit('update', this.blob);
         }
     },
     mounted(){

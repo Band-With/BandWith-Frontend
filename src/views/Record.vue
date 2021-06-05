@@ -58,7 +58,7 @@
 
         
        <div id="search-music-row4" style="width:80vw; float:left">
-          <JJRecorder></JJRecorder>
+          <JJRecorder v-on:update="send"></JJRecorder>
           <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
       </div>
       
@@ -69,12 +69,7 @@
                   @click="move()"
                 >
                   편집하기
-                </button> 
-        <vue-confirmation-button  ref="confirmationButton"
-          style="width:250px; float:right; margin-right:15px; margin-top:20px;  " class="btn btn-primary"
-          :messages="customMessages" v-on:confirmation-incremented="check()"
-          v-on:confirmation-success="send()">
-        </vue-confirmation-button>
+                </button>
 
 
 
@@ -86,7 +81,6 @@
 import Vue from 'vue';
 import AudioRecorder from 'vue-audio-recorder'
 import MusicVisual from '../components/MusicVisual'
-import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
 import SearchService from "@/services/search.service";
 import Records from "@/components/search/Records.vue";
@@ -98,7 +92,6 @@ export default {
   components: {
     JJRecorder,
     MusicVisual,
-    'vue-confirmation-button': vueConfirmationButton,
         Records,
       },
  data: function() {
@@ -339,11 +332,11 @@ changeBPM(){
   visual() {
     this.setVisual(false);
 	},
-  send(){
+  send(blob){
     this.musicID=this.$route.params.musicId;
     this.username=this.user.username;
 
-    const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
+    const file = new File([blob], 'file', { type: 'wav' });
     UserService.uploadRecord(this.username, this.musicID, this.instrument, this.visible, this.option, file);
     this.$router.push('/musics');
   },

@@ -72,6 +72,8 @@ class UserService {
             searchable:searchable,
             access:visible,
         };
+        console.log(instrument)
+        console.log(visible)
         const json = JSON.stringify(obj);
         const blob = new Blob([json], {
             type: 'application/json'
