@@ -91,7 +91,7 @@ const routes = [
     component: () => import('../views/Band/BandMusicDetail.vue') 
   },
   {
-    path: '/bands/:bandname/:musicid/mix',
+    path: '/bands/:bandname/:musicid/:bandmusicid/mix',
     name: 'bandMusicMix',
     component: () => import('../views/Band/BandMixing.vue') 
   },

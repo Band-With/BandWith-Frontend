@@ -2,7 +2,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const API_URL = 'http://localhost:8080/auth/';
-// const API_URL = 'http://3.133.139.224:8080/auth/';
+// const API_URL = 'http://15.164.232.137:8080/auth/';
 
 class AuthService{
     sendEmail(email){
