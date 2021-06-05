@@ -134,7 +134,7 @@
         </div>
 
         <span class="position-relative" style="margin-bottom: 160px"></span>
-        <hr class="position-absolute w-100" style="border-top: 1px solid #D1D1D1">
+        <hr class="position-absolute" style="border-top: 1px solid #D1D1D1; width: 70%; right: 0px">
         <hr class="position-absolute" style="border-top: 3px solid #000; width: 220px">
 
         <div class="d-flex flex-column">

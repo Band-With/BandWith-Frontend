@@ -42,7 +42,7 @@
         <div v-else-if="content === null" class="d-flex flex-column justify-content-center align-items-center w-100">
             <div style="max-width: 380px" class="d-flex flex-column justify-content-center align-items-center">
                 <div style="width: 80px; height: 80px; border: 4px solid #000; overflow:hidden" class="circle-shape d-flex justify-content-center align-items-center">
-                    <img src="../assets/images/icon/bookmark.png" style="width: 50px; height: 50px"/>
+                    <img src="@/assets/images/icon/bookmark.png" style="width: 50px; height: 50px"/>
                 </div>
                 <div v-if="!condition" class="d-flex flex-column justify-content-center align-items-center">
                     <span class="pt-3 pb-1" style="font-size: 18px; font-weight: bold">북마크가 없어요.</span>
@@ -87,7 +87,7 @@
 
                     <div class="d-flex flex-row" style="margin-right: 70px; margin-left: 70px; width: 260px">               <!-- 북마크 구성 멤버 -->
                         <div class="d-flex flex-column align-items-center mx-2" style="width: 55px; overflow: hidden" v-for="member in item.members" :key="member.member_id">
-                            <img v-if="member.profile === null" src="../assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%"/>
+                            <img v-if="member.profile === null" src="@/assets/images/profile.jpg" style="width: 50px; height: 50px; border-radius: 50%"/>
                             <img v-else :src="imgPreUrl + member.profile" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #bbb"/>
                             <span style="font-weight: lighter; font-size:12px; max-width: 55px;">{{member.username}}</span>
                         </div>

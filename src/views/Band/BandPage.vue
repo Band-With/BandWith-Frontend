@@ -215,7 +215,7 @@ a:hover {
             <img
               v-else
               id="band-profile-image"
-              src="../assets/images/icon/default_band_profile2.jpg"
+              src="@/assets/images/icon/default_band_profile2.jpg"
             />
           </span>
           <div
@@ -272,13 +272,14 @@ a:hover {
                 />
                 <img
                   v-else
-                  src="../assets/images/profile.jpg"
+                  src="@/assets/images/profile.jpg"
                   style="width: 32px; height: 32px; border-radius: 50%"
                 />
                 <span style="color: #444; font-size: 15px; margin-left: 15px">{{
                   member.username
                 }}</span>
               </router-link>
+
             </div>
             <router-link
               :to="{ name: 'prac', params: { username: member.username } }"
@@ -342,8 +343,8 @@ a:hover {
 
 <script>
 import Members from "@/components/search/Members.vue";
-import BandService from "@/services/band.service";
-
+import BandService from "@/services/band.service"
+import {EventBus} from "@/event-bus"
 export default {
   name: "BandPage",
   components: {
@@ -428,6 +429,10 @@ export default {
       .then((response) => {
         this.content = response;
       });
+
+    EventBus.$on("request-member-auth", () =>{
+      EventBus.$emit("response-member-auth", this.memberOfBand)
+    })
     // UserService.getPracticeDetail(this.userParam, this.musicParam, this.condition).then(
     //     response => {
     //         if(Object.keys(response.data).length !== 0){

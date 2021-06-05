@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/bands/";
-// const API_URL = 'http://3.133.139.224:8080/bands/';
+const API_URL = 'http://localhost:8080/bands/';
+// const API_URL = 'http://15.164.232.137:8080/bands/';
 
 class BandService {
   createBand(username, band_name, img) {
@@ -41,13 +41,13 @@ class BandService {
     });
   }
 
-  getBandMusicInfo(bandname, bandMusicId) {
-    return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId);
-  }
+    getBandMusicRecords(bandname, bandMusicId){
+        return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId + "/records")
+    }
 
-  leaveBand(bandname, username) {
-    return axios.post(API_URL + bandname + "/members/" + username);
-  }
+    leaveBand(bandname, username){
+        return axios.post(API_URL + bandname + "/members/" + username)
+    }
 }
 
 export default new BandService();

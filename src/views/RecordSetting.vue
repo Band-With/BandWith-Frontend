@@ -12,20 +12,20 @@
       </div>
       <div id="search-music-row1" class="d-flex align-items-center justify-content-center">
           <div class="instrument">
-           <img v-on:click="pickGuitar" src="../assets/images/icon/elec.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-           <img id="guitar" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img v-on:click="pickGuitar" src="@/assets/images/icon/elec.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img id="guitar" src="@/assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
           </div>
           <div class="instrument">
-           <img v-on:click="pickPiano" src="../assets/images/icon/piano.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-           <img id="piano" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img v-on:click="pickPiano" src="@/assets/images/icon/piano.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img id="piano" src="@/assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
           </div>
           <div class="instrument">
-           <img v-on:click="pickViolin" src="../assets/images/icon/violin.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-           <img id="violin" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img v-on:click="pickViolin" src="@/assets/images/icon/violin.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img id="violin" src="@/assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
           </div>
           <div class="instrument">
-           <img v-on:click="pickDrum" src="../assets/images/icon/drum.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
-           <img id="drum" src="../assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img v-on:click="pickDrum" src="@/assets/images/icon/drum.png" alt style="position:absolute; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
+           <img id="drum" src="@/assets/images/icon/check.png" alt style="position:absolute; display:none; left:0%; top:0%; border-radius: 50%; width:100px; heights:100px; float:left;">
           </div>
          </div>
       </div>
@@ -33,11 +33,11 @@
       <div  class="d-flex align-items-center justify-content-center" id="search-music-row2" style="min-height: 300px; font-size:40px; margin-top:5px;">        
         <div style="width:200px; height:100px; align-items:center; justify-content:center; float:left;">
           <div v-on:click="setPublic" style="float:left; border-radius: 50%; width:100px; heights:100px; font-size:18px;">Public</div>
-          <img id="public" src="../assets/images/icon/check.png" alt style="visibility:visible; border-radius: 50%; width:50px; heights:30px; float:left;">
+          <img id="public" src="@/assets/images/icon/check.png" alt style="visibility:visible; border-radius: 50%; width:50px; heights:30px; float:left;">
         </div>             
         <div style="width:200px; height:100px; align-items:center; justify-content:center; float:left;">
           <div v-on:click="setPrivate" style="order-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">Private</div>
-          <img id="private" src="../assets/images/icon/check.png" alt style="visibility:hidden; left:45%; top:0%; border-radius: 50%; width:50px; heights:30px; float:left;">
+          <img id="private" src="@/assets/images/icon/check.png" alt style="visibility:hidden; left:45%; top:0%; border-radius: 50%; width:50px; heights:30px; float:left;">
         </div>
       </div>
       </div>
@@ -45,11 +45,11 @@
  <div  class="d-flex align-items-center justify-content-center" id="search-music-row2" style="min-height: 300px; font-size:40px; margin-top:5px;">
         <div style="width:200px; height:100px; align-items:center; justify-content:center; float:left;">
           <div v-on:click="setOption" style="float:left; border-radius: 50%; width:100px; heights:100px; font-size:18px;">검색 가능</div>
-          <img id="option" src="../assets/images/icon/check.png" alt style="visibility:visible; border-radius: 50%; width:50px; heights:30px; float:left;">
+          <img id="option" src="@/assets/images/icon/check.png" alt style="visibility:visible; border-radius: 50%; width:50px; heights:30px; float:left;">
         </div>             
         <div style="width:200px; height:100px; align-items:center; justify-content:center; float:left;">
           <div v-on:click="setNoOption" style="order-radius: 50%; width:100px; heights:100px; float:left; font-size:18px;">검색 불가능</div>
-          <img id="no" src="../assets/images/icon/check.png" alt style="visibility:hidden; left:45%; top:0%; border-radius: 50%; width:50px; heights:30px; float:left;">
+          <img id="no" src="@/assets/images/icon/check.png" alt style="visibility:hidden; left:45%; top:0%; border-radius: 50%; width:50px; heights:30px; float:left;">
         </div>
       </div>
       </div>
