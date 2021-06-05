@@ -51,8 +51,8 @@ button {
   height: 3.5rem;
   min-width: 2rem;
   border: none;
-  border-radius: 0.15rem;
-  background: #ed341d;
+  border-radius: 5px;
+  background: #1d6cff;
   margin-left: 2px;
   box-shadow: inset 0 -0.15rem 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -66,7 +66,7 @@ button {
 
 button:hover, button:focus {
   outline: none;
-  background: #c72d1c;
+  background: #124ece;
 }
 
 button::-moz-focus-inner {
