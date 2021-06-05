@@ -67,8 +67,6 @@ export default {
     if (this.loggedIn) {
       this.$router.push("/profile");
     }
-    this.fetchData();
-    this.test();
   },
 };
 </script>

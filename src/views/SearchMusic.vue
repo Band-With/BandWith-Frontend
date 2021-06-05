@@ -4,11 +4,11 @@
       <!-- row 1: search input -->
       <div
         id="search-music-row1"
-        class="d-flex align-items-center justify-content-center"
+        class="d-flex flex-column align-items-center justify-content-center"
       >
         <form
           id="search-input-wrapper"
-          class="d-flex align-items-center"
+          class="d-flex align-items-center my-2"
           @submit="searchMusic"
         >
           <input
@@ -24,6 +24,9 @@
             />
           </button>
         </form>
+        <span style="color: gray; font-size:.8rem;">
+          북마크를 만들 음악을 선택하세요!
+        </span>
       </div>
 
       <!-- row 2: search results -->
@@ -199,11 +202,11 @@ export default {
 /* row 1: search input */
 #search-music-row1,
 #search-music-row3 {
-  height: 110px;
+  height: 120px;
 }
 #search-input-wrapper {
   width: 400px;
-  height: 45%;
+  height: 50px;
   border: none;
 }
 #search-input {
