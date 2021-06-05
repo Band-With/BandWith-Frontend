@@ -115,7 +115,7 @@
             <span style="font-size: 14px; font-weight: 300">{{ bandnameParam }}</span>
             <div class="d-flex align-items-center">
                 <span style="font-size: 36px; font-weight: 700">진행 중인 곡 편집</span>
-                <button id="confirm-button" class="ml-3">마감하기</button>
+                <button id="confirm-button" class="ml-3" @click="completeMusic">마감하기</button>
             </div>            
             <div class="mt-3 d-flex flex-row justify-content-between h-100">
                 <div class="d-flex flex-column h-100" style="width: 620px"> <!--왼쪽-->
@@ -182,7 +182,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center px-1" style="height: 100px">
-                            <button id="submit-button">노래 올리기</button>
+                            <button id="submit-button" @click="submitRecord(records.records[selectedIndex].records.record_id)">녹음 올리기</button>
                         </div>
                     </div>
 
@@ -214,7 +214,7 @@ export default {
             selectedIndex: 0,
             playing: false,
             audioList: [],
-            createdAt: Number
+            createdAt: ""
         }
     },
     computed: {
@@ -232,6 +232,21 @@ export default {
         }
     },
     methods:{
+        submitRecord(recordId){
+            BandService.addRecord(this.bandMusicIdParam, recordId, this.bandnameParam)
+            BandService.getBandMusicRecords(this.bandnameParam, this.bandMusicIdParam).then(
+                response => {
+                    if(Object.keys(response.data).length !== 0){
+                        this.mixDetail = response.data;
+                    }
+                }
+            )
+        },
+        completeMusic(){
+            BandService.completeBandMusic(this.bandnameParam, this.bandMusicIdParam).then(
+                this.$router.push({ name: 'bandPage', params: {bandname: this.bandnameParam} })
+            )
+        },
         toggleAudio(e){
             if(this.playing){
                 for(let audio of this.audioList)

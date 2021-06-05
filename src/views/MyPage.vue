@@ -91,7 +91,7 @@ a:hover{
                     <div class="px-4"> <!-- 프로필 사진 -->
                         <img v-if="content.member.profile === null"
                             id="profile-img"
-                            src="../assets/images/profile.jpg"
+                            src="@/assets/images/profile.jpg"
                             class="profile-img-card circle-shape"
                             style="width: 150px; height: 150px"
                         />
@@ -127,7 +127,7 @@ a:hover{
                                     <div v-for="following in content.followings" :key="following.member_id" class="d-flex flex-row align-items-center mb-4">
                                         <a :href="'/' + following.username + '/'">
                                             <img v-if="following.profile !== null" :src="imgPreUrl + following.profile" style="width: 55px; height: 55px; border-radius: 50%"/>
-                                            <img v-else src="../assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
+                                            <img v-else src="@/assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
                                         </a>
                                         <div class="ml-4">
                                             <span>{{ following.username }}</span>
@@ -151,7 +151,7 @@ a:hover{
                                     <div v-for="follower in content.followers" :key="follower.member_id" class="d-flex flex-row align-items-center mb-4">
                                         <a :href="'/' + follower.username + '/'">
                                             <img v-if="follower.profile !== null" :src="imgPreUrl + follower.profile" style="width: 55px; height: 55px; border-radius: 50%"/>
-                                            <img v-else src="../assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
+                                            <img v-else src="@/assets/images/profile.jpg" style="width: 55px; height: 55px; border-radius: 50%"/>  
                                         </a>
                                         <div class="ml-4">
                                             <span>{{ follower.username }}</span>
@@ -164,7 +164,7 @@ a:hover{
                     <div> <!-- mic -->
                         <router-link v-if="condition" :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
                             <button class="btn">
-                                <img id="mic" src="../assets/images/icon/mic.png"/>     
+                                <img id="mic" src="@/assets/images/icon/mic.png"/>     
                             </button>
                         </router-link>
                    </div>
@@ -176,7 +176,7 @@ a:hover{
                         <div class="d-flex align-items-center" style="overflow: auto; height: calc(100%-20px); width: 100%">
                             <div v-for="band in content.bands" :key="band.band_id">
                                 <router-link :to="{ name: 'bandPage', params: { bandname: band.band_name }}" class="d-flex flex-column mr-4 pt-3 text-center">
-                                    <img v-if="band.img === null" src="../assets/images/icon/default_band_profile.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
+                                    <img v-if="band.img === null" src="@/assets/images/icon/default_band_profile.png" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                     <img v-else :src="imgPreUrl + band.img" class="circle-shape mb-1" style="border: 1px solid #ddd; width: 75px; height: 75px"/> <!--밴드-->
                                     <span style="font-size: 12px; font-weight: 100">{{ band.band_name }}</span>
                                 </router-link>
@@ -214,13 +214,13 @@ a:hover{
                 <ul class="nav nav-tabs d-flex justify-content-center">
                     <li class="nav-item pr-5">
                         <router-link :to="{ name: 'prac' }" class="nav-link">
-                            <img id="note" src="../assets/images/icon/note.png"/>
+                            <img id="note" src="@/assets/images/icon/note.png"/>
                             <span class="pl-2">연습 중인 곡</span>
                         </router-link>
                     </li>
                     <li class="nav-item pl-5">
                         <router-link :to="{ name: 'bookmark' }" class="nav-link">
-                            <img id="bookmark" src="../assets/images/icon/bookmark.png"/>
+                            <img id="bookmark" src="@/assets/images/icon/bookmark.png"/>
                             <span class="pl-2">북마크</span>
                         </router-link>
                     </li>

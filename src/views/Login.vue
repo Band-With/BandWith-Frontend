@@ -3,7 +3,7 @@
     <router-link to="/" class="mt-5 mb-3">
       <img
         alt="Vue logo"
-        src="../assets/images/logo/logo-with-text.png"
+        src="@/assets/images/logo/logo-with-text.png"
         class="logo"
       />
     </router-link>
