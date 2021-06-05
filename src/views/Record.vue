@@ -58,6 +58,7 @@
 
         
        <div id="search-music-row4" style="width:80vw; float:left">
+          <JJRecorder></JJRecorder>
           <audio-recorder ref="recorder" :format="WAV" :show-upload-button="false" :after-recording="setRecorded" :before-recording="startRecord" :select-record="selectedRecord" :pause-recording="visual" />
       </div>
       
@@ -81,7 +82,6 @@
 </div>
 </template>
 
-
 <script>
 import Vue from 'vue';
 import AudioRecorder from 'vue-audio-recorder'
@@ -90,11 +90,13 @@ import vueConfirmationButton from 'vue-confirmation-button';
 import UserService from '../services/user.service';
 import SearchService from "@/services/search.service";
 import Records from "@/components/search/Records.vue";
+import JJRecorder from "@/components/JJRecorder.vue"
 //https://evan-moon.github.io/2019/08/21/javascript-audio-effectors-practice/
 Vue.use(AudioRecorder)
 export default {
   name:'recording',
   components: {
+    JJRecorder,
     MusicVisual,
     'vue-confirmation-button': vueConfirmationButton,
         Records,
@@ -120,10 +122,10 @@ export default {
       sort_type: "latest", // 검색 필터 초깃값 설정
       is_comment_visible: false, // 댓글창 visibility
       customMessages: [
-        '곡을 선택해주세요',
-      '이대로 업로드하시겠습니까?',
-      '성공! 목록으로 돌아갑니다.'
-    ],
+          '곡을 선택해주세요',
+        '이대로 업로드하시겠습니까?',
+        '성공! 목록으로 돌아갑니다.'
+      ],
     }
   },
   computed: {
