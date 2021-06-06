@@ -24,6 +24,7 @@
     "node-bignumber": "^1.2.1",
     "node-rsa": "^1.1.1",
     "pizzicato": "^0.6.4",
+    "pizzicato-recorder": "^1.0.3",
     "simple-vue-timeline": "^2.0.8",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.12",

@@ -322,7 +322,7 @@ changeBPM(){
   },
   move(){
     
-    this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
+    this.$router.push({name: 'edit', params: {username:this.user.username,music_id:this.$route.params.musicId, instrument:this.$route.params.instrument, visible:this.$route.params.visible ,option:this.$route.params.searchable, file:this.selectedData}});
 },
   check(){
       if(this.recordchecked==='1'){

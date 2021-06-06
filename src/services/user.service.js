@@ -80,7 +80,7 @@ class UserService {
         const data = new FormData();
         data.append('file', file);
         data.append('json', blob);
-
+        console.log(blob);
         return axios.post(API_URL + username + "/recording", data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

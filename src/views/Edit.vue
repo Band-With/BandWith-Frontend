@@ -122,12 +122,12 @@ font-size:12px;
               <span style="color: #000; font-size: 18px; font-weight: lighter; z-index:11;">   {{ musicInfo.composer }}</span>
             </div>
          
-            <div class="col-md-3" style="height:30vh;">
-              <JJAudio :src="this.selectedData.url" style="margin-top:30px;"
-              />
-
+            <div class="col-md-4" style="height:30vh;">
+                <button class="btn btn-secondary" id="startBtn" v-on:click="startBtn" style="position:relative; visibility:visible; height:100px; margin:10px;">적용 및 재생</button>                
+                <button class="btn btn-secondary" id="stopBtn" v-on:click="stopBtn" style="position:relative; visibility:hidden; height:100px; margin:10px;">편집 종료 후 제출</button>   
+                <audio :src="this.modifiedUrl" style="margin-top:30px; width:80%" controls/>           
             </div>            
-            <div class="col-md-3" style="height:30vh;">
+            <div class="col-md-2" style="height:30vh;">
             </div>
 
             <div class="col-md-1" style="height:30vh;">
@@ -135,8 +135,7 @@ font-size:12px;
             </div>
              <div class="col-md-5" style="  background-color:#0B173B; margin-top:2px;">
                 <div class="row" style="border-bottom:2px solid #bcbcbc; text-align:center; padding:20px; justify-content:center; background-color:#fafafa;">      
-                <button class="btn btn-secondary" id="stopBtn" v-on:click="stopBtn" style="position:relative; visibility:hidden; height:100px; margin:10px;">정지</button>                
-
+                원본 <audio :src="this.selectedData.url" style="margin-top:30px; width:80%" controls/>
               </div>
               <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
                 <div class="textInput" style="height:110px;">볼륨 </div>
@@ -162,7 +161,7 @@ font-size:12px;
                     <div class="textInput">딜레이</div>
                     <round-slider radius="60" width="30"  v-model="delayTime" rangeColor="#FE642E" @input="changeval()"/>
                     <div class="textInput">Time</div>
-                    <round-slider radius="60" width="30"  v-model="feeback" rangeColor="#BE81F7" @input="changeval()"/>
+                    <round-slider radius="60" width="30"  v-model="feedback" rangeColor="#BE81F7" @input="changeval()"/>
                     <div class="textInput">Feedback</div>
                     <round-slider radius="60" width="30"  v-model="delayMix" rangeColor="#D0FA58" @input="changeval()"/>
 
@@ -181,11 +180,14 @@ font-size:12px;
            
       </div>
 
-    </div>
+    </div>         
+
   </div>
     
 </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
 <script>
 import Vue from 'vue'
 import NoiseService from '../services/noise.service';
@@ -193,7 +195,10 @@ import RoundSlider from 'vue-round-slider'
 import Slider from "vue-custom-range-slider";
 import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
 import SearchService from '../services/search.service';
-import JJAudio from '../components/JJAudio.vue';
+import UserService from '../services/user.service';
+
+import PizzicatoRecorder from 'pizzicato-recorder'
+import Pizzicato from 'pizzicato'
 
 
 
@@ -212,9 +217,10 @@ export default {
       tremoloSpeed: 0,
       tremoloDepth: 0,
       tremoloMix: 0,
-      sound,
+      sound:"",
       denoised:'',
       volume:50,
+      modifiedUrl:'',
       none: [
           {
             label: "Not at all",
@@ -224,7 +230,7 @@ export default {
       }
     },
   components: {
-    RoundSlider,Slider,JJAudio
+    RoundSlider,Slider
   },
   computed: {
     selectedData() {
@@ -248,11 +254,16 @@ export default {
         );
     },
     methods:{
+      
+
     nondenoise(){
       document.getElementById("non").style.background = "#5cb85c";
       document.getElementById("apply").style.background = "#292b2c";
     },
-      
+    playBtn(){
+          const self=this;
+          self.soud.play();
+    },
     denoising(){
       document.getElementById("apply").style.background = "#5cb85c";
       document.getElementById("non").style.background = "#292b2c";
@@ -266,12 +277,16 @@ export default {
                         }
         );    
       },
-        startBtn(){
+     startBtn(){
           document.getElementById("stopBtn").style.visibility='visible';
           document.getElementById("startBtn").style.visibility='hidden';
           const self=this;
-          const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
             //console.log(this.selectedData);
+          // extend Pizzicato
+          PizzicatoRecorder(Pizzicato);
+          Pizzicato.Recorder.start({ mute: false });
+                    console.log(Pizzicato.Recorder)
+
           self.sound = new Pizzicato.Sound(this.selectedData.url, function() {    // Sound loaded!
             var reverb = new Pizzicato.Effects.Reverb({
               time: self.reverbTime/100,
@@ -292,53 +307,42 @@ export default {
           self.sound.addEffect(tremolo);
           self.sound.addEffect(reverb);
           self.sound.addEffect(delay);
-          self.sound.volume = self.volume;
+          self.sound.volume=(self.volume)/100;
           self.sound.play();
-        });
+        
+            self.sound.on('end',function(){
+              console.log("did?");
+              Pizzicato.Recorder.stop('wav', function(file) {
+                let url = URL.createObjectURL(file);
+                self.modifiedUrl=url;
+                console.log(self.modifiedUrl);
+              })
+            })
+          //  self.sound.volume = self.volume;
+          })
+
+
 
       },
+
+
+
       stopBtn(){
           document.getElementById("startBtn").style.visibility='visible';
-          document.getElementById("stopBtn").style.visibility='hidden';
           this.sound.stop();
-        if(!self.sound.isPlay()){
-          document.getElementById("startBtn").style.visibility='visible';
-          document.getElementById("stopBtn").style.visibility='hidden';
-        }
+
+          const file = new File([this.modifiedUrl.blob], 'file', { type: 'wav' });
+          UserService.uploadRecord(this.$route.params.username, this.$route.params.music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.option, file);
+          this.$router.push('/musics');
 
       },
       changeval(){
-        if(document.getElementById("stopBtn").style.visibility=='visible'){
-          const self=this;
-          const file = new File([this.selectedData.blob], 'file', { type: 'wav' });
-            //console.log(this.selectedData);
-          self.sound = new Pizzicato.Sound(this.selectedData.url, function() {    // Sound loaded!
-            var reverb = new Pizzicato.Effects.Reverb({
-              time: self.reverbTime/100,
-              decay: self.reverbDecay/100,
-              reverse: false,
-              mix: self.reberbMix/100
-            });
-            var delay = new Pizzicato.Effects.Delay({
-             feedback: self.feedback/100,
-             time: self.delayTime/100,
-             mix: self.delayMix/100
-             });
-            var tremolo = new Pizzicato.Effects.Tremolo({
-              speed: self.tremoloSpeed/100,
-              depth: self.tremoloDepth/100,
-              mix: self.tremoloMix/100
-            });
-          self.sound.addEffect(tremolo);
-          self.sound.addEffect(reverb);
-          self.sound.addEffect(delay);
-          console.log(self.volume);
-          self.sound.play();
-        });
-        }
-
+      
 
       },
+      
+
+
     },
 }
 
