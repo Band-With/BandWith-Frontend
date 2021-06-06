@@ -162,7 +162,7 @@ a:hover{
                         </div>
                     </div>
                     <div> <!-- mic -->
-                        <router-link v-if="condition" :to="{ name: 'search-music', query: { q: '음악을 검색해주세요!', filter: 'rel'}}"  >
+                        <router-link v-if="condition" :to="{ name: 'recordsetting'}"  >
                             <button class="btn">
                                 <img id="mic" src="@/assets/images/icon/mic.png"/>     
                             </button>
