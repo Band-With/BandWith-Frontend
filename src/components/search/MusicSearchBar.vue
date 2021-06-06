@@ -74,21 +74,7 @@ export default {
       isDropboxActive: false,
       isInviteActive: false,
       query: "",
-      query_id: -1,
-      musics: [
-        {
-          music_id: "1",
-          title: "아아",
-          singer: "아이유",
-          img: null,
-        },
-        {
-          music_id: "2",
-          title: "아이",
-          singer: "아이유",
-          img: null,
-        },
-      ],
+      musics: [],
     };
   },
 
@@ -109,11 +95,10 @@ export default {
     },
     // 검색어 저장
     setQuery(music) {
-      this.query_id = music.music_id;
       this.isDropboxActive = false;
       this.isInviteActive = true;
       this.query = music.title;
-      this.$emit('updateBookmark', this.query_id);
+      this.$emit('updateBookmark', music);
     },
     // 음악 불러오기
     getMusics() {

@@ -151,6 +151,14 @@
     },
     async mounted() {
       this.var_music_id = null
+
+        UserService.getBookmarkContent(this.user.username, true).then(
+          response => {
+            console.log(response.data)
+            this.bookmarks = response.data
+          }
+        )
+
       if(this.music_id != null){
         this.var_music_id = this.music_id;
         await SearchService.getMusic(this.music_id).then(
@@ -173,19 +181,12 @@
             this.$router.push('/musics');
           }
         );
+        this.selectedBookmarks = []
+        for(let bookmark of this.bookmarks){
+          if(bookmark.music.music_id === this.music_id)
+            this.selectedBookmarks.push(bookmark)
+        }
 
-        UserService.getBookmarkContent(this.user.username, true).then(
-          response => {
-            console.log(response.data)
-            this.bookmarks = response.data
-            
-            this.selectedBookmarks = []
-            for(let bookmark of this.bookmarks){
-              if(bookmark.music.music_id === this.music_id)
-                this.selectedBookmarks.push(bookmark)
-            }
-          }
-        )
       }
     },
     methods:{
@@ -218,8 +219,10 @@
       updateBlob(blob){
         this.blob = blob
       },
-      updateBookmark(id) {
-        this.var_music_id = id;
+      updateBookmark(music) {
+        console.log(music);
+        this.var_music_id = music.music_id;
+        this.selectedMusic = music;
         
         this.selectedBookmarks = [];
         for(let bookmark of this.bookmarks) {
