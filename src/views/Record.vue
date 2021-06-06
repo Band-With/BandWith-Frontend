@@ -60,9 +60,9 @@
 
       <div style="width:400px"> <!--오른쪽-->
         <div class="d-flex flex-column justify-content-center" style="height: 180px">
-          <div id="search-area" class="d-flex w-100 px-2 py-1">
-            <input class="d-flex w-100" style="outline: none; border: none" type="text"/>
-          </div>
+          <!-- <div id="search-area" class="d-flex w-100 px-2 py-1"> -->
+            <MusicSearchBar @updateBookmark="updateBookmark"/>
+          <!-- </div> -->
         </div>
       
         <div class="d-flex flex-column" style="height: 250px">
@@ -85,8 +85,8 @@
             <span>에 저장해 놓은 북마크입니다.</span>
           </span>
           <hr/>
-          <div class="d-flex flex-column" style="overflow: auto">
-            <div v-for="item in selectedBookmarks" :key="item.bookmark_id" class="d-flex flex-row align-items-center px-3 mb-2" style="background-color: #EFEFEF; height: 70px">
+          <div class="d-flex flex-column" style="overflow: auto; height: 200px">
+            <div v-for="item in selectedBookmarks" :key="item.bookmark_id" class="d-flex flex-row align-items-center px-3 mb-2" style="background-color: #EFEFEF; min-height: 70px">
               <span>{{item.title}}</span>
               <audio controls :src="item.file_url" style="width: 250px; height:30px"></audio>
             </div>
@@ -102,13 +102,16 @@
   import AudioRecorder from 'vue-audio-recorder'
   import UserService from '../services/user.service';
   import SearchService from "@/services/search.service";
-  import JJRecorder from "@/components/JJRecorder.vue"
+  import JJRecorder from "@/components/JJRecorder.vue";
+  import MusicSearchBar from "@/components/search/MusicSearchBar.vue";
+
   //https://evan-moon.github.io/2019/08/21/javascript-audio-effectors-practice/
   Vue.use(AudioRecorder)
   export default {
     name:'recording',
     components: {
-      JJRecorder
+      JJRecorder,
+      MusicSearchBar,
     },
     data: function() {
       return {
@@ -123,6 +126,7 @@
         isPlay: false,
         selectedBookmarks: [],
         bookmarks: null,
+        var_music_id: null
       }
     },
     computed: {
@@ -146,7 +150,9 @@
       },
     },
     async mounted() {
+      this.var_music_id = null
       if(this.music_id != null){
+        this.var_music_id = this.music_id;
         await SearchService.getMusic(this.music_id).then(
           (res) => {
             if (Object.keys(res.data).length !== 0) {
@@ -173,7 +179,7 @@
             console.log(response.data)
             this.bookmarks = response.data
             
-            this.selectedBookmark = []
+            this.selectedBookmarks = []
             for(let bookmark of this.bookmarks){
               if(bookmark.music.music_id === this.music_id)
                 this.selectedBookmarks.push(bookmark)
@@ -183,8 +189,6 @@
       }
     },
     methods:{
-      //메트로눔
-
       startBtn(){
         let sound=document.getElementById("sound");
         if (this.isPlay) {
@@ -214,8 +218,17 @@
       updateBlob(blob){
         this.blob = blob
       },
+      updateBookmark(id) {
+        this.var_music_id = id;
+        
+        this.selectedBookmarks = [];
+        for(let bookmark of this.bookmarks) {
+          if(bookmark.music.music_id === this.var_music_id)
+            this.selectedBookmarks.push(bookmark);
+        }
+      },
       send(){
-        if(this.blob != null && this.music_id != null){
+        if(this.blob != null && this.var_music_id != null){
           this.musicID=this.$route.params.musicId;
           this.username=this.user.username;
           const file = new File([this.blob], 'file', { type: 'wav' });
@@ -223,7 +236,7 @@
           this.$router.push('/musics');
         }
         else{
-          if(this.music_id == null)
+          if(this.var_music_id == null)
             alert("노래를 선택해주세요!");
           else
             alert("음악을 녹음해주세요!");
