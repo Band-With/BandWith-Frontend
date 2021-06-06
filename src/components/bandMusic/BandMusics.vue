@@ -33,42 +33,62 @@
       class="item-container d-flex p-4"
       style="border-bottom: 1px solid #DFDFDF;"
     >
-      <img
-        v-if="item.band.img === null"
-        src="@/assets/images/icon/default_band_profile.png"
-        class="music-image"
-      />
-      <img v-else :src="imgPreUrl + item.music.img" class="music-image" />
+      <router-link
+        :to="{
+          name: 'bandPage',
+          params: {
+            bandname: item.band.band_name,
+          },
+        }"
+      >
+        <img
+          v-if="item.band.img === null"
+          src="@/assets/images/icon/default_band_profile.png"
+          class="music-image"
+        />
+        <img v-else :src="imgPreUrl + item.music.img" class="music-image" />
+      </router-link>
       <div class="d-flex flex-column w-100 pl-5">
-        <section class="d-flex flex-column mb-3">
+        <section class="d-flex mb-3">
           <div class="d-flex flex-column">
-            <div
-              class="music-item d-flex justify-content-between align-items-center"
+            <router-link
+              class="mb-1 mr-5 music-item"
+              style="font-size: 1.1rem; font-weight: bold; color: black;"
+              :to="{
+                name: 'bandPage',
+                params: {
+                  bandname: item.band.band_name,
+                },
+              }"
             >
-              <span
-                class="mb-1 mr-5"
-                style="font-size: 1.1rem; font-weight: bold;"
-                >{{ item.band.band_name }}</span
-              >
-              <audio
-                controls
-                class="audio flex-grow-1 mb-1"
-                style="height: 30px;"
-              >
-                <!-- audio controller -->
-                <source :src="item.file_url" type="audio/wav" />
-                Your browser does not support the audio tag.
-              </audio>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span style="font-size: .9rem;"
-                >{{ item.music.title }} - {{ item.music.singer }}</span
-              >
-              <span style="color: #666; font-size: .7rem"
-                >2020-10-15 {{ toDate(item.complete_date) }}</span
-              >
-            </div>
+              {{ item.band.band_name }}
+            </router-link>
+            <span style="font-size: .9rem;"
+              >{{ item.music.title }} - {{ item.music.singer }}</span
+            >
           </div>
+          <div class="d-flex flex-column flex-grow-1 text-right">
+            <audio controls class="audio w-100 mb-1" style="height: 30px;">
+              <!-- audio controller -->
+              <source :src="item.file_url" type="audio/wav" />
+              Your browser does not support the audio tag.
+            </audio>
+            <span style="color: #666; font-size: .7rem;"
+              >2020-10-15 {{ toDate(item.complete_date) }}</span
+            >
+          </div>
+          <router-link
+            class="btn btn-primary ml-5 d-flex align-items-center"
+            :to="{
+              name: 'bandMusicDetail',
+              params: {
+                bandname: item.band.band_name,
+                musicid: item.band_music_id,
+              },
+            }"
+          >
+            <span>자세히 보기</span>
+          </router-link>
         </section>
         <footer class="d-flex justify-content-between align-items-end">
           <div class="d-flex flex-row px-1">
@@ -78,19 +98,29 @@
               class="d-flex flex-column align-items-center mr-2"
               style="min-width: 65px; width: 65px; text-overflow: ellipsis"
             >
-              <img
-                v-if="member.profile !== null"
-                :src="imgPreUrl + member.profile"
-                style="width: 50px; height: 50px; border-radius: 50%"
-              />
-              <img
-                v-else
-                src="@/assets/images/profile.jpg"
-                style="width: 50px; height: 50px; border-radius: 50%;"
-              />
-              <span style="color: #696969; font-size: 12px; margin-top: 3px;">{{
-                member.username
-              }}</span>
+              <router-link
+                :to="{
+                  name: 'myPage',
+                  params: {
+                    username: member.username,
+                  },
+                }"
+              >
+                <img
+                  v-if="member.profile !== null"
+                  :src="imgPreUrl + member.profile"
+                  style="width: 50px; height: 50px; border-radius: 50%"
+                />
+                <img
+                  v-else
+                  src="@/assets/images/profile.jpg"
+                  style="width: 50px; height: 50px; border-radius: 50%;"
+                />
+                <span
+                  style="color: #696969; font-size: 12px; margin-top: 3px;"
+                  >{{ member.username }}</span
+                >
+              </router-link>
             </div>
           </div>
           <div class="d-flex">
@@ -112,10 +142,18 @@
               <span class="ml-2">{{ item.likes }}</span>
             </button>
             <!-- comment -->
-            <button class="btn d-flex align-items-center ml-3">
+            <router-link
+            class="btn d-flex align-items-center ml-3"
+            :to="{
+              name: 'bandMusicDetail',
+              params: {
+                bandname: item.band.band_name,
+                musicid: item.band_music_id,
+              },
+            }">
               <img class="icon" src="@/assets/images/icon/comment.png" />
               <span class="ml-2">{{ item.comments }}</span>
-            </button>
+            </router-link>
           </div>
         </footer>
       </div>
@@ -154,11 +192,6 @@ export default {
       if (date.length < 2) date = "0" + date;
 
       return [d.getFullYear(), month, date].join("-");
-    },
-  },
-  computed: {
-    bandname() {
-      return this.$route.params.bandname;
     },
   },
   mounted() {

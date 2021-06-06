@@ -115,10 +115,10 @@ export default {
       subject_type: "band",
       bandmusics: [
         {
-          band_music_id: 1,
+          band_music_id: 9,
           band: {
             band_id: 3,
-            band_name: "봉봉밴드",
+            band_name: "말달리자",
             img: null,
           },
           music: {
