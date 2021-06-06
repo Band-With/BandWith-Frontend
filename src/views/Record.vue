@@ -60,9 +60,7 @@
 
       <div style="width:400px"> <!--오른쪽-->
         <div class="d-flex flex-column justify-content-center" style="height: 180px">
-          <!-- <div id="search-area" class="d-flex w-100 px-2 py-1"> -->
-            <MusicSearchBar @updateBookmark="updateBookmark"/>
-          <!-- </div> -->
+          <MusicSearchBar @updateBookmark="updateBookmark"/>
         </div>
       
         <div class="d-flex flex-column" style="height: 250px">
@@ -235,7 +233,7 @@
           this.musicID=this.$route.params.musicId;
           this.username=this.user.username;
           const file = new File([this.blob], 'file', { type: 'wav' });
-          UserService.uploadRecord(this.username, this.$route.params.musicId, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
+          UserService.uploadRecord(this.username, this.$route.params.music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
           this.$router.push('/musics');
         }
         else{
