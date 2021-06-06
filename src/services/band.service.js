@@ -28,6 +28,10 @@ class BandService {
     return axios.get(API_URL + bandname + "/bandmusics/" + bandMusicId)
   }
 
+  deleteBandMusicRecord(bandName, bandMusicId, recordId){
+    return axios.delete(API_URL + bandName + "/bandmusics/" + bandMusicId + "/records/" + recordId)
+  }
+
   getBand(band_id){
       return axios
       .get(API_URL+'/'+band_id, {
