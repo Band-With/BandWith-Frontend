@@ -112,7 +112,9 @@
 <template>  
     <div id="body" class="d-flex">
         <div class="main d-flex flex-column" style="min-height: calc(100vh - 60px)">
-            <span style="font-size: 14px; font-weight: 300">{{ bandnameParam }}</span>
+            <router-link :to="{ name: 'bandPage', params: { bandname: bandnameParam }}">
+                <span style="font-size: 14px; font-weight: 300">{{ bandnameParam }}</span>
+            </router-link>
             <div class="d-flex align-items-center">
                 <span style="font-size: 36px; font-weight: 700">진행 중인 곡 편집</span>
                 <button id="confirm-button" class="ml-3" @click="completeMusic">마감하기</button>
@@ -234,6 +236,13 @@ export default {
     },
     methods:{
         async submitRecord(recordId){
+            for (let item of this.mixDetail.records){
+                if (item.recordId === recordId){
+                    alert("이미 등록한 녹음입니다.")
+                    return
+                }
+            }
+
             await BandService.addRecord(this.bandMusicIdParam, recordId, this.bandnameParam)
             BandService.getBandMusicRecords(this.bandnameParam, this.bandMusicIdParam).then(
                 response => {
