@@ -113,7 +113,7 @@ font-size:12px;
             </div>
             <div class="col-md-2" style="height:30vh;">
                   <div style="position:absolute; width:250px; height:250px; z-index:10; left:5%;">
-                    <img style="border-radius:20px;" :src="imgPreUrl + musicInfo.img" class="w-100 h-100"/>
+                    <img style="border-radius:20px;" :src="musicInfo.img" class="w-100 h-100"/>
                   </div>
             </div>
             <div class="col-md-3" style="height:30vh;">

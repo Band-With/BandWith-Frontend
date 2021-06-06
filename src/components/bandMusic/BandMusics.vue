@@ -33,7 +33,7 @@
         src="@/assets/images/icon/default_band_profile.png"
         class="music-image"
       />
-      <img v-else :src="imgPreUrl + item.music.img" class="music-image" />
+      <img v-else :src="item.music.img" class="music-image" />
       <div class="d-flex flex-column w-100 pl-5">
         <section class="d-flex flex-column mb-3">
           <div class="d-flex flex-column">

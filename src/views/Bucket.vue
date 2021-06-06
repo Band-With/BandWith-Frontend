@@ -69,7 +69,7 @@ input[type=range] {
             <div class="col-md-2" style="height:50vh;  margin-top:100px; float:left;">
                 <div style="position:absolute; width:150px; height:150px; z-index:10; left:-25%;">
                     <div style="float:left;">
-                    <img style="border-radius:20px;" :src="imgPreUrl + musicInfo.img" class="w-100 h-100"/>
+                    <img style="border-radius:20px;" :src="musicInfo.img" class="w-100 h-100"/>
                     </div>
                 </div>
                 <div style="position:absolute; width:250px; height:150px; z-index:10; left:35%;">
