@@ -1,0 +1,89 @@
+/* comment css */
+::v-deep #comment {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    flex: 1 1 auto;
+    min-height: 1px;
+    font-size: 0.8rem;
+  }
+  ::v-deep #comment-title {
+    display: initial !important;
+  }
+  ::v-deep .comment-write-box {
+    background-color: #fff;
+    border: none;
+  }
+  ::v-deep .comment-profile-image,
+  ::v-deep #comment-num {
+    display: none;
+  }
+  ::v-deep #comment-area {
+    height: auto;
+    width: 100%;
+    margin: 0 15px 0 0;
+    border: none;
+  }
+  ::v-deep .comment-input {
+    height: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  ::v-deep .comment-write-box {
+    height: 100%;
+    padding: 13px 18px !important;
+  }
+  ::v-deep #register-button {
+    width: 25%;
+    height: auto;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  ::v-deep #comment-contents {
+    border-top: none !important;
+    /* overflow:initial !important; */
+  }
+  ::v-deep .comment-item {
+    display: block !important;
+    width: 100%;
+    min-height: 5rem;
+    font-size: 0.8rem;
+    border: none;
+  }
+  ::v-deep #comment-user-link {
+    align-items: center;
+    min-width: 1rem !important;
+    width: fit-content;
+    padding-bottom: 5px;
+  }
+  ::v-deep .comment-user-profile {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  ::v-deep #comment-username:hover {
+    color: #007bff !important;
+    text-decoration: none !important;
+  }
+  ::v-deep #comment-username {
+    margin: 0 12px !important;
+    font-size: 0.8rem !important;
+    color: black !important;
+  }
+  ::v-deep #comment-content {
+    margin-bottom: 5px !important;
+    font-size: 0.9rem !important;
+  }
+  ::v-deep #comment-update {
+    right: 0px !important;
+  }

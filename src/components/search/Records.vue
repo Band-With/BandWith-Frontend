@@ -56,13 +56,14 @@
               <div class="d-flex flex-row align-items-center">
                 <!-- like -->
                 <button class="btn d-flex align-items-center" @click="likeToggle(idx)">
-                  <img class="icon" src="@/assets/images/icon/like_off.png" />
+                  <img v-if="isLikeList[idx]" class="icon" src="@/assets/images/icon/like_on.png" />
+                  <img v-if="!isLikeList[idx]" class="icon" src="@/assets/images/icon/like_off.png" />
                   <span class="ml-2">{{ record.likeNum }}</span>
                 </button>
                 <!-- comment -->
                 <button
                   class="btn d-flex align-items-center ml-3"
-                  @click="get_comments(record.record.record_id)"
+                  @click="getComments(record.record.record_id)"
                 >
                   <img class="icon" src="@/assets/images/icon/comment.png" />
                   <span class="ml-2">{{ record.commentNum }}</span>
@@ -71,7 +72,7 @@
                 <button
                   id="add-to-cart"
                   class="btn btn-primary ml-3"
-                  @click="add_to_cart(record)"
+                  @click="addToCart(record)"
                 >
                   <img class="icon" src="@/assets/images/icon/add_white.png" />
                 </button>
@@ -100,16 +101,20 @@
 <script>
 export default {
   props: {
-    is_visible: {
+    is_comment_visible: {
       type: Boolean,
       required: true,
     },
+    comment_rcd_id: {
+      type: Number,
+      required: true,
+    }
   },
 
   data() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",
-      likeToggleList: []
+      isLikeList: [],
     };
   },
 
@@ -120,30 +125,34 @@ export default {
     records() {
       return this.$store.state.records.records;
     },
-    comment_rcd_id() {
-      return this.$store.state.records.comment_rcd_id;
-    },
   },
 
   methods: {
     likeToggle(index){
-      index;
+      if (this.isLikeList[index])
+        this.records[index].likeNum--;
+      else
+        this.records[index].likeNum++;
+      this.isLikeList[index] = !this.isLikeList[index];
     },
-    add_to_cart(record) {
+    addToCart(record) {
       this.$store.commit("records/ADD_TO_CART", {
         music_id: this.music_id,
         record: record.record,
         member: record.member,
       });
     },
-    get_comments(record_id) {
-      if (this.comment_rcd_id === record_id) {
-        this.$emit("update-visibility");
-        this.$store.commit("records/SET_COMMENT_RCD_ID", -1);
-      } else {
-        if (this.comment_rcd_id === -1) this.$emit("update-visibility");
-        this.$store.dispatch("records/getComments", record_id);
-        this.$store.commit("records/SET_COMMENT_RCD_ID", record_id);
+    getComments(record_id) {
+      if (!this.is_comment_visible) {
+        this.$emit("setCommentRcdId", record_id);
+        this.$emit("setCommentVisible", true);
+      }
+      else {
+        if (this.comment_rcd_id == record_id)
+          this.$emit("setCommentVisible", false);
+        else {
+          this.$emit("setCommentRcdId", record_id);
+        }
       }
     },
     toDate(timestamp) {
@@ -156,6 +165,9 @@ export default {
 
       return [d.getFullYear(), month, date].join("-");
     },
+  },
+  mounted() {
+    this.isLikeList = Array.from({length: this.records.length}, () => false);
   },
 };
 </script>

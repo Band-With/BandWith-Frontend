@@ -106,8 +106,6 @@ export default {
     },
   },
   methods: {
-
-
     // 화면 필터 토글
     toggleFilter(type) {
       if (this.sort_type != type) {
@@ -128,8 +126,6 @@ export default {
         this.sort_type = type;
       }
     },
-
-  
     // 데이터 가져오기 (axios)
     getMusics(sort_type) {
       this.loading = true;

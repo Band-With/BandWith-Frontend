@@ -117,7 +117,6 @@ export default {
       this.query = username;
       this.isDropboxActive = false;
       this.isInviteActive = true;
-      console.log(this.query_id);
     },
     cleanQuery() {
       this.query = "";
