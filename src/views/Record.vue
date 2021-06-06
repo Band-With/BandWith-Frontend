@@ -1,57 +1,89 @@
+<style scope>
+    .main{
+        max-width: 1320px;
+        width: calc(100% - 40px);
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 auto 30px;
+        margin-top: 60px;
+    }
+    #search-area{
+      border: 1px solid #ABABAB;
+      border-radius: 15px;
+      height: 30px;
+      background-color: #fff;
+    }
+    button{
+      background-color: #5A88FF;
+      border: none;
+      color: #fff;
+      border-radius: 5px
+    }
+    button:hover{
+      background-color: #3a66d4;
+    }
+    .stopButton{
+      background-color: red;
+      color: #fff
+    }
+    .stopButton:hover{
+      background-color: rgb(199, 10, 10)
+    }
+</style>
+
 <template>
-  <div class="background justify-content-center">
-    <div id="search-record" class="container" style="float:left; width:30vw; height:100vh">
-      <!-- row 1: search info -->
-      <div id="search-record-row1" class="mt-5 mb-3">
-        <b>'{{ music.singer + " - " + music.title }}'</b> 에 대한 다른 사람들의 녹음입니다.
-      </div>
-      
-      <!-- row 2 -->
-      <div id="search-record-row2" class="row" style="width:800px;">
-        <!-- row 2: left -->
-        <div id="search-record-left" class="col-sm-8 pr-4">
-          <!-- nav filter -->
-          <div>
-            <ul class="nav nav-tabs">
-              <li
-              v-for="type in filter_list"
-              :key="type.ename"
-              class="nav-item"
-              :class="{ active: type.ename == sort_type }">
-                <a class="nav-link" @click="toggleFilter(type.ename)">{{ type.kname }}</a>
-              </li>
-            </ul>
-          </div>
-          <!-- result records -->
+  <div class="d-flex vh-100">
+    <div class="main d-flex">
 
-        </div>
-        <!-- row 2: right -->
-
-      </div>
-    <!-- row 3: pagination -->
-    <!-- <Paging /> -->
-    </div>
-    <div id="search-record" class="container" style="float:left; width:70vw; height:100vh">
-
-      <!-- row 3: pagination -->
-      <div style="margin-left:100px; float:left; margin-top:25px;">
-        <div class="container" style="float:left; width:400px; height:300px; margin-top:50px;">
-          <h3 class="text-center mt-4">Metronome</h3>
-          <h1 class="text-center text-info mt-3 mb-3">{{this.bpm}} BPM</h1>
-          <input v-model="bpm" @input="changeBPM()" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
+      <div>
+        <div style="width:125px; height:300px; margin-top:50px;">
+          <h3 class="text-center" style="font-size: 14px; font-weight: 100">Metronome</h3>
+          <h1 class="text-center mt-1 mb-1" style="font-size: 24px; font-weight: 300">{{this.bpm}} BPM</h1>
+          <input v-model="bpm" @input="changeBPM()" style="width: 125px" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
           <audio id="sound" src="@/assets/sound.wav"></audio>
-          <button class="btn btn-primary btn-block mt-4" id="startBtn" v-on:click="startBtn">Start</button>
+          <button class="mt-1" :class="{stopButton: isPlay}" style="width:125px; height: 20px; font-size: 12px" @click="startBtn">
+            <span v-if="isPlay===false">Start</span>
+            <span v-else>Stop</span>
+          </button>
         </div>
       </div>
 
-      <div id="search-music-row4" style="width:80vw; float:left">
-        <JJRecorder v-on:update="send"></JJRecorder>
+      <div class="d-flex flex-column align-items-center justify-content-center" style="width:840px; margin-right: 40px">
+        
+        <JJRecorder v-on:update="updateBlob" style="margin-bottom: 100px"></JJRecorder>
+        
+        <div class="d-flex flex-row" style="margin-bottom: 30px">
+          <button class="mr-3" style="height: 42px; width: 150px" @click="send">녹음 등록하기</button>
+          <button class="ml-3" style="height: 42px; width: 150px" @click="move()">편집하기</button>
+        </div>
       </div>
 
-      <button style="width:100px; height:50px;float:right; margin-top:20px;"
-      id="add-to-cart"
-      class="btn btn-primary"
-      @click="move()"> 편집하기 </button>
+      <div style="width:400px"> <!--왼쪽-->
+        <div class="d-flex flex-column justify-content-center" style="height: 180px">
+          <div id="search-area" class="w-100"></div>
+        </div>
+      
+        <div class="d-flex flex-column" style="height: 250px">
+          <span style="font-size: 18px; margin-bottom: 20px">현재 선택된 노래</span>
+          <div class="d-flex flex-row">
+            <div class="d-flex justify-content-center align-items-center" style="height: 110px; width: 110px; background-color: #ddd">
+              <img v-if="selectedMusic.img === null" style="height:80px; width: 80px" src="@/assets/images/icon/record_disk.png"/>
+              <img v-else  style="height:110px; width: 110px" :src="selectedMusic.img"/>
+            </div>
+            <div class="d-flex flex-column ml-3">
+                <span style="font-size: 18px; color: #444">{{ selectedMusic.title }}</span>
+                <span style="font-size: 14px; font-weight: 200px; color: #034AFF">{{ selectedMusic.singer }}</span>
+            </div>
+          </div>
+        </div>
+      
+        <div>
+          <span>
+            <span style="color: #034AFF">"{{selectedMusic.title}}"</span>
+            <span>에 저장해 놓은 북마크입니다.</span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -71,29 +103,15 @@
     },
     data: function() {
       return {
-        visualization:"false",
-        selectedData:"",
-        instrunmentchecked:'0',
-        musicID:'',
-        username:'',
-        recordchecked:'0',
-        OnlyMyRecord:[],
-        music: {},
-        bpm:60,
-        timer:'',
-        isPlay:false,
-        filter_list: [
-          { ename: "latest", kname: "최신순" },
-          { ename: "like", kname: "좋아요순" },
-        // { ename: "follow", kname: "팔로우순" },
-        ],
-        sort_type: "latest", // 검색 필터 초깃값 설정
-        is_comment_visible: false, // 댓글창 visibility
-        customMessages: [
-          '곡을 선택해주세요',
-          '이대로 업로드하시겠습니까?',
-          '성공! 목록으로 돌아갑니다.'
-        ],
+        selectedMusic:{
+          title: "노래 제목",
+          singer: "가수",
+          composer: "작곡가",
+          img: null
+        },
+        blob: null,
+        bpm: 60,
+        isPlay: false,
       }
     },
     computed: {
@@ -134,64 +152,23 @@
           this.$router.push('/musics');
         }
       );
-      const sort_type = this.$route.query.filter;
-      // query string = "like", "follow"
-      if (sort_type === "like"
-      //  || sort_type === "follow"
-      ) {
-        this.setFilter(sort_type);
-        this.getRecords(sort_type);
-      }
-      // query string = "latest", undefined, etc.
-      else {
-        this.getRecords("latest");
-      }
     },
     methods:{
-      // 화면 필터 토글
-      toggleFilter(type) {
-        if (this.sort_type != type) {
-          this.setFilter(type); // 필터 설정
-          this.getRecords(type); // 데이터 가져오기
-          // 현재 라우트 경로를 유지하면서, 쿼리스트링만 변경
-          return this.$router.replace({
-            path: "",
-            query: {
-              filter: type,
-            },
-          });
-        }
-      },
-    //메트로눔
+      //메트로눔
 
       startBtn(){
-        let startBtn=document.getElementById("startBtn");
         let sound=document.getElementById("sound");
         if (this.isPlay) {
           clearInterval(this.timer);
-          if(startBtn.innerHTML === 'Start') {
-            startBtn.innerHTML = 'Stop';
-            startBtn.classList.remove('btn-primary');
-            startBtn.classList.add('btn-danger');
-          } else {
-            startBtn.innerHTML = 'Start';
-            startBtn.classList.remove('btn-danger');
-            startBtn.classList.add('btn-primary');         
-          } 
         } 
         else {
-          if(startBtn.innerHTML === 'Start') {
-            startBtn.innerHTML = 'Stop';
-            startBtn.classList.remove('btn-primary');
-            startBtn.classList.add('btn-danger');
-          } else {
-            startBtn.innerHTML = 'Start';
-            startBtn.classList.remove('btn-danger');
-            startBtn.classList.add('btn-primary');         
-          }
           sound.currentTime = 0;
           sound.play();
-          this.timer = setInterval(function(){  let sound=document.getElementById("sound");sound.currentTime = 0;sound.play();}, (60 * 1000) / this.bpm);            
+          this.timer = setInterval(function(){  
+            let sound = document.getElementById("sound");
+            sound.currentTime = 0;
+            sound.play();
+            }, (60 * 1000) / this.bpm);            
         }
         this.isPlay = !this.isPlay;
       },
@@ -205,385 +182,21 @@
           (60 * 1000) / this.bpm);
         }
       },
-        // 필터 설정
-      setFilter(type) {
-        if (this.sort_type != type) {
-          this.sort_type = type;
-        }
+      updateBlob(blob){
+        this.blob = blob
       },
-      // 데이터 가져오기 (axios)
-      getRecords(sort_type) {
-        this.$store.dispatch("records/getRecords", {
-          music_id: this.music_id,
-          filter: sort_type,
-        });
-      },
-      // 댓글창 visibility 전환
-      updateVisibility() {
-        this.is_comment_visible = !this.is_comment_visible;
-      },
-      setVisual(visualization){
-        if(visualization){
-          document.getElementById("bar1").style.animationPlayState='running';
-          document.getElementById("bar2").style.animationPlayState='running';
-          document.getElementById("bar3").style.animationPlayState='running';
-        }
-        else{
-          document.getElementById("bar1").style.animationPlayState='paused';
-          document.getElementById("bar2").style.animationPlayState='paused';
-          document.getElementById("bar3").style.animationPlayState='paused';
-        }
-      },
-      setPlayerDisabled() {
-        const $player = this.$refs.recorder.$el.querySelector('.ar-player');
-        $player.classList.remove('abled');
-      },
-      setPlayerAbled() {
-        const $player = this.$refs.recorder.$el.querySelector('.ar-player');
-        $player.classList.add('abled');
-      },
-      hideStopBtn() {
-        const $stopBtn = this.$refs.recorder.$el.querySelector('.ar-recorder__stop');
-        $stopBtn.style.display = 'none';
-      },
-      showStopBtn() {
-        const $stopBtn = this.$refs.recorder.$el.querySelector('.ar-recorder__stop');
-        $stopBtn.style.display = 'block';
-      },
-      setRecentRecord() {
-        const recorder = this.$refs.recorder;
-        if (recorder) {
-          const top = recorder.recordList.length - 1;
-          recorder.selected = recorder.recordList[top];
-        }
-      },
-      setRecorded() {
-        this.hideStopBtn();
-        this.setPlayerDisabled();
-        this.setVisual(false);
-      },
-      startRecord() {
-        this.showStopBtn();
-        this.setVisual(true);
-      },
-      selectedRecord() {        
-        const recorder = this.$refs.recorder;
-        this.selectedData=recorder.selected;
-        this.OnlyMyRecord.push(this.selectedData);
-        this.recordchecked='1';
-        for(let i = 0; i < this.OnlyMyRecord.length; i++) {
-          const currElem = this.OnlyMyRecord[i];
-          for(let j = i+1; j < this.OnlyMyRecord.length; j++) {
-            if(currElem === this.OnlyMyRecord[j]) {
-              this.OnlyMyRecord.pop(currElem);
-            }
-          }
-        }
-        console.log(this.OnlyMyRecord);
-      },
-      visual() {
-        this.setVisual(false);
-      },
-      send(blob){
+      send(){
         this.musicID=this.$route.params.musicId;
         this.username=this.user.username;
-        const file = new File([blob], 'file', { type: 'wav' });
+        const file = new File([this.blob], 'file', { type: 'wav' });
         UserService.uploadRecord(this.username, this.$route.params.musicId, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
         this.$router.push('/musics');
       },
       move(){
-        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
-      },
-      check(){
-        if(this.recordchecked==='1'){
-          console.log(this.recordchecked)
-        }
-        else{
-          console.log('2')
-          this.$refs.confirmationButton.reset();
-        }
-      },
+        const URL = window.URL || window.webkitURL
+        const selectedData = URL.createObjectURL(this.blob)
+        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:selectedData}});
+      }
     }
   }
 </script>
-
-
-<style scoped>
-  .background {
-    padding-top: 60px;
-    min-height: 100vh;
-    background-color: #fafafa;
-  }
-  .icon {
-    width: 15px;
-    height: 15px;
-  }
-  .img-wrapper {
-    width: 65px;
-    height: 65px;
-    border-radius: 70%;
-    overflow: hidden;
-  }
-  .img-profile {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  /* row 1: record info */
-  #search-record-row1 b {
-    color: #007bff;
-  }
-  /* row 2 left: filter */
-  .nav-item {
-    opacity: 0.5;
-    font-size: 0.8rem;
-    border: none !important;
-  }
-  .nav-item a {
-    color: black;
-  }
-  .nav-item a:hover {
-    cursor: pointer;
-  }
-  .active {
-    opacity: 1 !important;
-    color: black;
-    font-weight: bold;
-    border-bottom: 2px solid #2080e0 !important;
-  }
-  ::v-deep .ar-content{
-    width:1000px;
-    height:200px;
-    flex-direction: row !important
-  }
-  ::v-deep .ar{
-    float:left;
-  }
-  ::v-deep .ar-player__play {
-    fill: white !important;
-    background-color: #171003 !important;
-  }
-  ::v-deep .ar-player__play {
-    fill: white !important;
-    background-color: #ff6b64 !important;
-    cursor: inherit;
-  }
-  ::v-deep .ar-player__play {
-    fill: white !important;
-    background-color: #171003 !important;
-    &.ar-player__play--active {
-      background-color: #171003 !important;
-    }
-  }
-  .noise{
-    font-size: 25px;
-  }
-  ::v-deep .ar-player__play {
-    fill: white !important;
-    background-color: #ff6b64 !important;
-    cursor: inherit;
-    &.ar-player__play--active {
-      background-color: #ff6b64 !important;
-    }
-  }
-  .container {
-    width: 100%;
-    padding-right: 5%;
-    padding-left: 5%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .background {
-    padding-top: 60px;
-    min-height: 100vh;
-    background-color: #fafafa;
-  }
-  /* row 1: search input */
-  #search-music-row1,#search-music-row2
-  #search-music-row3 {
-    height: 110px;
-  }
-  #search-music-row2{
-    width:1200px;
-  }
-  #search-input-wrapper {
-    width: 450px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 4px #aaa;
-  }
-  #search-input {
-    width: 80%;
-    height: 100%;
-    margin: 20px;
-    border: none;
-  }
-  #search-input:focus {
-    outline: none;
-  }
-  #search-button {
-    width: 25px;
-    height: 25px;
-    border: none;
-    cursor: pointer;
-    background: no-repeat center/100% url("../assets/images/icon/search_icon.png");
-  }
-  /* row 2: search result */
-  .nav-item {
-    opacity: 0.5;
-    font-size: 0.8rem;
-    border: none !important;
-  }
-  .nav-item a {
-    color: black;
-  }
-  .nav-item a:hover {
-    cursor: pointer;
-  }
-  .active {
-    opacity: 1 !important;
-    color: black;
-    font-weight: bold;
-    border-bottom: 2px solid #2080e0 !important;
-  }
-  ::v-deep .ar-icon {
-    border: none;
-    box-shadow: 0 2px 5px 1px rgba(158, 158, 158, 0.5);
-  }
-  ::v-deep .ar-icon__lg {
-    width: 38px;
-    height: 38px;
-  }
-  ::v-deep svg {
-    vertical-align: baseline;
-  }
-  ::v-deep div.ar {
-    margin-top:80px;
-    width: 1000px;
-    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
-    background-color: #fff;
-    border: 1px solid #eff2f7;
-    border-radius: 0.375rem;
-  }
-  ::v-deep .ar-player {
-    justify-content: left;
-    width: 400px;
-  }
-  .record{
-  }
-  .submit{
-  }
-  .radio{
-    font-size: 20px;
-    margin-left: 5px;
-    margin-right: 10px;
-    float:left;
-    margin-top:10px;
-    margin-bottom:10px;
-  }
-  .musicinfo{
-    width:300px;
-  }
-  .options{
-  }
-  .mictest{
-  }
-  .visibility{
-  }
-  /* disalbed 처리 */
-  ::v-deep .ar-player {
-    order:-1;
-    opacity: 0.5;
-    cursor: default;
-    &.abled {
-      opacity: 1;
-      cursor: pointer;
-    }
-  }
-  ::v-deep .ar-player__time {
-    width: 3.2rem;
-    margin: 0 0.4rem;
-  }
-  ::v-deep .ar-records {
-    height: 150px;
-    margin-left: 20px;
-    order:100;
-  }
-  ::v-deep .ar-records__record {
-    min-width: 250px;
-  }
-  ::v-deep .ar-recorder {
-    order:0;
-  }
-  ::v-deep .ar-recorder__duration {
-    font-size: 1.3rem;
-    margin-left: 60px;
-    order:2;
-  }
-  ::v-deep .ar-player-actions {
-    width: 50px;
-    justify-content: center;
-  }
-  ::v-deep .ar-player > .ar-player-bar > .ar-player__progress {
-    max-width: 110px;
-  }
-  /* 중지 버튼 레코딩 버튼과 겹치기 */
-  ::v-deep .ar-recorder__stop {
-    order:1;
-    fill: white !important;
-    background-color: #ff6b64 !important;
-    top: 0;
-    right: 10;
-    width: 38px;
-    height: 38px;
-    display: none;
-  }
-  ::v-deep .confirmation__button{
-    width:200px;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
-  ::v-deep .confirmation__button.confirmation__button--complete{
-    width:200px;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size:f 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
-  ::v-deep #data-v-4917ee08b{
-    width:200px;
-  }
-  .inner d-flex {
-    height: 400px;
-    padding-top: 300px;
-    float:left;
-    left:30%;
-    width: 100%;
-  }
-  ::v-deep .ar-records__record--selected{
-    background-color:#F5F6CE;
-  }
-</style>

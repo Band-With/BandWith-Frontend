@@ -96,6 +96,30 @@ class UserService {
     return axios.get(API_URL + "user", { headers: authHeader() });
   }
 
+    uploadRecord(username, music_id, instrument, searchable, visible, file) {  // return comment id
+        const obj = {
+            username:username,
+            musicId:music_id,
+            instrument:instrument,
+            searchable:searchable,
+            access:visible,
+        };
+        const json = JSON.stringify(obj);
+        const blob = new Blob([json], {
+            type: 'application/json'
+          });
+          
+        const data = new FormData();
+        data.append('file', file);
+        data.append('json', blob);
+        console.log(blob);
+        return axios.post(API_URL + username + "/recording", data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        );
+    }
   patchRecordAttribute(username, record_id, access, searchable) {
     console.log(access);
     return axios.patch(API_URL + username + "/records/" + record_id, {
@@ -104,30 +128,6 @@ class UserService {
     });
   }
 
-  uploadRecord(username, music_id, instrument, searchable, visible, file) {
-    // return comment id
-    const obj = {
-      username: username,
-      musicId: music_id,
-      instrument: instrument,
-      searchable: searchable,
-      access: visible,
-    };
-    const json = JSON.stringify(obj);
-    const blob = new Blob([json], {
-      type: "application/json",
-    });
-
-    const data = new FormData();
-    data.append("file", file);
-    data.append("json", blob);
-
-    return axios.post(API_URL + username + "/recording", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  }
 
   follow(user_name, followingId) {
     return axios.post(API_URL + user_name + "/follows", {
