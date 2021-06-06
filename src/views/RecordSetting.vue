@@ -304,6 +304,7 @@ export default {
       this.selectedInstrunment = inst;
     },
     nextClicked(currentPage) {
+      console.log(this.musicParam)
       if (currentPage == 2) {
         this.$router.push({
           name: "recording",

@@ -41,7 +41,7 @@ const routes = [
     component: () => import('../views/EditProfile.vue')
   },
   {
-    path: '/musics/:musicId/recording',
+    path: '/musics/recording',
     name: 'recording',
     component: () => import('../views/Record.vue')
   },
@@ -51,7 +51,7 @@ const routes = [
     component: () => import('../views/Edit.vue')
   },
   {
-    path: '/musics/:musicId/recordsetting',
+    path: '/musics/recordsetting',
     name: 'recordsetting',
     component: () => import('../views/RecordSetting.vue')
   },
