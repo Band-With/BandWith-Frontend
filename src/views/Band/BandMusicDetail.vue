@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="d-flex align-items-center position-relative music-info w-100">
-                    <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
+                    <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="content.music.img"/>
                     <div class="position-relative d-flex flex-column h-100 w-100" style="padding-left: 40px">
                         <span class="my-2" style="font-size: 12px; font-weight: 300; color: #777">완성한 날짜: {{ toDate(content.createdAt) }}</span>
                         <span class="mt-1 mb-2" style="font-size: 36px; font-weight: 700">{{ content.music.title }}</span>

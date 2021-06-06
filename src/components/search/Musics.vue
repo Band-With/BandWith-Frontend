@@ -8,7 +8,7 @@
             src="@/assets/images/icon/default_music.png"
             class="img-profile"
           />
-          <img v-else :src="imgPreUrl + music.img" class="img-profile" />
+          <img v-else :src="music.img" class="img-profile" />
         </div>
         <div class="txt-wrapper card-text w-75">
           <router-link

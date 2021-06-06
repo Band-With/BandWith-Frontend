@@ -6,6 +6,8 @@
     .playlist-item{
         overflow: hidden;
         min-width: 290px;
+        max-width: 290px;
+        max-height: 290px;
         min-height: 290px;
         border: 1px solid #ddd;
         border-radius: 20px;
@@ -48,7 +50,7 @@
             <div class="d-flex py-2 flex-wrap">
                 <div v-for="(item, index) in content" :key="item.music_id" class="d-flex">
                     <div class="position-relative d-flex playlist-item mt-4">
-                        <img :src="imgPreUrl + item.img" class="w-100 h-100"/>
+                        <img :src="item.img" class="w-100 h-100"/>
                         <div class="position-absolute d-flex justify-content-between align-items-center px-4  w-100 text-area">
                             <div class="d-flex flex-column">
                                 <span style="color: #fff; font-size: 17px; font-weight: bold">{{ item.title }}</span>

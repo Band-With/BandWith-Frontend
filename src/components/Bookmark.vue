@@ -71,7 +71,7 @@
                 <div class="d-flex w-100 h-100 align-items-center">
 
                     <div class="d-flex flex-column" style="margin-left: 70px; width:110px">                    <!-- 노래 정보 -->
-                        <img :src="imgPreUrl + item.music.img" style="width: 110px; height: 110px; border-radius: 10%"/>
+                        <img :src="item.music.img" style="width: 110px; height: 110px; border-radius: 10%"/>
                         <div class="d-flex flex-column">
                             <span style="text-align: center; font-weight: 100; font-size: 14px; color: #999">{{ item.music.title }}</span>
                         </div>

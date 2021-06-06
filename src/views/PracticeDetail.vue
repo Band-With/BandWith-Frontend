@@ -78,7 +78,7 @@
 
                 <div class="d-flex">
                     <div class="d-flex align-items-center music-info">
-                        <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="imgPreUrl + content.music.img"/>
+                        <img style="border: 1px solid #ddd; width: 290px; height: 290px" :src="content.music.img"/>
                         <div class="position-relative d-flex flex-column p-4 w-100">
                             <div v-if="condition" class="position-absolute d-flex flex-column" style="top: 35px; right: 30px">
                                 <div class="d-flex flex-row">

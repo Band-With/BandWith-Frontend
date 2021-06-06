@@ -76,7 +76,7 @@
                 </div>
                 <span style="font-size: 16px; font-weight: lighter">{{item.music.singer}}</span>
             </div>
-            <img class="music-image" :src="imgPreUrl + item.music.img"/>
+            <img class="music-image" :src="item.music.img"/>
             <span class="margin-right" v-if="(index+1)%4 !== 0"/>
         </div>
     </div>
