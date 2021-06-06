@@ -135,7 +135,7 @@ font-size:12px;
             </div>
              <div class="col-md-5" style="  background-color:#0B173B; margin-top:2px;">
                 <div class="row" style="border-bottom:2px solid #bcbcbc; text-align:center; padding:20px; justify-content:center; background-color:#fafafa;">      
-                원본 <audio :src="this.selectedData.url" style="margin-top:30px; width:80%" controls/>
+                원본 <audio :src="this.selectedData" style="margin-top:30px; width:80%" controls/>
               </div>
               <div class="row" style="border:2px solid #bcbcbc; text-align: center; padding:20px;">      
                 <div class="textInput" style="height:110px;">볼륨 </div>
@@ -287,7 +287,7 @@ export default {
           Pizzicato.Recorder.start({ mute: false });
                     console.log(Pizzicato.Recorder)
 
-          self.sound = new Pizzicato.Sound(this.selectedData.url, function() {    // Sound loaded!
+          self.sound = new Pizzicato.Sound(this.selectedData, function() {    // Sound loaded!
             var reverb = new Pizzicato.Effects.Reverb({
               time: self.reverbTime/100,
               decay: self.reverbDecay/100,

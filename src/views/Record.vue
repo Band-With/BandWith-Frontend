@@ -110,7 +110,7 @@
           img: null
         },
         blob: null,
-        bpm:60,
+        bpm: 60,
         isPlay: false,
       }
     },
@@ -193,7 +193,9 @@
         this.$router.push('/musics');
       },
       move(){
-        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.blob}});
+        const URL = window.URL || window.webkitURL
+        const selectedData = URL.createObjectURL(this.blob)
+        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:selectedData}});
       }
     }
   }
