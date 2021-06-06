@@ -44,35 +44,27 @@ red {
   display: flex;
   margin-top: 2rem;
   max-width: 28em;
+  margin-bottom: 55px;
 } 
 
-button {
-  flex-grow: 1;
-  height: 3.5rem;
-  min-width: 2rem;
-  border: none;
-  border-radius: 5px;
-  background: #1d6cff;
-  margin-left: 2px;
-  box-shadow: inset 0 -0.15rem 0 rgba(0, 0, 0, 0.2);
+#recordButton{
+  height: 200px;
+  width: 200px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color:#ffffff;
-  font-weight: bold;
-  font-size: 1.5rem;
 }
-
-button:hover, button:focus {
-  outline: none;
-  background: #124ece;
+#stopButton{
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
 }
-
-button::-moz-focus-inner {
-  border: 0;
+#pauseButton{
+  width:40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
+  margin-bottom: 35px;
+  cursor: pointer;
 }
-
 button:active {
   box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
   line-height: 3rem;
@@ -105,19 +97,28 @@ li {
 #recordingsList{
 	max-width: 28em;
 }
+
+#div_{
+  width: 100%;
+  height: 30px
+}
+#audio_{
+  height: 35px
+}
 </style>
 
 <template>
-    <div>
+    <div class="d-flex flex-column align-items-center" style="width: 320px;">
+      {{Seconds / 10}}
         <div id="controls">
-            <button id="recordButton" @click="startRecording">Record</button>
-            <button id="pauseButton" @click="pauseRecording">Pause</button>
-            <button id="stopButton" @click="stopRecording">Stop</button>
-            <button id="submit" @click="submitRecording">Submit</button>
+            <img v-if="!recording" id="recordButton" src="@/assets/images/icon/record-play.png" @click="startRecording"/>
+            <img v-else id="stopButton" src="@/assets/images/icon/record-stop.png" @click="stopRecording"/>
         </div>
-        <div id="formats">Format: start recording to see sample rate</div>
-        <p><strong>Recordings:</strong></p>
-        <ol id="recordingsList"></ol>
+        <img id="pauseButton" src="@/assets/images/icon/record-pause.png" @click="pauseRecording"/>
+        
+        <div id="div_">
+          <audio id="audio_" controls src=""></audio>
+        </div>
     </div>
 </template>
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
@@ -126,7 +127,8 @@ export default{
     name: "JJRecorder",
     data: function(){
         return {
-            test: 3,
+            recordingPaused: false,
+            recording: false,
             URL: null,
             gumStream: null,
             rec: null,
@@ -136,11 +138,33 @@ export default{
             recordButton: null,
             stopButton: null,
             pauseButton: null,
-            blob: null
+            blob: null,
+            au: null,
+            div: null,
+            myVar: null,
+            Seconds: 0
         }
     },
     methods:{
+        startTimer() { 
+            this.myVar = setInterval(this.start ,100);
+            this.Seconds = 0;
+        },
+
+        resumeTimer() {    
+            this.myVar = setInterval(this.start ,100);
+        },
+
+        start() {
+            this.Seconds++;
+        },
+
+        stopTimer() {
+            clearInterval(this.myVar)
+        },
+
         startRecording() {
+            this.recording = true
             console.log("recordButton clicked");
 
             /*
@@ -153,8 +177,6 @@ export default{
                 Disable the record button until we get a success or fail from getUserMedia() 
             */
 
-            this.recordButton.disabled = true;
-            this.stopButton.disabled = false;
             this.pauseButton.disabled = false
             const vm = this
                 /*
@@ -162,10 +184,10 @@ export default{
                     https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
                 */
             
+            this.startTimer()
             navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
                 console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
                 
-                console.log("0")
                 /*
                     create an audio context after getUserMedia is called
                     sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
@@ -173,9 +195,8 @@ export default{
                 */
                 vm.audioContext = new AudioContext();
                 
-                console.log("1")
                 //update the format 
-                document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+vm.audioContext.sampleRate/1000+"kHz"
+                // document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+vm.audioContext.sampleRate/1000+"kHz"
 
                 /*  assign to gumStream for later use  */
                 vm.gumStream = stream;
@@ -183,46 +204,46 @@ export default{
                 /* use the stream */
                 vm.input = vm.audioContext.createMediaStreamSource(stream);
 
-                console.log("2")
                 /* 
                 Create the Recorder object and configure to record mono sound (1 channel)
                 Recording 2 channels  will double the file size
                 */
                 vm.rec = new Recorder(vm.input,{numChannels:1})
 
-                console.log("3")
                 //start the recording process
                 vm.rec.record()
 
                 console.log("Recording started");
 
             }).catch(function(err) {
-                console.log(err)
                 //enable the record button if getUserMedia() fails
-                vm.recordButton.disabled = false;
-                vm.stopButton.disabled = true;
                 vm.pauseButton.disabled = true
             });
         },
         pauseRecording(){
-            console.log("pauseButton clicked rec.recording=",this.rec.recording );
-            if (this.rec.recording){
-                //pause
-                this.rec.stop();
-                pauseButton.innerHTML="Resume";
-            }else{
-                //resume
-                this.rec.record()
-                pauseButton.innerHTML="Pause";
+            if(this.recording){
+              this.recordingPaused = !this.recordingPaused;
+              console.log("pauseButton clicked rec.recording=",this.rec.recording );
+              if (this.rec.recording){
+                  //pause
+                  this.rec.stop();
+                  this.stopTimer()
+                  pauseButton.innerHTML="Resume";
+              }else{
+                  //resume
+                  this.rec.record()
+                  this.resumeTimer();
+                  pauseButton.innerHTML="Pause";
 
+              }
             }
         },
         stopRecording() {
+            this.stopTimer()
+            this.recording = false;
             console.log("stopButton clicked");
 
             //disable the stop button, enable the record too allow for new recordings
-            this.stopButton.disabled = true;
-            this.recordButton.disabled = false;
             this.pauseButton.disabled = true;
 
             //reset button just in case the recording is stopped while paused
@@ -239,56 +260,51 @@ export default{
         },
         createDownloadLink(blob) {
             this.blob = blob
+            this.$emit('update', this.blob);
             const url = this.URL.createObjectURL(blob);
-            const au = document.createElement('audio');
-            const li = document.createElement('li');
-            const link = document.createElement('a');
+            // const link = document.createElement('a');
 
             //name of .wav file to use during upload and download (without extendion)
             const filename = new Date().toISOString();
 
             //add controls to the <audio> element
-            au.controls = true;
-            au.src = url;
+            this.au.controls = true;
+            this.au.src = url;
 
             //save to disk link
-            link.href = url;
-            link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
-            link.innerHTML = "Save to disk";
+            // link.href = url;
+            // link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
+            // link.innerHTML = "Save to disk";
 
             //add the new audio element to li
-            li.appendChild(au);
+            this.div.appendChild(this.au);
             
             //add the filename to the li
-            li.appendChild(document.createTextNode(filename+".wav "))
+            // li.appendChild(document.createTextNode(filename+".wav "))
 
             //add the save to disk link to li
-            li.appendChild(link);
+            // li.appendChild(link);
             
             //upload link
-            const upload = document.createElement('a');
-            upload.href="#";
-            upload.innerHTML = "Upload";
-            upload.addEventListener("click", function(event){
-                const xhr=new XMLHttpRequest();
-                xhr.onload=function(e) {
-                    if(this.readyState === 4) {
-                        console.log("Server returned: ",e.target.responseText);
-                    }
-                };
-                const fd=new FormData();
-                fd.append("audio_data",blob, filename);
-                xhr.open("POST","upload.php",true);
-                xhr.send(fd);
-            })
-            li.appendChild(document.createTextNode (" "))//add a space in between
-            li.appendChild(upload)//add the upload link to li
+            // const upload = document.createElement('a');
+            // upload.href="#";
+            // upload.innerHTML = "Upload";
+            // upload.addEventListener("click", function(event){
+            //     const xhr=new XMLHttpRequest();
+            //     xhr.onload=function(e) {
+            //         if(this.readyState === 4) {
+            //             console.log("Server returned: ",e.target.responseText);
+            //         }
+            //     };
+            //     const fd=new FormData();
+            //     fd.append("audio_data",blob, filename);
+            //     xhr.open("POST","upload.php",true);
+            //     xhr.send(fd);
+            // })
+            // li.appendChild(document.createTextNode (" "))//add a space in between
+            // li.appendChild(upload)//add the upload link to li
 
             //add the li element to the ol
-            recordingsList.appendChild(li);
-        },
-        submitRecording(){
-            this.$emit('update', this.blob);
         }
     },
     mounted(){
@@ -297,6 +313,8 @@ export default{
         this.pauseButton = document.getElementById("pauseButton");
         this.URL = window.URL || window.webkitURL
         this.AudioContext = window.AudioContext || window.webkitAudioContext
+        this.au = document.getElementById("audio_");
+        this.div = document.getElementById("div_");
     }
 }
 </script>
