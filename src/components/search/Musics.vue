@@ -10,7 +10,7 @@
           />
           <img v-else :src="imgPreUrl + music.img" class="img-profile" />
         </div>
-        <div class="txt-wrapper card-text flex-grow-1">
+        <div class="txt-wrapper card-text w-75">
           <router-link
             :to="`/musics/${music.music_id}/records`"
             class="card-title font-weight-bold"

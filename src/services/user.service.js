@@ -1,68 +1,81 @@
-import axios from 'axios';
-import authHeader from './auth-header';
+import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = 'http://localhost:8080/members/';
 // const API_URL = 'http://15.164.232.137:8080/members/';
 
 class UserService {
-    getMembers(username) {
-        return axios.get('http://localhost:8080/members', {
-            params: {
-                q: username
-            }
-        })
-    }
+  // 아이디로 유저 정보 가져오기
+  getMember(username) {
+    return axios.get("http://localhost:8080/member/" + username);
+  }
 
-    getMyPageContent(username) {
-        return axios.get(API_URL + username);
-    }
+  // 아이디로 사용자 검색
+  getMembers(username) {
+    return axios.get("http://localhost:8080/members", {
+      params: {
+        q: username,
+      },
+    });
+  }
 
-    getPracticeContent(username, condition){
-        return axios.get(API_URL + username + '/records', {
-            params: {
-                condition: condition
-            }
-        });
-    }
-    uploadBookMark(user_name, music_id, title, members, recordUrls){
-        return axios
-            .post(API_URL + user_name+'/bookmarks' ,{
-                username: user_name,
-                musicId: music_id,
-                title:title,
-                members:members,
-                recordUrls:recordUrls
-            })   
-     }
+  // 프로필 수정
+  updateMember(memberId, name, email) {
+    return axios.post(API_URL + memberId, {
+      memberId: memberId,
+      name: name,
+      email: email,
+    });
+  }
+  updateMemberPw(memberId, name, email, pwd) {
+    return axios.post(API_URL + memberId, {
+      memberId: memberId,
+      name: name,
+      email: email,
+      pwd: pwd,
+    });
+  }
 
+  getMyPageContent(username) {
+    return axios.get(API_URL + username);
+  }
 
-    getBookmarkContent(username, condition){
-        return axios.get(API_URL + username + '/bookmarks', {
-            params: {
-                condition: condition
-            }
-        });
-    }
+  getPracticeContent(username, condition) {
+    return axios.get(API_URL + username + "/records", {
+      params: {
+        condition: condition,
+      },
+    });
+  }
+  uploadBookMark(user_name, music_id, title, members, recordUrls) {
+    return axios.post(API_URL + user_name + "/bookmarks", {
+      username: user_name,
+      musicId: music_id,
+      title: title,
+      members: members,
+      recordUrls: recordUrls,
+    });
+  }
 
-    getPracticeDetail(username, musicId, condition){
-        return axios.get(API_URL + username + '/records/' + musicId, {
-            params: {
-                condition: condition
-            }
-        });
-    }
+  getBookmarkContent(username, condition) {
+    return axios.get(API_URL + username + "/bookmarks", {
+      params: {
+        condition: condition,
+      },
+    });
+  }
 
-    getUserBoard() {
-        return axios.get(API_URL + 'user', { headers: authHeader() })
-    }
+  getPracticeDetail(username, musicId, condition) {
+    return axios.get(API_URL + username + "/records/" + musicId, {
+      params: {
+        condition: condition,
+      },
+    });
+  }
 
-    patchRecordAttribute(username, record_id, access, searchable){
-        console.log(access)
-        return axios.patch(API_URL + username + '/records/' + record_id, {
-            access: access,
-            searchable: searchable
-        });
-    }
+  getUserBoard() {
+    return axios.get(API_URL + "user", { headers: authHeader() });
+  }
 
     uploadRecord(username, music_id, instrument, searchable, visible, file) {  // return comment id
         const obj = {
@@ -88,21 +101,27 @@ class UserService {
             }
         );
     }
+  patchRecordAttribute(username, record_id, access, searchable) {
+    console.log(access);
+    return axios.patch(API_URL + username + "/records/" + record_id, {
+      access: access,
+      searchable: searchable,
+    });
+  }
 
-    follow(user_name, followingId){
-        return axios
-            .post(API_URL + user_name+'/follows' ,{
-                followingId: followingId
-            })   
-    }
 
-    unfollow(user_name, followingId){
-        return axios
-            .delete(API_URL + user_name+'/follows' ,{
-                data:{
-                    followingId: followingId
-                }
-            })   
-    }
+  follow(user_name, followingId) {
+    return axios.post(API_URL + user_name + "/follows", {
+      followingId: followingId,
+    });
+  }
+
+  unfollow(user_name, followingId) {
+    return axios.delete(API_URL + user_name + "/follows", {
+      data: {
+        followingId: followingId,
+      },
+    });
+  }
 }
 export default new UserService();

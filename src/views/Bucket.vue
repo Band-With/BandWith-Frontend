@@ -80,7 +80,7 @@ input[type=range] {
             <div class='col-md-4' style="height:50vh; float:left;  margin-top:100px;">
                 <div v-for="record in cart" v-bind:key="record" style="float:left;">
                     <div class="img-wrapper">
-                        <img v-if="record.member.profile == null" src="../assets/images/icon/default_user.png" class="img-profile"/>
+                        <img v-if="record.member.profile == null" src="@/assets/images/icon/default_user.png" class="img-profile"/>
                         <img v-else :src="imgPreUrl + record.member.profile" class="img-profile" />
                     </div>
                 </div>
