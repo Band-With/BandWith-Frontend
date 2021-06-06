@@ -11,7 +11,11 @@
           style=" font-size: 0.9rem; width: 530px;"
         />
         <div class="d-flex align-items-center px-2">
-          <span v-show="loading" class="spinner-border spinner-border-sm text-primary" role="status" />
+          <span
+            v-show="loading"
+            class="spinner-border spinner-border-sm text-primary"
+            role="status"
+          />
         </div>
         <ul
           id="auto-search-results"
@@ -31,11 +35,15 @@
             <div class=" d-flex flex-row align-items-center">
               <div class="img-wrapper mr-4">
                 <img
-                  v-if="member.img === null"
+                  v-if="member.profile == null"
                   src="@/assets/images/profile.jpg"
                   class="img-profile"
                 />
-                <img v-else :src="imgPreUrl + member.img" class="img-profile" />
+                <img
+                  v-else
+                  :src="imgPreUrl + member.profile"
+                  class="img-profile"
+                />
               </div>
               <div
                 class="d-flex justify-content-between flex-grow-1"
@@ -82,18 +90,14 @@ export default {
       isInviteActive: false,
       query: "",
       query_id: -1,
-      members: [
-        {
-          member_id: "1",
-          username: "pkm1015",
-          name: "박경민",
-          img: null,
-        },
-      ],
+      members: [],
     };
   },
 
   computed: {
+    user() {
+      return JSON.parse(localStorage.getItem("user"));
+    },
     bandname() {
       return this.$route.params.bandname;
     },
@@ -104,7 +108,7 @@ export default {
       if (this.query != "") {
         this.isDropboxActive = true;
         this.getMembers();
-      }
+      } else this.isDropboxActive = false;
       this.isInviteActive = false;
     },
     // 검색어 저장
@@ -115,7 +119,7 @@ export default {
       this.isInviteActive = true;
       console.log(this.query_id);
     },
-    cleanQuery(){
+    cleanQuery() {
       this.query = "";
       this.isDropboxActive = false;
     },
@@ -141,12 +145,17 @@ export default {
     },
     // 초대하기
     invite() {
+      if (this.user.username == this.query) {
+        alert("자신은 초대할 수 없습니다.");
+        return;
+      }
       if (confirm(this.query + "님을 초대하시겠습니까?")) {
         BandService.inviteMember(this.bandname, this.query_id).then(
           (res) => {
-            if (Object.keys(res.data).length !== 0) {
-              alert("초대 메시지가 전송되었습니다.");
-            }
+            if (res.status === 200) {
+              alert("초대가 완료되었습니다.");
+              location.reload();
+            } else alert(res);
           },
           (error) => {
             error =

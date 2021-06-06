@@ -189,7 +189,7 @@ a:hover {
               {{ bandnameParam }} 에 멤버를 초대해보세요!
             </h4>
           </div>
-          <Members ref="members"/>
+          <Members ref="members" @closeInvite="closeInvite"/>
         </div>
       </vue-modal-2>
       <!-- ################################################## -->
@@ -208,14 +208,14 @@ a:hover {
           >
             <!-- band info -->
             <img
-              v-if="content.band.img !== null"
+              v-if="content.band.img != null"
               id="band-profile-image"
               :src="imgPreUrl + content.band.img"
             />
             <img
               v-else
               id="band-profile-image"
-              src="@/assets/images/icon/default_band_profile2.jpg"
+              src="@/assets/images/icon/default_band_profile.png"
             />
           </span>
           <div
@@ -266,7 +266,7 @@ a:hover {
                 :to="{ name: 'prac', params: { username: member.username } }"
               >
                 <img
-                  v-if="member.profile !== null"
+                  v-if="member.profile != null"
                   :src="imgPreUrl + member.profile"
                   style="width: 32px; height: 32px; border-radius: 50%"
                 />
