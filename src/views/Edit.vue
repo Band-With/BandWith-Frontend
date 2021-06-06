@@ -203,7 +203,7 @@ import Pizzicato from 'pizzicato'
 
 
 export default {
-    name: '404',
+    name: 'Edit',
    data: function() {
     return {
       imgPreUrl: "data:image/jpeg;base64,",

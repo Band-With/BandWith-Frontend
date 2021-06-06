@@ -22,19 +22,29 @@
     button:hover{
       background-color: #3a66d4;
     }
+    .stopButton{
+      background-color: red;
+      color: #fff
+    }
+    .stopButton:hover{
+      background-color: rgb(199, 10, 10)
+    }
 </style>
 
 <template>
   <div class="d-flex vh-100">
     <div class="main d-flex">
 
-      <div style="margin-left:100px; float:left; margin-top:25px;">
-        <div class="container" style="float:left; width:400px; height:300px; margin-top:50px;">
-          <h3 class="text-center mt-4">Metronome</h3>
-          <h1 class="text-center text-info mt-3 mb-3">{{this.bpm}} BPM</h1>
-          <input v-model="bpm" @input="changeBPM()" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
+      <div>
+        <div style="width:125px; height:300px; margin-top:50px;">
+          <h3 class="text-center" style="font-size: 14px; font-weight: 100">Metronome</h3>
+          <h1 class="text-center mt-1 mb-1" style="font-size: 24px; font-weight: 300">{{this.bpm}} BPM</h1>
+          <input v-model="bpm" @input="changeBPM()" style="width: 125px" class="form-control" type="range" id="bpm" min="40" max="220" value="60" />
           <audio id="sound" src="@/assets/sound.wav"></audio>
-          <button class="btn btn-primary btn-block mt-4" id="startBtn" v-on:click="startBtn">Start</button>
+          <button class="mt-1" :class="{stopButton: isPlay}" style="width:125px; height: 20px; font-size: 12px" @click="startBtn">
+            <span v-if="isPlay===false">Start</span>
+            <span v-else>Stop</span>
+          </button>
         </div>
       </div>
 
@@ -101,6 +111,7 @@
         },
         blob: null,
         bpm:60,
+        isPlay: false,
       }
     },
     computed: {
@@ -146,33 +157,18 @@
       //메트로눔
 
       startBtn(){
-        let startBtn=document.getElementById("startBtn");
         let sound=document.getElementById("sound");
         if (this.isPlay) {
           clearInterval(this.timer);
-          if(startBtn.innerHTML === 'Start') {
-            startBtn.innerHTML = 'Stop';
-            startBtn.classList.remove('btn-primary');
-            startBtn.classList.add('btn-danger');
-          } else {
-            startBtn.innerHTML = 'Start';
-            startBtn.classList.remove('btn-danger');
-            startBtn.classList.add('btn-primary');         
-          } 
         } 
         else {
-          if(startBtn.innerHTML === 'Start') {
-            startBtn.innerHTML = 'Stop';
-            startBtn.classList.remove('btn-primary');
-            startBtn.classList.add('btn-danger');
-          } else {
-            startBtn.innerHTML = 'Start';
-            startBtn.classList.remove('btn-danger');
-            startBtn.classList.add('btn-primary');         
-          }
           sound.currentTime = 0;
           sound.play();
-          this.timer = setInterval(function(){  let sound=document.getElementById("sound");sound.currentTime = 0;sound.play();}, (60 * 1000) / this.bpm);            
+          this.timer = setInterval(function(){  
+            let sound = document.getElementById("sound");
+            sound.currentTime = 0;
+            sound.play();
+            }, (60 * 1000) / this.bpm);            
         }
         this.isPlay = !this.isPlay;
       },
@@ -197,7 +193,7 @@
         this.$router.push('/musics');
       },
       move(){
-        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.selectedData}});
+        this.$router.push({name: 'edit', params: {music_id:this.$route.params.musicId, file:this.blob}});
       }
     }
   }
