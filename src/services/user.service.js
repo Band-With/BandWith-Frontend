@@ -20,18 +20,37 @@ class UserService {
   }
 
   // 프로필 수정
-  updateMember(memberId, name, email) {
-    return axios.post(API_URL + memberId, {
+  updateMemberProfile(memberId, name, profileImg) {
+    return axios.patch(API_URL + memberId, {
       memberId: memberId,
       name: name,
-      email: email,
+      profileImg: profileImg,
     });
   }
-  updateMemberPw(memberId, name, email, pwd) {
-    return axios.post(API_URL + memberId, {
+
+  // 비밀번호 수정
+  async updateMemberPw(memberId, changedPw) {
+    const rsa = require('node-bignumber')
+    let modulus, exp, pwd
+    await axios
+    .get('http://localhost:8080/auth/rsa')
+    .then(response => {
+      if (response.data !== null) {
+        console.log(response.data)
+        modulus = response.data[0]
+        exp = response.data[1]
+      }
+
+      //RSA 암호화 생성
+      const pub = new rsa.Key();
+      pub.setPublic(modulus, exp);
+      
+      //사용자 계정정보를 암호화 처리
+      pwd = pub.encrypt(changedPw);
+    });
+    console.log(pwd);
+    return axios.patch(API_URL + memberId +"/pw", {
       memberId: memberId,
-      name: name,
-      email: email,
       pwd: pwd,
     });
   }
