@@ -172,6 +172,8 @@
           response => {
             console.log(response.data)
             this.bookmarks = response.data
+            
+            this.selectedBookmark = []
             for(let bookmark of this.bookmarks){
               if(bookmark.music.music_id === this.music_id)
                 this.selectedBookmarks.push(bookmark)
