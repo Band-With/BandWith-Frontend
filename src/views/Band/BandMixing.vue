@@ -143,7 +143,8 @@
                                     :src="imgPreUrl + item.member.profile"
                                     style="max-width: 40px; max-height: 40px; min-width: 40px; min-height: 40px; border-radius: 50%; border: 1px solid #444"/>
                                 <span class="ml-3 mr-3" style="font-weight: 300; font-size: 12px; width: 80px">{{ item.member.username }}</span>
-                                <JJAudio style="width: 400px" :src="item.fileUrl" progressColor="#48FF91" iconColor="#000"></JJAudio>
+                                <JJAudio style="width: 320px" :src="item.fileUrl" progressColor="#48FF91" iconColor="#000"></JJAudio>
+                                <button v-if="item.member.username === user.username" @click="deleteRecord(item.recordId)" style="margin-left: 25px; font-size: 14px; background-color: #4297ff; border-radius: 5px; color: white; border: none">지우기</button>
                             </div>
                         </div>
                     </div> <!--왼쪽 아래-->
@@ -235,10 +236,10 @@ export default {
         async submitRecord(recordId){
             await BandService.addRecord(this.bandMusicIdParam, recordId, this.bandnameParam)
             BandService.getBandMusicRecords(this.bandnameParam, this.bandMusicIdParam).then(
-            response => {
-                if(Object.keys(response.data).length !== 0){
-                    this.mixDetail = response.data;
-                }
+                response => {
+                    if(Object.keys(response.data).length !== 0){
+                        this.mixDetail = response.data;
+                    }
             })
         },
         async completeMusic(){
@@ -248,6 +249,15 @@ export default {
                 await BandService.completeBandMusic(this.bandnameParam, this.bandMusicIdParam)
                 this.$router.push({ name: 'bandPage', params: {bandname: this.bandnameParam} })
             }
+        },
+        async deleteRecord(recordId){
+            await BandService.deleteBandMusicRecord(this.bandnameParam, this.bandMusicIdParam, recordId)
+            BandService.getBandMusicRecords(this.bandnameParam, this.bandMusicIdParam).then(
+                response => {
+                    if(Object.keys(response.data).length !== 0){
+                        this.mixDetail = response.data;
+                    }
+            })
         },
         toggleAudio(e){
             if(this.playing){
