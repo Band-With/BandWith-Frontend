@@ -120,7 +120,7 @@
             <div class="mt-3 d-flex flex-row justify-content-between h-100">
                 <div class="d-flex flex-column h-100" style="width: 620px"> <!--왼쪽-->
                     <div class="d-flex flex-row"> <!--왼쪽 위-->
-                        <img style="height: 220px; width: 220px; border-raduis: 10px" :src="imgPreUrl + mixDetail.music.img"/>
+                        <img style="height: 220px; width: 220px; border-raduis: 10px" :src="mixDetail.music.img"/>
                         <div class="d-flex flex-row justify-content-between align-items-center w-100 px-4">
                             <div class="d-flex flex-column">
                                 <span class="mb-2" style="font-size: 24px; font-weight: 700">{{mixDetail.music.title}}</span>
@@ -232,20 +232,22 @@ export default {
         }
     },
     methods:{
-        submitRecord(recordId){
-            BandService.addRecord(this.bandMusicIdParam, recordId, this.bandnameParam)
+        async submitRecord(recordId){
+            await BandService.addRecord(this.bandMusicIdParam, recordId, this.bandnameParam)
             BandService.getBandMusicRecords(this.bandnameParam, this.bandMusicIdParam).then(
-                response => {
-                    if(Object.keys(response.data).length !== 0){
-                        this.mixDetail = response.data;
-                    }
+            response => {
+                if(Object.keys(response.data).length !== 0){
+                    this.mixDetail = response.data;
                 }
-            )
+            })
         },
-        completeMusic(){
-            BandService.completeBandMusic(this.bandnameParam, this.bandMusicIdParam).then(
+        async completeMusic(){
+            if(this.mixDetail.records.length < 2)
+                alert("두 개 이상의 녹음을 등록해주세요")
+            else{
+                await BandService.completeBandMusic(this.bandnameParam, this.bandMusicIdParam)
                 this.$router.push({ name: 'bandPage', params: {bandname: this.bandnameParam} })
-            )
+            }
         },
         toggleAudio(e){
             if(this.playing){

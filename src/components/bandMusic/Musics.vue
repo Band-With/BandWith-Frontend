@@ -21,7 +21,7 @@
             src="@/assets/images/icon/default_music.png"
             class="img-profile"
           />
-          <img v-else :src="imgPreUrl + music.img" class="img-profile" />
+          <img v-else :src="music.img" class="img-profile" />
         </div>
         <div class="txt-wrapper card-text flex-grow-1 ">
           <span style="color: #2080e0; font-weight: bold;">{{

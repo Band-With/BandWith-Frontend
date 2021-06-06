@@ -35,7 +35,7 @@ a {
     <div class="d-flex flex-column py-5">
         <div v-for="item in content" :key="item.band_music_id">
             <router-link class="item-container d-flex flex-row" :to="{ name: 'bandMusicDetail', params: { bandname: bandnameParam, musicid: item.band_music_id}}">
-                <img class="music-image" :src="imgPreUrl + item.music.img"/>
+                <img class="music-image" :src="item.music.img"/>
                 <div class="d-flex flex-column position-relative w-100" style="padding-left: 40px">
                     <section class="d-flex flex-column mb-3">
                         <span class="mb-2" style="font-size: 12px; color: rgb(30, 136, 86); font-weight: 300">

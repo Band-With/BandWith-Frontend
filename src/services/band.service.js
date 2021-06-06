@@ -13,8 +13,8 @@ class BandService {
   }
 
 
-  addBandMusic(band_name, music_id) {
-    return axios.post(API_URL + band_name + "/bandmusics", {
+  async addBandMusic(band_name, music_id) {
+    return await axios.post(API_URL + band_name + "/bandmusics", {
       bandName: band_name,
       musicId: music_id,
     });
