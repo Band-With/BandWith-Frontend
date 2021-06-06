@@ -98,7 +98,7 @@ input[type=range] {
         </div>
         <div class='row' style="height:30vh; justify-content:center; margin-top:50px;">
             <div class='col-md-10'>
-                <div v-for="record in cart" v-bind:key="record">
+                <div v-for="(record, index) in cart" v-bind:key="record.record">
                     <div class="row" style="border:2px solid #bcbcbc; text-align:center; padding:20px; background-color:#0B173B; height:100px;">      
                         <div class="textInput">{{record.record.instrument}}     {{record.member.username}}</div>
                         <div class="textInput">리버브</div>
@@ -130,15 +130,19 @@ input[type=range] {
                                 </div>
                             </div>
                         </div>
-                        <div style="width:60px;">
+                        <div style="width:25px; float:left;">
                            <div style="font-size:9px; width:100%; background-color:#0B173B; color:#FFFFFF; float:left;">
-                               <div style="width:60%;">
+                               <div style="width:100%;">
                                  볼륨
                                </div>
-                               <div style="width:60%;">
+                               <div style="width:100%;">
                                    <input style="width:30px;" name=startTime type="range" id="startTime" value="90" v-model="record.volume"/>
                                 </div>
                             </div>
+                        </div>
+                        <div style="width:50px;">
+                            <button class="btn btn-secondary" :id="index+'startBtn'" v-on:click="startBtn(record.record, index)" style="position:relative; visibility:visible; font-size:7px;">재생</button>                
+                            <button class="btn btn-secondary" :id="index+'stopBtn'" v-on:click="stopBtn(record.record, index)" style="position:relative; visibility:hidden; font-size:7px;">편집 종료 후 제출</button>                                      
                         </div>
                     </div> 
                 </div>
@@ -146,6 +150,8 @@ input[type=range] {
         </div>
     </div>
 </template>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 
 <script>
 import UserService from '../services/user.service';
@@ -153,7 +159,8 @@ import RoundSlider from 'vue-round-slider'
 import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
 import SearchService from '../services/search.service';
 import NoiseService from '../services/search.service';
-
+import PizzicatoRecorder from 'pizzicato-recorder'
+import Pizzicato from 'pizzicato'
 export default {
     name: 'bucket',
 components: {
@@ -179,6 +186,9 @@ computed:{
                 
         imgPreUrl: "data:image/jpeg;base64,",
         sound:'',
+        soundList:'',
+        modifiedUrl:'',
+        modifiedUrlList:[],
         denoised:'',
         volume:50,
         none: [
@@ -225,6 +235,73 @@ computed:{
     
     },
     methods:{
+     startBtn(record, index){
+          document.getElementById(index+"stopBtn").style.visibility='visible';
+          document.getElementById(index+"startBtn").style.visibility='hidden';
+          const self=this;
+            //console.log(this.selectedData);
+          // extend Pizzicato
+          PizzicatoRecorder(Pizzicato);
+          Pizzicato.Recorder.start({ mute: false });
+                    console.log(Pizzicato.Recorder)
+                            console.log(self.sound);
+                            console.log(index);
+
+          self.sound = new Pizzicato.Sound(record.url, function() {    // Sound loaded!
+            var reverb = new Pizzicato.Effects.Reverb({
+              time: self.reverbTime/100,
+              decay: self.reverbDecay/100,
+              reverse: false,
+              mix: self.reberbMix/100
+            });
+            var delay = new Pizzicato.Effects.Delay({
+             feedback: self.feedback/100,
+             time: self.delayTime/100,
+             mix: self.delayMix/100
+             });
+            var tremolo = new Pizzicato.Effects.Tremolo({
+              speed: self.tremoloSpeed/100,
+              depth: self.tremoloDepth/100,
+              mix: self.tremoloMix/100
+            });
+                          console.log(self.sound);
+
+          self.sound.addEffect(tremolo);
+          self.sound.addEffect(reverb);
+          self.sound.addEffect(delay);
+          self.sound.volume=(self.volume)/100;
+          self.sound.play();
+        
+            self.sound.on('end',function(){
+              console.log("did?");
+              Pizzicato.Recorder.stop('wav', function(file) {
+                let url = URL.createObjectURL(file);
+                self.modifiedUrl=url;
+                console.log(self.modifiedUrl);
+              })
+            })
+          //  self.sound.volume = self.volume;
+          })
+
+          soundList.splice(index, 0, self.sound);
+          modifiedUrlList.splice(index, 0, self.modifiedUrl);
+
+                console.log(self.modifiedUrlList);
+
+      },
+
+
+
+      stopBtn(record, index){
+          document.getElementById(index+"startBtn").style.visibility='visible';
+          this.sound[index].stop();
+          
+          const file = new File([this.modifiedUrl[index].blob], 'file', { type: 'wav' });
+          UserService.uploadRecord(this.$route.params.username, this.$route.params.music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.option, file);
+          this.$router.push('/musics');
+
+      },
+
         send(){
         UserService.uploadBookMark(this.user.username, this.cart[0].record.music_id, this.title, this.getUser, this.getUrl);
         },

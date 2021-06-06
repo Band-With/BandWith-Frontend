@@ -330,7 +330,7 @@ export default {
       stopBtn(){
           document.getElementById("startBtn").style.visibility='visible';
           this.sound.stop();
-
+          
           const file = new File([this.modifiedUrl.blob], 'file', { type: 'wav' });
           UserService.uploadRecord(this.$route.params.username, this.$route.params.music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.option, file);
           this.$router.push('/musics');
