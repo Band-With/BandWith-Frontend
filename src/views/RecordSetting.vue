@@ -170,7 +170,7 @@ h5 {
                     class="img-instrument"
                     src="@/assets/images/icon/drum.png"
                   />
-                  <span>베이스</span>
+                  <span>드럼</span>
                 </div>
               </label>
             </div>

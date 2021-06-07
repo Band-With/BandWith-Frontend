@@ -230,10 +230,10 @@
       },
       send(){
         if(this.blob != null && this.var_music_id != null){
-          this.musicID=this.$route.params.musicId;
+          this.musicID=this.$route.params.music_id;
           this.username=this.user.username;
           const file = new File([this.blob], 'file', { type: 'wav' });
-          UserService.uploadRecord(this.username, this.$route.params.music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
+          UserService.uploadRecord(this.username, this.var_music_id, this.$route.params.instrument, this.$route.params.visible, this.$route.params.searchable, file);
           this.$router.push('/musics');
         }
         else{
