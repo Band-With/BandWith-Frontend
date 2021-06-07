@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center justify-content-center">
     <!-- first dropdown -->
     <b-dropdown id="route-dropdown" right variant="primary" class="m-0">
-      <b-dropdown-item class="my-1" href="/musics"
+      <b-dropdown-item class="my-1" href="/musics/recordsetting"
         >연주 녹음하기</b-dropdown-item
       >
       <b-dropdown-item class="my-1" href="/musics">
@@ -22,7 +22,7 @@
           >마이페이지
         </router-link> -->
       </b-dropdown-item>
-      <b-dropdown-item class="my-1" href="/setting"
+      <b-dropdown-item class="my-1" :href="`${user.username}/profile`"
         >회원정보 수정</b-dropdown-item
       >
       <b-dropdown-item class="my-1" @click="handleLogout"

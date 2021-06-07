@@ -146,23 +146,29 @@
 
           <div class="d-flex justify-content-between align-items-end">
             <div class="d-flex flex-column">
-              <img :src="monthlyMember[0].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+
+              <img v-if="monthlyMember[0].profile == null" src="@/assets/images/profile.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-else :src="imgPreUrl + monthlyMember[0].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyMember[0].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="monthlyMember[1].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-if="monthlyMember[0].profile == null" src="@/assets/images/profile.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-else :src="imgPreUrl + monthlyMember[1].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[1].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="monthlyMember[2].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-if="monthlyMember[0].profile == null" src="@/assets/images/profile.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-else :src="imgPreUrl + monthlyMember[2].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[2].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="monthlyMember[3].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-if="monthlyMember[0].profile == null" src="@/assets/images/profile.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-else :src="imgPreUrl + monthlyMember[3].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[3].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="monthlyMember[4].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-if="monthlyMember[0].profile == null" src="@/assets/images/profile.jpg" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img v-else :src="imgPreUrl + monthlyMember[4].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[4].username}}</span>
             </div>
           </div>
@@ -284,7 +290,7 @@
             <span style="color: #656565; font-size: 14px; font-weight: 300">dongju@naver.com</span>
           </div>
           <div class="d-flex flex-column">
-            <img style="height: 290px; width: 290px" src="@/assets/images/suzy.jpg"/>
+            <img style="height: 290px; width: 290px" src="@/assets/images/profile.jpg"/>
             <span class="pt-3 pb-1" style="font-size: 24px; font-weight: 500">박경민</span>
             <span style="color: #656565; font-size: 14px; font-weight: 300">kiio@naver.com</span>
           </div>          

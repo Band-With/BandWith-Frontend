@@ -205,7 +205,7 @@ export default {
         this.getUser,
         this.getUrl
       );
-
+      this.$router.push({ name: 'myPage', params: {username: this.user.username} })
     },
   },
 };
