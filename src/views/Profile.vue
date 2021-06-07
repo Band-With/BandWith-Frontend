@@ -146,23 +146,23 @@
 
           <div class="d-flex justify-content-between align-items-end">
             <div class="d-flex flex-column">
-              <img :src="imgPreUrl + monthlyMember[0].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img :src="monthlyMember[0].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:400; color: #444">{{this.monthlyMember[0].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="imgPreUrl + monthlyMember[1].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img :src="monthlyMember[1].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[1].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="imgPreUrl + monthlyMember[2].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img :src="monthlyMember[2].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #444">{{this.monthlyMember[2].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="imgPreUrl + monthlyMember[3].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img :src="monthlyMember[3].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[3].username}}</span>
             </div>
             <div class="d-flex flex-column">
-              <img :src="imgPreUrl + monthlyMember[4].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
+              <img :src="monthlyMember[4].profile" style="width:180px; height:180px; box-shadow: 0px 5px 8px 3px rgb(0 0 0 / 30%);" />
               <span class="text-center py-3" style="font-size: 18px; font-weight:300; color: #333">{{this.monthlyMember[4].username}}</span>
             </div>
           </div>

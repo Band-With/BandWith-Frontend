@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/musics';
+// const API_URL = 'http://localhost:8080/musics';
+const API_URL = 'http://15.164.232.137:8080/musics';
 
 //test
 class MusicService {

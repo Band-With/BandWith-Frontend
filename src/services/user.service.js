@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = 'http://localhost:8080/members/';
-// const API_URL = 'http://15.164.232.137:8080/members/';
+// const API_URL = 'http://localhost:8080/members/';
+const API_URL = 'http://15.164.232.137:8080/members/';
 
 class UserService {
   // 아이디로 유저 정보 가져오기

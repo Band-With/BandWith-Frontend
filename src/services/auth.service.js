@@ -1,8 +1,8 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-
-const API_URL = 'http://localhost:8080/auth/';
-// const API_URL = 'http://15.164.232.137:8080/auth/';
+document.cookie = 'cookie2=value2; SameSite=None; Secure';
+// const API_URL = 'http://localhost:8080/auth/';
+const API_URL = 'http://15.164.232.137:8080/auth/';
 
 class AuthService{
     sendEmail(email){
